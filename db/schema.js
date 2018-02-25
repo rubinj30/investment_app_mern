@@ -21,7 +21,8 @@ const UserSchema = new Schema(
     {
         username: String,
         email: String,
-        age: String
+        age: String,
+        investments: [InvestmentSchema]
     },
     {
         timestamps: {},
@@ -31,5 +32,5 @@ const UserSchema = new Schema(
 
 module.exports = {
     UserSchema,
-    PlantSchema
+    InvestmentSchema
 }
