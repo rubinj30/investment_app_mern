@@ -1,9 +1,11 @@
 require("dotenv").config()
 
 const express = require('express')
+const path = require('path')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const logger = require('morgan')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 
@@ -22,9 +24,15 @@ connection.on('error', (err) => {
 })
 
 app.use(express.static(__dirname + '/client/build/'))
-app.get('/', (req, res) => {
+app.get('/', (req,res) => {
     res.sendFile(__dirname + '/client/build/index.html')
 })
+
+app.use(logger('dev'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
+app.use(express.static(path.join(__dirname, 'public')))
 
 
 // catch 404 and forward to error handler
