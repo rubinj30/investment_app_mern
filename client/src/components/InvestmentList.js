@@ -18,7 +18,7 @@ class InvestmentList extends Component {
 
     getAllInvestments = async () => {
         try {
-            const response = await axios.get(`/api/users/5a92fd07e469e91497e040ea/investments`)
+            const response = await axios.get(`/api/users/${this.props.match.params.id}/investments`)
             this.setState({
                 investments: response.data.investments,
                 user: response.data
@@ -28,6 +28,12 @@ class InvestmentList extends Component {
             console.log(err)
         }
     }
+
+    // fetchStockPrices = async () = {
+    //     // const stocks = this.state.investments.map(investment => {
+    //     //     return <div></div>
+    //     // })
+    // }
 
     render() {
         return (
