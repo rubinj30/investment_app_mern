@@ -36,7 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 const UsersController = require('./routes/users')
 app.use('/api/users', UsersController)
-
+const InvestmentsController = require('./routes/investments')
+app.use('/api/users/:userId/investments', InvestmentsController)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
