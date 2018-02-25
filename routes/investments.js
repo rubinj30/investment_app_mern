@@ -1,12 +1,22 @@
 const express = require('express')
 const User = require('../db/models/User')
 const Investment = require('../db/models/Investment')
-
+const alpha = require('alphavantage')({ key: `${process.env.TIME_SERIES}`});
 const router = express.Router({ mergeParams: true })
 
 router.get('/', async (request, response) => {
     try {
         const user = await User.findById(request.params.userId)
+        const tickers = user.investments.map((investment) => {
+            return investment.ticker
+        })
+        const prices = []
+        alpha.data.batch(tickers).then(data => {
+            for (let i=0; i < tickers.length; i++) {
+                console.log(data['Stock Quotes'][i]['1. symbol'])
+                console.log(data['Stock Quotes'][i]['2. price'])
+            }
+        });
         response.json(user)
     }
     catch (err) {

@@ -40,7 +40,7 @@ class InvestmentList extends Component {
             <div>
                 <Table>
 
-                    <Column>
+                    <Column1>
                         <ColumnTitle>ticker</ColumnTitle>
 
                         {this.state.investments.map(investment => (
@@ -52,7 +52,7 @@ class InvestmentList extends Component {
 
                             </div>
                         ))}
-                    </Column>
+                    </Column1>
                     
                     <Column>
                     <ColumnTitle>quantity</ColumnTitle>
@@ -66,13 +66,13 @@ class InvestmentList extends Component {
                             return <div>{price}</div>
                         })}
                     </Column>
-                    <Column>
+                    <Column4>
                     <ColumnTitle>total</ColumnTitle>
                         {this.state.fakeTotals.map(total => {
                             return <div>{total}</div>
                         })}
 
-                    </Column>
+                    </Column4>
 
 
                 </Table>
@@ -87,19 +87,31 @@ class InvestmentList extends Component {
 
 export default InvestmentList
 
+const Column1 = styled.div`
+    /* border-right: 1px black solid; */
+    text-align: left;
+`
+
 const Column = styled.div`
     /* border-right: 1px black solid; */
+    text-align: right;
 `
+
+const Column4 = styled.div`
+    /* border-right: 1px black solid; */
+    text-align: right;
+`
+
 const ColumnTitle = styled.div`
     padding-bottom: 8px;
 
 `
-
 const Table = styled.div`
     border: 1px black solid;
-    padding: 2px;
+    padding: 7px;
     display: flex;
     justify-content: space-between;
+
 `
 const Ticker = styled.div`
     color: black;
