@@ -31,22 +31,33 @@ User.remove({}).then(() => {
         type: 'stock',
         quantity: 8
     })
-    const ltc = new Investment({
-        ticker: 'LTC',
-        type: 'cryptocurrency',
-        quantity: 12
-    })
-    const eth = new Investment({
-        ticker: 'ETH',
-        type: 'cryptocurrency',
-        quantity: 3
-    })
+    // const ltc = new Investment({
+    //     ticker: 'LTC',
+    //     type: 'cryptocurrency',
+    //     quantity: 12
+    // })
+    // const eth = new Investment({
+    //     ticker: 'ETH',
+    //     type: 'cryptocurrency',
+    //     quantity: 3
+    // })
     const tsla = new Investment({
         ticker: 'TSLA',
         type: 'stock',
         quantity: 0
     })
-    user1.investments.push(amzn, fb, hd, ltc, eth, tsla)
+    const dal = new Investment({
+        ticker: 'DAL',
+        type: 'stock',
+        quantity: 1020
+    })
+    const ll = new Investment({
+        ticker: 'LL',
+        type: 'stock',
+        quantity: 2000
+    })
+
+    user1.investments.push(amzn, fb, hd,  tsla, dal, ll)
     return user1.save()
 }).then(() => {
     const user2 = new User({
@@ -64,11 +75,11 @@ User.remove({}).then(() => {
         type: 'stock',
         quantity: 6
     })
-    const doge = new Investment({
-        ticker: 'DOGE' ,
-        type: 'cryptocurrency',
-        quantity: 24
-    })
+    // const doge = new Investment({
+    //     ticker: 'DOGE' ,
+    //     type: 'cryptocurrency',
+    //     quantity: 24
+    // })
     const jnj = new Investment({
         ticker: 'JNJ' ,
         type: 'stock',
@@ -79,7 +90,7 @@ User.remove({}).then(() => {
         type: 'stock',
         quantity: 0
     })
-    user2.investments.push(amzn, fb, doge, jnj, snap)
+    user2.investments.push(amzn, fb, jnj, snap)
     return user2.save()
 }).catch((err) => {
     console.log(`*** ERROR SEEDING DATA ${err}`)
