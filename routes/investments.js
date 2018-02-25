@@ -11,13 +11,18 @@ router.get('/', async (request, response) => {
             return investment.ticker
         })
         const prices = []
-        alpha.data.batch(tickers).then(data => {
+        await alpha.data.batch(tickers).then(data => {
             for (let i=0; i < tickers.length; i++) {
-                console.log(data['Stock Quotes'][i]['1. symbol'])
-                console.log(data['Stock Quotes'][i]['2. price'])
+                prices.push(
+                    {stockTicker: data['Stock Quotes'][i]['1. symbol'],
+                    stockPrice: data['Stock Quotes'][i]['2. price']}
+                )
             }
         });
-        response.json(user)
+        response.json({
+            prices,
+            user
+        })
     }
     catch (err) {
         console.log(err)
