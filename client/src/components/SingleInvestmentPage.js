@@ -1,18 +1,19 @@
+
 import React, { Component } from 'react'
-// x
 import axios from 'axios'
 
 class SingleInvestmentPage extends Component {
     state = {
         user: {},
         investment: {},
+        investmentInfo: {},
         dailyStockPrices: {},
         fundamentals: {}
     }
 
     componentWillMount = async () => {
         await this.getInvestment()
-        // await this.fetchStockInfoFromApi()
+        await this.fetchStockInfoFromApi()
         // await this.fetchDailyStockPrices()
         // await this.fetchFundamentals()
     }
@@ -21,16 +22,15 @@ class SingleInvestmentPage extends Component {
         const userId = this.props.match.params.userId
         const investmentId = this.props.match.params.id
         const response = await axios.get(`/api/users/${userId}/investments/${this.props.match.params.investmentId}`)
-        console.log("USER USER ", response.data.investment)
+        console.log("INVESTMENT", response.data.investment)
         this.setState({ 
             user: response.data.user,
             investment: response.data.investment
-        
         })
     }
 
     fetchStockInfoFromApi = async () => {
-        if (this.state.investment.category === 'stock') {
+        if (this.state.investment.type === 'stock') {
 
             const URL = `https://api.intrinio.com/companies?identifier=${this.state.investment.ticker}`
             const response = await axios.get(URL,
@@ -84,7 +84,7 @@ class SingleInvestmentPage extends Component {
                     {/* {this.state.investment.ticker} */}
                 </div>
                 <div>
-                    {this.state.investment === 'test' ?
+                    {this.state.investment === 'stock' ?
                         <div>
                             <div>CEO: {this.state.investmentInfo.ceo}</div>
                             <div># of Employees: {this.state.investmentInfo.employees}</div>
@@ -92,8 +92,8 @@ class SingleInvestmentPage extends Component {
 
                             <div>Industry: {this.state.investmentInfo.industry_category}</div>
                             <div>Exchange: {this.state.investmentInfo.stock_exchange}</div>
-                            {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
-                            {/* <div>Fundamentals: Gross Margin {this.state.fundamentals.data[4].value}</div> */}
+                            <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div>
+                            <div>Fundamentals: Gross Margin {this.state.fundamentals.data[4].value}</div>
                             <div>Fundamentals:</div>
                             <div>Fundamentals:</div>
                             <div>Fundamentals:</div>
