@@ -6,7 +6,6 @@ const router = express.Router({ mergeParams: true })
 
 router.get('/', async (request, response) => {
     try {
-        console.log("USER", request.params.userId)
         const user = await User.findById(request.params.userId)
         response.json(user)
     }
@@ -31,8 +30,11 @@ router.get('/:investmentId', async (request, response) => {
 
 router.post('/', async (request, response) => {
     try {
-        const newInvestmentInfo = await request.body
-        const newInvestment = await Investment.create(newInvestmentInfo)
+        const investment = {}
+        investment.ticker = request.body.ticker.toUpperCase()
+        investment.quantity = request.body.quantity
+        investment.type = request.body.type
+        newInvestment = await Investment.create(investment)
         const user = await User.findById(request.params.userId)
         user.investments.push(newInvestment)
         await user.save()

@@ -22,7 +22,7 @@ User.remove({}).then(() => {
         quantity: 10
     })
     const fb = new Investment({
-        ticker: 'fb' ,
+        ticker: 'FB' ,
         type: 'stock',
         quantity: 6
     })
@@ -32,17 +32,17 @@ User.remove({}).then(() => {
         quantity: 8
     })
     const ltc = new Investment({
-        ticker: 'ltc',
+        ticker: 'LTC',
         type: 'cryptocurrency',
         quantity: 12
     })
     const eth = new Investment({
-        ticker: 'eth',
+        ticker: 'ETH',
         type: 'cryptocurrency',
         quantity: 3
     })
     const tsla = new Investment({
-        ticker: 'tsla',
+        ticker: 'TSLA',
         type: 'stock',
         quantity: 0
     })
@@ -60,7 +60,7 @@ User.remove({}).then(() => {
         quantity: 5
     })
     const fb = new Investment({
-        ticker: 'fb' ,
+        ticker: 'FB' ,
         type: 'stock',
         quantity: 6
     })
@@ -70,7 +70,7 @@ User.remove({}).then(() => {
         quantity: 24
     })
     const jnj = new Investment({
-        ticker: 'jnj' ,
+        ticker: 'JNJ' ,
         type: 'stock',
         quantity: 20
     })

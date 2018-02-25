@@ -4,7 +4,8 @@ import axios from 'axios'
 
 class HomePage extends Component {
     state = {
-        users: []
+        users: [],
+        pageReady: false
     }
 
     componentWillMount = () => {
@@ -13,15 +14,22 @@ class HomePage extends Component {
 
     getUsers = async () => {
         const response = await axios.get(`/api/users`)
-        this.setState({users: response.data})
+        this.setState({ users: response.data, pageReady: true })
     }
 
     render() {
+
         return (
             <div>
-                {/* <Link to= */}
+                {this.state.users.map(user => (
+                    <div>
 
+                        <Link key={user._id} to={`/users/${user._id}/investments/`}>
+                            {user.username}
+                        </Link>
 
+                    </div>
+                ))}
             </div>
         )
     }
