@@ -18,32 +18,32 @@ User.remove({}).then(() => {
     })
     const amzn = new Investment({
         ticker: 'AMZN' ,
-        category: 'stock',
+        type: 'stock',
         quantity: 10
     })
     const fb = new Investment({
         ticker: 'fb' ,
-        category: 'stock',
+        type: 'stock',
         quantity: 6
     })
     const hd = new Investment({
         ticker: 'HD' ,
-        category: 'stock',
+        type: 'stock',
         quantity: 8
     })
     const ltc = new Investment({
         ticker: 'ltc',
-        category: 'cryptocurrency',
+        type: 'cryptocurrency',
         quantity: 12
     })
     const eth = new Investment({
         ticker: 'eth',
-        category: 'cryptocurrency',
+        type: 'cryptocurrency',
         quantity: 3
     })
     const tsla = new Investment({
         ticker: 'tsla',
-        category: 'stock',
+        type: 'stock',
         quantity: 0
     })
     user1.investments.push(amzn, fb, hd, ltc, eth, tsla)
@@ -56,27 +56,27 @@ User.remove({}).then(() => {
     })
     const amzn = new Investment({
         ticker: 'AMZN' ,
-        category: 'stock',
+        type: 'stock',
         quantity: 5
     })
     const fb = new Investment({
         ticker: 'fb' ,
-        category: 'stock',
+        type: 'stock',
         quantity: 6
     })
     const doge = new Investment({
         ticker: 'DOGE' ,
-        category: 'cryptocurrency',
+        type: 'cryptocurrency',
         quantity: 24
     })
     const jnj = new Investment({
         ticker: 'jnj' ,
-        category: 'stock',
+        type: 'stock',
         quantity: 20
     })
     const snap = new Investment({
         ticker: 'SNAP' ,
-        category: 'stock',
+        type: 'stock',
         quantity: 0
     })
     user2.investments.push(amzn, fb, doge, jnj, snap)
