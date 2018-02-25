@@ -20,8 +20,10 @@ class InvestmentList extends Component {
         try {
             const response = await axios.get(`/api/users/${this.props.match.params.id}/investments`)
             this.setState({
-                investments: response.data.investments,
-                user: response.data
+
+                // MIGHT NEED TO remove user. if the JSON changes
+                investments: response.data.updatedStockInfo,
+                user: response.data.user
             })
         }
         catch (err) {
@@ -45,11 +47,9 @@ class InvestmentList extends Component {
 
                         {this.state.investments.map(investment => (
                             <div>
-
                                 <Link key={investment._id} to={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
                                     <Ticker>{investment.ticker}</Ticker>
                                 </Link>
-
                             </div>
                         ))}
                     </Column1>
@@ -62,14 +62,14 @@ class InvestmentList extends Component {
                     </Column>
                     <Column>
                     <ColumnTitle>price</ColumnTitle>
-                        {this.state.fakePrices.map(price => {
-                            return <div>{price}</div>
+                        {this.state.investments.map(investment => {
+                            return <div>{investment.price}</div>
                         })}
                     </Column>
                     <Column4>
                     <ColumnTitle>total</ColumnTitle>
-                        {this.state.fakeTotals.map(total => {
-                            return <div>{total}</div>
+                        {this.state.investments.map(investment => {
+                            return <div>{investment.total}</div>
                         })}
 
                     </Column4>

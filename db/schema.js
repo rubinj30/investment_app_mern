@@ -10,7 +10,8 @@ const InvestmentSchema = new Schema(
         name: String,
         quantity: Number,
         price: Number,
-        type: String
+        type: String,
+        total: Number
     },
     {
         timestamps: {}
