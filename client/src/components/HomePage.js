@@ -4,12 +4,24 @@ import axios from 'axios'
 
 class HomePage extends Component {
     state = {
+        users: []
+    }
+
+    componentWillMount = () => {
+        this.getUsers()
+    }
+
+    getUsers = async () => {
+        const response = await axios.get(`/api/users`)
+        this.setState({users: response.data})
     }
 
     render() {
         return (
             <div>
-                Hello from new homepage
+                {/* <Link to= */}
+
+
             </div>
         )
     }
