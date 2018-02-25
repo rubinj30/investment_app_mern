@@ -7,44 +7,44 @@ import NewInvestment from './NewInvestment'
 class InvestmentList extends Component {
     state = {
         user: {},
-        investments: [],
-        newShowForm: false,
-        investments2: []
+        investments: []
     }
 
-    componentWillMount() {
-        this.getAllInvestments()
+    componentWillMount = async () => {
+        await this.getAllInvestments()
     }
 
     getAllInvestments = async () => {
-        const response = await axios.get(`/api/users/${this.props.match.params.id}/investments`)
-        this.setState({ 
-            investments: response.data.investments
-        })
+        try {
+            const response = await axios.get(`/api/users/5a92fd07e469e91497e040ea/investments`)
+            this.setState({
+                investments: response.data.investments,
+                user: response.data
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
-
-    toggleShowNewForm = () => {
-        this.setState({ showNewForm: !this.state.showNewForm })
-    }
-
 
     render() {
         return (
             <div>
-                <Table>
-                    <Column>
-                    {this.state.investments.map(investment => (
-                        <div>
-                            
-                            <Link key={investment._id} to={`/users/${this.props.match.params.userId}/investments/${investment._id}`}>
-                                {investment.ticker}
-                            </Link>
-                            
-                        </div>
-                    ))}
-                    </Column>
+                    <Table>
+                        <Column>
 
-                </Table>
+                            {this.state.investments.map(investment => (
+                                <div>
+
+                                    <Link key={investment._id} to={`/users/${this.props.match.params.userId}/investments/${investment._id}`}>
+                                        {investment.ticker}
+                                    </Link>
+
+                                </div>
+                            ))}
+                        </Column>
+
+                    </Table>
 
                 <button onClick={this.toggleShowNewForm}>Add Investment</button>
 
@@ -56,11 +56,9 @@ class InvestmentList extends Component {
 
 export default InvestmentList
 
-
 const Column = styled.div`
     border-right: 1px black solid;
 `
-
 const Table = styled.div`
     border: 1px black solid;
     padding: 2px;
