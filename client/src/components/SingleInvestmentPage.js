@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Link, Redirect } from 'react-router-dom'
 
 class SingleInvestmentPage extends Component {
     state = {
@@ -7,7 +8,8 @@ class SingleInvestmentPage extends Component {
         investment: {},
         investmentInfo: {},
         dailyStockPrices: {},
-        fundamentals: {}
+        fundamentals: {},
+        redirect: false
     }
 
     componentWillMount = async () => {
@@ -22,7 +24,7 @@ class SingleInvestmentPage extends Component {
         const investmentId = this.props.match.params.id
         const response = await axios.get(`/api/users/${userId}/investments/${this.props.match.params.investmentId}`)
         console.log("INVESTMENT", response.data.investment)
-        this.setState({ 
+        this.setState({
             user: response.data.user,
             investment: response.data.investment
         })
@@ -44,14 +46,14 @@ class SingleInvestmentPage extends Component {
 
     fetchDailyStockPrices = async () => {
         try {
-        const api_key = process.env.REACT_APP_TIME_SERIES
-        const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=${this.state.investment.ticker}&apikey=${api_key}`
-        const response = await axios.get(URL)
-        this.setState({ dailyStockPrices: response.data["Weekly Adjusted Time Series"] })
+            const api_key = process.env.REACT_APP_TIME_SERIES
+            const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=${this.state.investment.ticker}&apikey=${api_key}`
+            const response = await axios.get(URL)
+            this.setState({ dailyStockPrices: response.data["Weekly Adjusted Time Series"] })
         }
         catch (err) {
             console.log(err)
-        }   
+        }
     }
 
     fetchFundamentals = async () => {
@@ -62,49 +64,59 @@ class SingleInvestmentPage extends Component {
                     "X-Authorization-Public-Key": process.env.REACT_APP_STOCK_INFO
                 }
             })
-        this.setState({fundamentals: response.data})
+        this.setState({ fundamentals: response.data })
     }
 
     deleteStock = async () => {
-        await axios.get(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`)
-        this.setState({})
+        await axios.delete(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`)
+        this.setState({redirect: !this.state.redirect})
+    }
+
+    handleClick = () => {
+        if (window.confirm(`Are you sure you want to sell all of your shares for ${this.state.investmentInfo.name}?`)) {
+            this.deleteStock()
+        }
     }
 
 
     render() {
         // object of weekly stock prices
         const dailyStockPrices = this.state.dailyStockPrices
-        
+
         // object of weekly stock prices
         const stockArray = []
         for (var property1 in dailyStockPrices) {
             stockArray.push(dailyStockPrices[property1])
-        } 
+        }
         const url = "http://" + this.state.investmentInfo.company_url
         return (
             <div>
-                <div>
-                    {this.state.investment.ticker}
-                </div>
-                <div>
-                    {this.state.investment.type === 'stock' ?
+                {this.state.redirect ?
+                    <Redirect to={`/users/${this.props.match.params.userId}/investments`} /> :
+                    <div>
                         <div>
-                            <div>CEO: {this.state.investmentInfo.ceo}</div>
-                            <div># of Employees: {this.state.investmentInfo.employees}</div>
-                            <div>Headquarters Located in: {this.state.investmentInfo.hq_state}</div>
-
-                            <div>Industry: {this.state.investmentInfo.industry_category}</div>
-                            <div>Exchange: {this.state.investmentInfo.stock_exchange}</div>
-                            {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
-                            
-                            <div>Website: <a href={url} target="_blank">{this.state.investmentInfo.company_url}</a></div>
-                            <p>{this.state.investmentInfo.short_description}</p>
+                            {this.state.investment.ticker}
                         </div>
-                        : null}
-                </div>
-                <div>
-                    <button onSubmit={this.deleteStock}>Sell All Shares of {this.state.investment.ticker}</button>
-                </div>
+                        <div>
+                            <button onClick={this.handleClick}>Sell All Shares of {this.state.investment.ticker}</button>
+                        </div>
+
+                        <div>
+                            <div>
+                                <div>CEO: {this.state.investmentInfo.ceo}</div>
+                                <div># of Employees: {this.state.investmentInfo.employees}</div>
+                                <div>Headquarters Located in: {this.state.investmentInfo.hq_state}</div>
+
+                                <div>Industry: {this.state.investmentInfo.industry_category}</div>
+                                <div>Exchange: {this.state.investmentInfo.stock_exchange}</div>
+                                {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
+
+                                <div>Website: <a href={url} target="_blank">{this.state.investmentInfo.company_url}</a></div>
+                                <p>{this.state.investmentInfo.short_description}</p>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         )
     }
