@@ -95,7 +95,7 @@ class SingleInvestmentPage extends Component {
                     <Redirect to={`/users/${this.props.match.params.userId}/investments`} /> :
                     <div>
                         <div>
-                            {this.state.investment.ticker}
+                            {this.state.investmentInfo.name} ({this.state.investment.ticker})
                         </div>
                         <div>
                             <button onClick={this.handleClick}>Sell All Shares of {this.state.investment.ticker}</button>
