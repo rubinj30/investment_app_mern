@@ -67,6 +67,7 @@ class SingleInvestmentPage extends Component {
 
     deleteStock = async () => {
         await axios.get(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`)
+        this.setState({})
     }
 
 
