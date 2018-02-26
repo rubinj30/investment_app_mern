@@ -31,7 +31,6 @@ class NewInvestment extends Component {
         axios.post(`/api/users/${this.props.userId}/investments`, payload)
     }
 
-
     render() {
         return (
             <div>
@@ -40,11 +39,11 @@ class NewInvestment extends Component {
                     <div><label>Enter the Stock Ticker</label></div>
                     <div>
                         <input onChange={this.handleNewInvestmentChange}
-                            name="ticker" value={this.state.newInvestment.ticker} />
+                            name="ticker" type="text" value={this.state.newInvestment.ticker} />
                     </div>
                     <div><label>How many shares would you like?</label></div>
                     <div>
-                        <input onChange={this.handleNewInvestmentChange} name="quantity" value={this.state.newInvestment.quantity} />
+                        <input onChange={this.handleNewInvestmentChange} name="quantity" type="number" value={this.state.newInvestment.quantity} />
                     </div>
                     <StyledButton>Add To Portfolio</StyledButton>
                 </form>
