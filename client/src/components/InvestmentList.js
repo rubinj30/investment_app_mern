@@ -42,8 +42,8 @@ class InvestmentList extends Component {
                         <ColumnTitle>ticker</ColumnTitle>
 
                         {this.state.investments.map(investment => (
-                            <div>
-                                <Link key={investment._id} to={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
+                            <div key={investment._id}>
+                                <Link to={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
                                     <Ticker>{investment.ticker}</Ticker>
                                 </Link>
                             </div>
@@ -53,19 +53,19 @@ class InvestmentList extends Component {
                     <Column>
                     <ColumnTitle>quantity</ColumnTitle>
                         {this.state.investments.map(investment => {
-                            return <div>{investment.quantity}</div>
+                            return <div key={investment._id}>{investment.quantity}</div>
                         })}
                     </Column>
                     <Column>
                     <ColumnTitle>price</ColumnTitle>
                         {this.state.investments.map(investment => {
-                            return <div>{investment.price}</div>
+                            return <div key={investment._id}>{investment.price}</div>
                         })}
                     </Column>
                     <Column4>
                     <ColumnTitle>total</ColumnTitle>
                         {this.state.investments.map(investment => {
-                            return <div>{investment.total}</div>
+                            return <div key={investment._id}>{investment.total}</div>
                         })}
 
                     </Column4>
@@ -75,7 +75,7 @@ class InvestmentList extends Component {
 
                 <StyledButton onClick={this.toggleAddStockForm}>Add Investment</StyledButton>
 
-                {this.state.showNewForm ? <NewInvestment getAllInvestments={this.getAllInvestments} /> : null}
+                {this.state.showNewForm ? <NewInvestment userId={this.props.match.params.id} getAllInvestments={this.getAllInvestments} /> : null}
             </div>
         )
     }

@@ -13,6 +13,7 @@ router.get('/', async (request, response) => {
         
         const currentPrices = []
         await alpha.data.batch(tickers).then(data => {
+            console.log(data)
             for (let i=0; i < tickers.length; i++) {
                 currentPrices.push(
                     {stockTicker: data['Stock Quotes'][i]['1. symbol'],
