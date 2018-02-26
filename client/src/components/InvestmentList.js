@@ -8,8 +8,7 @@ class InvestmentList extends Component {
     state = {
         user: {},
         investments: [],
-        fakePrices: ['23', '122', '1,2231', '12', '21'],
-        fakeTotals: ['1,000.44', '2,000.22', '12,500.12', '1,234.00', '9,928.21']
+        showNewForm: false
     }
 
     componentWillMount = async () => {
@@ -29,6 +28,10 @@ class InvestmentList extends Component {
         catch (err) {
             console.log(err)
         }
+    }
+
+    toggleAddStockForm = async () => {
+        this.setState({showNewForm: !this.state.showNewForm})
     }
 
     // fetchStockPrices = async () = {
@@ -77,7 +80,7 @@ class InvestmentList extends Component {
 
                 </Table>
 
-                <button onClick={this.toggleShowNewForm}>Add Investment</button>
+                <button onClick={this.toggleAddStockForm}>Add Investment</button>
 
                 {this.state.showNewForm ? <NewInvestment getAllInvestments={this.getAllInvestments} /> : null}
             </div>
@@ -87,16 +90,15 @@ class InvestmentList extends Component {
 
 export default InvestmentList
 
-const Column1 = styled.div`
-    /* border-right: 1px black solid; */
-    text-align: left;
-`
-
 const Column = styled.div`
     /* border-right: 1px black solid; */
     text-align: right;
 `
 
+const Column1 = styled.div`
+    /* border-right: 1px black solid; */
+    text-align: left;
+`
 const Column4 = styled.div`
     /* border-right: 1px black solid; */
     text-align: right;
@@ -114,6 +116,5 @@ const Table = styled.div`
 
 `
 const Ticker = styled.div`
-    color: black;
     text-decoration: none;
 `

@@ -25,12 +25,11 @@ router.get('/', async (request, response) => {
             currentPrices.map((currentPrice) => {
                 if (currentPrice.stockTicker === investment.ticker) {
                     investment.price = currentPrice.stockPrice
-                    investment.total = investment.price * investment.quantity
+                    investment.total = (investment.price * investment.quantity).toFixed(2)
                     updatedStockInfo.push(investment)
                 }
             })
         })
-        console.log("USER PRICES", updatedStockInfo)
 
         response.json({
             updatedStockInfo,
