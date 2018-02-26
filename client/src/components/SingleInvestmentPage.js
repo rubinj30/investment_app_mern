@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Link, Redirect } from 'react-router-dom'
 import StyledButton from './styled-components/StyledButton'
+import styled from 'styled-components'
 
 class SingleInvestmentPage extends Component {
     state = {
@@ -11,14 +12,16 @@ class SingleInvestmentPage extends Component {
         dailyStockPrices: {},
         fundamentals: {},
         redirect: false,
-        descriptionShowing: false
+        descriptionShowing: false,
+        fundamentalsReady: false
     }
 
     componentWillMount = async () => {
         await this.getInvestment()
         await this.fetchStockInfoFromApi()
         // await this.fetchDailyStockPrices()
-        // await this.fetchFundamentals()
+        await this.fetchFundamentals()
+        this.setState({ fundamentalsReady: true })
     }
 
     getInvestment = async () => {
@@ -66,7 +69,7 @@ class SingleInvestmentPage extends Component {
                     "X-Authorization-Public-Key": process.env.REACT_APP_STOCK_INFO
                 }
             })
-        this.setState({ fundamentals: response.data })
+        this.setState({ fundamentals: response.data.data })
     }
 
     deleteStock = async () => {
@@ -95,7 +98,10 @@ class SingleInvestmentPage extends Component {
             stockArray.push(dailyStockPrices[property1])
         }
         const url = "http://" + this.state.investmentInfo.company_url
+
+
         return (
+
             <div>
                 {this.state.redirect ?
                     <Redirect to={`/users/${this.props.match.params.userId}/investments`} /> :
@@ -109,6 +115,15 @@ class SingleInvestmentPage extends Component {
                         <div>
                             <StyledButton> Change # of {this.state.investment.ticker} Shares</StyledButton>
                         </div>
+                        {this.fundamentalsReady ?
+                            <Fundamentals>
+
+                                <div>Fundamentals</div>
+                                <div>P/E Ratio: {this.state.fundamentals[0].value} </div>
+
+                            </Fundamentals>
+                            : null
+                        }
 
                         <div>
                             <div>
@@ -140,7 +155,6 @@ class SingleInvestmentPage extends Component {
                             </div>
                         </div>
                     </div>
-                    // </div>
                 }
             </div>
         )
@@ -148,3 +162,7 @@ class SingleInvestmentPage extends Component {
 }
 
 export default SingleInvestmentPage
+
+const Fundamentals = styled.div`
+    width: 200px;
+`

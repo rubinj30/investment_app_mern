@@ -20,8 +20,6 @@ class InvestmentList extends Component {
         try {
             const response = await axios.get(`/api/users/${this.props.match.params.id}/investments`)
             this.setState({
-
-                // MIGHT NEED TO remove user. if the JSON changes
                 investments: response.data.updatedStockInfo,
                 user: response.data.user
             })
@@ -34,12 +32,6 @@ class InvestmentList extends Component {
     toggleAddStockForm = async () => {
         this.setState({showNewForm: !this.state.showNewForm})
     }
-
-    // fetchStockPrices = async () = {
-    //     // const stocks = this.state.investments.map(investment => {
-    //     //     return <div></div>
-    //     // })
-    // }
 
     render() {
         return (
