@@ -13,7 +13,6 @@ router.get('/', async (request, response) => {
         
         const currentPrices = []
         await alpha.data.batch(tickers).then(data => {
-            console.log(data)
             for (let i=0; i < tickers.length; i++) {
                 currentPrices.push(
                     {stockTicker: data['Stock Quotes'][i]['1. symbol'],
@@ -21,14 +20,13 @@ router.get('/', async (request, response) => {
                 )
             }
         });
-        console.log(currentPrices)
-        updatedStockInfo = []
 
+        updatedStockInfo = []
         user.investments.forEach((investment, index) => {
             currentPrices.map((currentPrice) => {
                 if (currentPrice.stockTicker === investment.ticker) {
                     investment.price = currentPrice.stockPrice
-                    investment.total = investment.price * investment.quantity
+                    investment.total = (investment.price * investment.quantity).toFixed(2)
                     updatedStockInfo.push(investment)
                 }
             })

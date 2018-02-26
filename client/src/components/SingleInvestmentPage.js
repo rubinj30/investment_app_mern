@@ -63,7 +63,10 @@ class SingleInvestmentPage extends Component {
                 }
             })
         this.setState({fundamentals: response.data})
-    
+    }
+
+    deleteStock = async () => {
+        await axios.get(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`)
     }
 
 
@@ -76,14 +79,14 @@ class SingleInvestmentPage extends Component {
         for (var property1 in dailyStockPrices) {
             stockArray.push(dailyStockPrices[property1])
         } 
-        
+        const url = "http://" + this.state.investmentInfo.company_url
         return (
             <div>
                 <div>
-                    {/* {this.state.investment.ticker} */}
+                    {this.state.investment.ticker}
                 </div>
                 <div>
-                    {this.state.investment === 'stock' ?
+                    {this.state.investment.type === 'stock' ?
                         <div>
                             <div>CEO: {this.state.investmentInfo.ceo}</div>
                             <div># of Employees: {this.state.investmentInfo.employees}</div>
@@ -91,16 +94,15 @@ class SingleInvestmentPage extends Component {
 
                             <div>Industry: {this.state.investmentInfo.industry_category}</div>
                             <div>Exchange: {this.state.investmentInfo.stock_exchange}</div>
-                            <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div>
-                            <div>Fundamentals: Gross Margin {this.state.fundamentals.data[4].value}</div>
-                            <div>Fundamentals:</div>
-                            <div>Fundamentals:</div>
-                            <div>Fundamentals:</div>
+                            {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
                             
-                            <div><a href="http://amazon.com" target="_blank">Visit Website{this.state.investmentInfo.url}</a></div>
+                            <div>Website: <a href={url} target="_blank">{this.state.investmentInfo.company_url}</a></div>
                             <p>{this.state.investmentInfo.short_description}</p>
                         </div>
                         : null}
+                </div>
+                <div>
+                    <button onSubmit={this.deleteStock}>Sell All Shares of {this.state.investment.ticker}</button>
                 </div>
             </div>
         )
