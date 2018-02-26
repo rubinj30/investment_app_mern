@@ -29,7 +29,7 @@ class InvestmentList extends Component {
             console.log(err)
         }
     }
-
+    
     toggleAddStockForm = async () => {
         this.setState({showNewForm: !this.state.showNewForm})
     }

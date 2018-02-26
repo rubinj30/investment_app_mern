@@ -10,8 +10,10 @@ router.get('/', async (request, response) => {
         const tickers = user.investments.map((investment) => {
             return investment.ticker
         })
+        
         const currentPrices = []
         await alpha.data.batch(tickers).then(data => {
+            console.log(data)
             for (let i=0; i < tickers.length; i++) {
                 currentPrices.push(
                     {stockTicker: data['Stock Quotes'][i]['1. symbol'],
@@ -19,13 +21,14 @@ router.get('/', async (request, response) => {
                 )
             }
         });
+        console.log(currentPrices)
         updatedStockInfo = []
 
         user.investments.forEach((investment, index) => {
             currentPrices.map((currentPrice) => {
                 if (currentPrice.stockTicker === investment.ticker) {
                     investment.price = currentPrice.stockPrice
-                    investment.total = (investment.price * investment.quantity).toFixed(2)
+                    investment.total = investment.price * investment.quantity
                     updatedStockInfo.push(investment)
                 }
             })
@@ -74,8 +77,10 @@ router.post('/', async (request, response) => {
 
 router.delete('/:investmentId', async (request, response) => {
     try {
-        await Investment.findByIdAndRemove(request.params.investmentId)
-        response.send('completed delete')
+        const user = await User.findById(request.params.userId)
+        user.investments.id(request.params.investmentId).remove()
+        await user.save()
+        response.json(user)
     }
     catch (err) {
         console.log(err)
