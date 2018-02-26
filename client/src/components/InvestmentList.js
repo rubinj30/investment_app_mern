@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 import NewInvestment from './NewInvestment'
-import SubmitButton from './styled-components/SubmitButton'
+import StyledButton from './styled-components/StyledButton'
 
 class InvestmentList extends Component {
     state = {
@@ -81,7 +81,7 @@ class InvestmentList extends Component {
 
                 </Table>
 
-                <SubmitButton onClick={this.toggleAddStockForm}>Add Investment</SubmitButton>
+                <StyledButton onClick={this.toggleAddStockForm}>Add Investment</StyledButton>
 
                 {this.state.showNewForm ? <NewInvestment getAllInvestments={this.getAllInvestments} /> : null}
             </div>

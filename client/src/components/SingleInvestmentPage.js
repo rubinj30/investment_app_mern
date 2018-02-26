@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Link, Redirect } from 'react-router-dom'
+import StyledButton from './styled-components/StyledButton'
 
 class SingleInvestmentPage extends Component {
     state = {
@@ -9,7 +10,8 @@ class SingleInvestmentPage extends Component {
         investmentInfo: {},
         dailyStockPrices: {},
         fundamentals: {},
-        redirect: false
+        redirect: false,
+        descriptionShowing: false
     }
 
     componentWillMount = async () => {
@@ -69,13 +71,17 @@ class SingleInvestmentPage extends Component {
 
     deleteStock = async () => {
         await axios.delete(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`)
-        this.setState({redirect: !this.state.redirect})
+        this.setState({ redirect: !this.state.redirect })
     }
 
     handleClick = () => {
         if (window.confirm(`Are you sure you want to sell all of your shares for ${this.state.investmentInfo.name}?`)) {
             this.deleteStock()
         }
+    }
+
+    toggleDescriptionShowing = () => {
+        this.setState({ descriptionShowing: !this.state.descriptionShowing })
     }
 
 
@@ -98,7 +104,10 @@ class SingleInvestmentPage extends Component {
                             {this.state.investmentInfo.name} ({this.state.investment.ticker})
                         </div>
                         <div>
-                            <button onClick={this.handleClick}>Sell All Shares of {this.state.investment.ticker}</button>
+                            <StyledButton onClick={this.handleClick}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
+                        </div>
+                        <div>
+                            <StyledButton> Change # of {this.state.investment.ticker} Shares</StyledButton>
                         </div>
 
                         <div>
@@ -110,12 +119,28 @@ class SingleInvestmentPage extends Component {
                                 <div>Industry: {this.state.investmentInfo.industry_category}</div>
                                 <div>Exchange: {this.state.investmentInfo.stock_exchange}</div>
                                 {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
-
                                 <div>Website: <a href={url} target="_blank">{this.state.investmentInfo.company_url}</a></div>
-                                <p>{this.state.investmentInfo.short_description}</p>
+
+                                {this.state.descriptionShowing ?
+                                    <div>
+                                        <StyledButton onClick={this.toggleDescriptionShowing}>Hide Company Description</StyledButton>
+                                        <p>{this.state.investmentInfo.short_description}</p>
+                                    </div>
+                                    :
+                                    <div>
+                                        <StyledButton onClick={this.toggleDescriptionShowing}>More About {this.state.investmentInfo.ticker}</StyledButton>
+                                    </div>
+                                }
+                                <div>
+                                    <a href={`/users/${this.props.match.params.userId}/investments`}>
+                                        <StyledButton>Back to Portfolio</StyledButton>
+                                    </a>
+                                </div>
+
                             </div>
                         </div>
                     </div>
+                    // </div>
                 }
             </div>
         )

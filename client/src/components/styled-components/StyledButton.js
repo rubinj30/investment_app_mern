@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 
-export const SubmitButton = styled.button` 
+export const StyledButton = styled.button` 
     background: #3498db;
     background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
     background-image: -moz-linear-gradient(top, #3498db, #2980b9);
@@ -14,7 +14,8 @@ export const SubmitButton = styled.button`
     border-radius: 28px;
     font-family: Arial;
     color: #ffffff;
-    width:
+    font-size: 10px;
+    width: 175px;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
     &:hover {
@@ -28,4 +29,4 @@ export const SubmitButton = styled.button`
     }
 `
 
-export default SubmitButton
+export default StyledButton

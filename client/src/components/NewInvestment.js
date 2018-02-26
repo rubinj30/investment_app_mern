@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import StyledButton from './styled-components/StyledButton'
 
 class NewInvestment extends Component {
     state = {
@@ -45,7 +46,7 @@ class NewInvestment extends Component {
                     <div>
                         <input onChange={this.handleNewInvestmentChange} name="quantity" type="number" value={this.state.newInvestment.quantity} />
                     </div>
-                    <input type="submit" value="Add To Portfolio" />
+                    <StyledButton>Add To Portfolio<StyledButton/>
                 </form> */}
             </div>
         )
