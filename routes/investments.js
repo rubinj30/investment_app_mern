@@ -23,11 +23,13 @@ router.get('/', async (request, response) => {
         });
 
         updatedStockInfo = []
+        let portfolioTotal = 0
         user.investments.forEach((investment, index) => {
             currentPrices.map((currentPrice) => {
                 if (currentPrice.stockTicker === investment.ticker) {
                     investment.price = currentPrice.stockPrice
                     investment.total = (investment.price * investment.quantity).toFixed(2)
+                    portfolioTotal += investment.total
                     updatedStockInfo.push(investment)
                 }
             })
@@ -35,7 +37,8 @@ router.get('/', async (request, response) => {
 
         response.json({
             updatedStockInfo,
-            user
+            user,
+            portfolioTotal
         })
     }
     catch (err) {
