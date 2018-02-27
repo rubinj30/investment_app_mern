@@ -6,13 +6,15 @@ import NewInvestment from './NewInvestment'
 import StyledButton from './styled-components/StyledButton'
 import { PieChart } from 'react-easy-chart'
 import accounting from 'accounting'
+import { FaArrowCircleRight } from 'react-icons/lib/fa'
 
 class InvestmentList extends Component {
     state = {
         user: {},
         investments: [],
         showNewForm: false,
-        portfolioTotal: ''
+        portfolioTotal: '', 
+        portfolioPurchaseTotal: ''
     }
 
     componentWillMount = async () => {
@@ -22,9 +24,11 @@ class InvestmentList extends Component {
     getAllInvestments = async () => {
         try {
             const response = await axios.get(`/api/users/${this.props.match.params.id}/investments`)
+
             this.setState({
                 investments: response.data.updatedStockInfo,
                 portfolioTotal: response.data.portfolioTotal,
+                portfolioPurchaseTotal: response.data.portfolioPurchaseTotal,
                 user: response.data.user,
                 showNewForm: false
             })
@@ -47,30 +51,30 @@ class InvestmentList extends Component {
                         <ColumnTitle>ticker</ColumnTitle>
 
                         {this.state.investments.map(investment => (
-                            <div key={investment._id}>
-                                <Link to={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
-                                    <Ticker>{investment.ticker}</Ticker>
-                                </Link>
-                            </div>
-                        ))}
+                            <TickerContainer key={investment._id}>
+                                <LinkTag href={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
+                                    <Ticker><TickerName>{investment.ticker}</TickerName><FaArrowCircleRight /></Ticker>
+                                </LinkTag>
+                            </TickerContainer>
+                    ))}
                     </Column1>
 
-                    <Column>
+                    <Column className='stock-item-pad'>
                         <ColumnTitle>quantity</ColumnTitle>
                         {this.state.investments.map(investment => {
-                            return <div key={investment._id}>{investment.quantity}</div>
+                            return <Holder key={investment._id}>{investment.quantity}</Holder>
                         })}
                     </Column>
-                    <Column>
+                    <Column className='stock-item-pad'>
                         <ColumnTitle>price</ColumnTitle>
                         {this.state.investments.map(investment => {
-                            return <div key={investment._id}>{investment.price}</div>
+                            return <Holder key={investment._id}>{investment.price}</Holder>
                         })}
                     </Column>
-                    <Column4>
+                    <Column4 className='stock-item-pad'>
                         <ColumnTitle>total</ColumnTitle>
                         {this.state.investments.map(investment => {
-                            return <div key={investment._id}>{accounting.formatMoney(investment.total)}</div>
+                            return <Holder key={investment._id}>{accounting.formatMoney(investment.total)}</Holder>
                         })}
 
                     </Column4>
@@ -84,15 +88,15 @@ class InvestmentList extends Component {
                 {this.state.showNewForm ? <NewInvestment userId={this.props.match.params.id} getAllInvestments={this.getAllInvestments} /> : null}
 
                 <PieChart className="pie-chart"
-                size={250}
+                    size={250}
                     labels
                     data={[
                         // use randomizer between certain colors
                         { key: 'LL', value: 100, color: 'rgb(10, 90, 250)' },
                         { key: 'DAL', value: 200, color: 'rgb(30, 70, 230)' },
-                        { key: 'NKE', value: 200, color: 'rgb(50, 50, 210)'  },
-                        { key: 'AMZN', value: 200, color: 'rgb(70, 30, 190)'  },
-                        { key: 'T', value: 200, color: 'rgb(90, 10, 170)'  }
+                        { key: 'NKE', value: 200, color: 'rgb(50, 50, 210)' },
+                        { key: 'AMZN', value: 200, color: 'rgb(70, 30, 190)' },
+                        { key: 'T', value: 200, color: 'rgb(90, 10, 170)' }
 
                     ]}
                     styles={{
@@ -114,6 +118,10 @@ const Column = styled.div`
     text-align: right;
 `
 
+const Holder = styled.div`
+    padding: 5px 0;
+`
+
 const Column1 = styled.div`
     /* border-right: 1px black solid; */
     text-align: left;
@@ -132,8 +140,25 @@ const Table = styled.div`
     padding: 7px;
     display: flex;
     justify-content: space-between;
+    background-color: #947CB0;
+    color: white;
 
 `
 const Ticker = styled.div`
     text-decoration: none;
+    color: white;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+
+`
+const TickerContainer = styled.div`
+    padding: 5px 0;
+    width: 100%;
+`
+const LinkTag = styled.a`
+    text-decoration: none;
+`
+const TickerName = styled.div`
+    padding-right: 5px;
 `
