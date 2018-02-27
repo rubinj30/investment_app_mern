@@ -66,6 +66,12 @@ router.post('/', async (request, response) => {
         investment.ticker = request.body.ticker.toUpperCase()
         investment.quantity = request.body.quantity
         investment.type = request.body.type
+        await alpha.data.batch(investment.ticker).then(data => {
+            
+            investment.stockPurchasePrice = data['Stock Quotes'][0]['2. price']
+            console.log(investment)
+        });
+
         newInvestment = await Investment.create(investment)
         const user = await User.findById(request.params.userId)
         user.investments.push(newInvestment)

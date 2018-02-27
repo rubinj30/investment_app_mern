@@ -64,7 +64,7 @@ class InvestmentList extends Component {
                     <Column>
                         <ColumnTitle>price</ColumnTitle>
                         {this.state.investments.map(investment => {
-                            return <div key={investment._id}>{accounting.formatMoney(investment.price)}</div>
+                            return <div key={investment._id}>{investment.price}</div>
                         })}
                     </Column>
                     <Column4>

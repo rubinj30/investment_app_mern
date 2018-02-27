@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import StyledButton from './styled-components/StyledButton'
 
@@ -27,8 +27,10 @@ class NewInvestment extends Component {
         const payload = {
             ticker: this.state.newInvestment.ticker,
             quantity: parseInt(this.state.newInvestment.quantity),
-            type: "stock"
+            type: "stock",
+            stockPurchasePrice: 0
         }
+
         console.log("SUBMITTIN for ", payload)
         await axios.post(`/api/users/${this.props.userId}/investments`, payload)
         this.props.getAllInvestments()
