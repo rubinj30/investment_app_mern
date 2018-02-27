@@ -14,7 +14,8 @@ class InvestmentList extends Component {
         investments: [],
         showNewForm: false,
         portfolioTotal: '', 
-        portfolioPurchaseTotal: ''
+        portfolioCost: '',
+        profitOrLoss: ''
     }
 
     componentWillMount = async () => {
@@ -27,8 +28,9 @@ class InvestmentList extends Component {
 
             this.setState({
                 investments: response.data.updatedStockInfo,
-                portfolioTotal: response.data.portfolioTotal,
-                portfolioPurchaseTotal: response.data.portfolioPurchaseTotal,
+                portfolioTotal: response.data.portfolioTotal.toFixed(2),
+                portfolioCost: response.data.portfolioCost.toFixed(2),
+                profitOrLoss: (response.data.portfolioTotal.toFixed(2) - response.data.portfolioCost.toFixed(2)),
                 user: response.data.user,
                 showNewForm: false
             })
@@ -81,7 +83,9 @@ class InvestmentList extends Component {
 
 
                 </Table>
-                <div>TOTAL: {accounting.formatMoney(this.state.portfolioTotal)}</div>
+                <div>TOTAL COST: {accounting.formatMoney(this.state.portfolioCost)}</div>
+                <div>TOTAL PROFIT/LOSS: {accounting.formatMoney(this.state.profitOrLoss)}</div>
+                <div>TOTAL VALUE: {accounting.formatMoney(this.state.portfolioTotal)}</div>
 
                 <StyledButton onClick={this.toggleAddStockForm}>Add Investment</StyledButton>
 
