@@ -21,7 +21,8 @@ class InvestmentList extends Component {
             const response = await axios.get(`/api/users/${this.props.match.params.id}/investments`)
             this.setState({
                 investments: response.data.updatedStockInfo,
-                user: response.data.user
+                user: response.data.user,
+                showNewForm: false
             })
         }
         catch (err) {

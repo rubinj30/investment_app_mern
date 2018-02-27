@@ -13,7 +13,7 @@ router.get('/', async (request, response) => {
     }
 })
 
-router.get('/:userId', async (request, response) => {
+router.get('/:id', async (request, response) => {
     try {
         const user = await User.findById(request.params.userId)
         response.json(user)

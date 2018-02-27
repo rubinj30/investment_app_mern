@@ -48,7 +48,7 @@ User.remove({}).then(() => {
     const tsla = new Investment({
         ticker: 'TSLA',
         type: 'stock',
-        quantity: 0,
+        quantity: 14,
         price: 0
     })
     const dal = new Investment({
@@ -60,11 +60,17 @@ User.remove({}).then(() => {
     const ll = new Investment({
         ticker: 'LL',
         type: 'stock',
+        quantity: 1525,
+        price: 0
+    })
+    const twlo = new Investment({
+        ticker: 'TWLO',
+        type: 'stock',
         quantity: 2000,
         price: 0
     })
 
-    user1.investments.push(amzn, fb, hd,  tsla, dal, ll)
+    user1.investments.push(amzn, fb, hd,  tsla, dal, ll, twlo)
     return user1.save()
 }).then(() => {
     const user2 = new User({
@@ -96,13 +102,19 @@ User.remove({}).then(() => {
         quantity: 20,
         price: 0
     })
-    const snap = new Investment({
-        ticker: 'SNAP' ,
+    const nke = new Investment({
+        ticker: 'NKE' ,
         type: 'stock',
-        quantity: 0,
+        quantity: 40,
         price: 0
     })
-    user2.investments.push(amzn, fb, jnj, snap)
+    const ibm = new Investment({
+        ticker: 'IBM',
+        type: 'stock',
+        quantity: 30,
+        price: 0
+    })
+    user2.investments.push(amzn, fb, jnj, nke, ibm)
     return user2.save()
 }).catch((err) => {
     console.log(`*** ERROR SEEDING DATA ${err}`)

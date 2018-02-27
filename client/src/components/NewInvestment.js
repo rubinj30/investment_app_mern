@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import StyledButton from './styled-components/StyledButton'
 
 class NewInvestment extends Component {
     state = {
-        newInvestment: {}
+        newInvestment: {},
+        redirect: false,
+        userId: ''
     }
 
     handleNewInvestmentChange = (event) => {
@@ -19,7 +21,7 @@ class NewInvestment extends Component {
         this.setState({ newInvestment })
     }
 
-    addStockToPortfolio = (event) => {
+    addStockToPortfolio = async (event) => {
         event.preventDefault()
         
         const payload = {
@@ -28,25 +30,34 @@ class NewInvestment extends Component {
             type: "stock"
         }
         console.log("SUBMITTIN for ", payload)
-        axios.post(`/api/users/${this.props.userId}/investments`, payload)
+        await axios.post(`/api/users/${this.props.userId}/investments`, payload)
+        this.props.getAllInvestments()
+        // this.setState({ 
+        //     redirect: !this.state.redirect
+        // })
+        
     }
 
     render() {
         return (
             <div>
+                {this.state.redirect ?
+                <Redirect to={`/users/${this.props.userId}/investments`} /> :
                 <form onSubmit={this.addStockToPortfolio}>
 
                     <div><label>Enter the Stock Ticker</label></div>
                     <div>
                         <input onChange={this.handleNewInvestmentChange}
-                            name="ticker" type="text" value={this.state.newInvestment.ticker} />
+                            name="ticker" type="text" value={this.state.newInvestment.ticker} required />
                     </div>
                     <div><label>How many shares would you like?</label></div>
                     <div>
-                        <input onChange={this.handleNewInvestmentChange} name="quantity" type="number" value={this.state.newInvestment.quantity} />
+                        <input onChange={this.handleNewInvestmentChange} name="quantity" type="number" 
+                        value={this.state.newInvestment.quantity} required />
                     </div>
                     <StyledButton>Add To Portfolio</StyledButton>
                 </form>
+                } 
             </div>
         )
     }
