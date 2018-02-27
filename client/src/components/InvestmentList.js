@@ -15,7 +15,8 @@ class InvestmentList extends Component {
         showNewForm: false,
         portfolioTotal: '', 
         portfolioCost: '',
-        profitOrLoss: ''
+        profitOrLoss: '',
+        profitLossColor: ''
     }
 
     componentWillMount = async () => {
@@ -32,6 +33,7 @@ class InvestmentList extends Component {
                 portfolioCost: response.data.portfolioCost.toFixed(2),
                 profitOrLoss: (response.data.portfolioTotal.toFixed(2) - response.data.portfolioCost.toFixed(2)),
                 user: response.data.user,
+                profitLossColor: response.data.profitLossColor,
                 showNewForm: false
             })
         }
@@ -78,13 +80,14 @@ class InvestmentList extends Component {
                         {this.state.investments.map(investment => {
                             return <Holder key={investment._id}>{accounting.formatMoney(investment.total)}</Holder>
                         })}
-
                     </Column4>
 
 
                 </Table>
                 <div>TOTAL COST: {accounting.formatMoney(this.state.portfolioCost)}</div>
-                <div>TOTAL PROFIT/LOSS: {accounting.formatMoney(this.state.profitOrLoss)}</div>
+                <div>TOTAL PROFIT/LOSS: <ProfitLoss profitLossColor={this.state.profitLossColor}>
+                                                    {accounting.formatMoney(this.state.profitOrLoss)}
+                                        </ProfitLoss></div>
                 <div>TOTAL VALUE: {accounting.formatMoney(this.state.portfolioTotal)}</div>
 
                 <StyledButton onClick={this.toggleAddStockForm}>Add Investment</StyledButton>
@@ -165,4 +168,8 @@ const LinkTag = styled.a`
 `
 const TickerName = styled.div`
     padding-right: 5px;
+`
+
+const ProfitLoss = styled.span`
+    color: ${props => props.profitLossColor};
 `

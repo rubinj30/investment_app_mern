@@ -41,23 +41,13 @@ User.remove({}).then(() => {
         totalPurchasePrice: 0,
         stockPurchasePrice: 153.32
     })
-    // const ltc = new Investment({
-    //     ticker: 'LTC',
-    //     type: 'cryptocurrency',
-    //     quantity: 12
-    // })
-    // const eth = new Investment({
-    //     ticker: 'ETH',
-    //     type: 'cryptocurrency',
-    //     quantity: 3
-    // })
     const tsla = new Investment({
         ticker: 'TSLA',
         type: 'stock',
         quantity: 14,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 342.12
+        stockPurchasePrice: 310.12
     })
     const dal = new Investment({
         ticker: 'DAL',
@@ -81,7 +71,7 @@ User.remove({}).then(() => {
         quantity: 100,
         price: 0,
         totalPurchasePrice: 28.33,
-        stockPurchasePrice: 2833.00
+        stockPurchasePrice: 33.00
     })
 
     user1.investments.push(amzn, fb, hd,  tsla, dal, ll, twlo)
@@ -108,11 +98,6 @@ User.remove({}).then(() => {
         totalPurchasePrice: 0,
         stockPurchasePrice: 140.12
     })
-    // const doge = new Investment({
-    //     ticker: 'DOGE' ,
-    //     type: 'cryptocurrency',
-    //     quantity: 24
-    // })
     const jnj = new Investment({
         ticker: 'JNJ' ,
         type: 'stock',
@@ -121,6 +106,7 @@ User.remove({}).then(() => {
         totalPurchasePrice: 0,
         stockPurchasePrice: 132.42
     })
+    
     const nke = new Investment({
         ticker: 'NKE' ,
         type: 'stock',

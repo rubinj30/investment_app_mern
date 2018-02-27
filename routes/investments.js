@@ -29,21 +29,35 @@ router.get('/', async (request, response) => {
         user.investments.forEach((investment, index) => {
             currentPrices.map((currentPrice) => {
                 if (currentPrice.stockTicker === investment.ticker) {
+
+                    // sets current price of individual investment
                     investment.price = currentPrice.stockPrice
+
+                    // calculates total value of individual investment
                     investment.total = (investment.price * investment.quantity).toFixed(2)
+
+                    // adds that value to the portfolio total
                     portfolioTotal += investment.total
-                    portfolioCost += investment.stockPurchasePrice
-                    profitOrLoss += (investment.stockPurchasePrice * investment.quantity).toFixed(2)
+
+                    // multiplies original stock purchase price * quantity and adds to portfolio cost
+                    portfolioCost += (investment.stockPurchasePrice * investment.quantity)
+
+                    // calculates the profit/loss total and 
+                    // profitOrLoss += (investment.stockPurchasePrice * investment.quantity).toFixed(2)
+
                     updatedStockInfo.push(investment)
                 }
             })
         })
-
+        profitOrLoss = portfolioTotal - portfolioCost
+        let profitLossColor = ''
+        profitOrLoss > 0 ? profitLossColor = 'green' : profitLossColor = 'red;'
         response.json({
             updatedStockInfo,
             user,
             portfolioTotal,
-            portfolioCost
+            portfolioCost,
+            profitLossColor
         })
     }
     catch (err) {
