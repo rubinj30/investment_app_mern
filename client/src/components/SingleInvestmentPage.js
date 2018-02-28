@@ -53,7 +53,7 @@ class SingleInvestmentPage extends Component {
     fetchDailyStockPrices = async () => {
         try {
             const api_key = process.env.REACT_APP_TIME_SERIES
-            const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=${this.state.investment.ticker}&apikey=${api_key}`
+            const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
             this.setState({ dailyStockPrices: response.data["Weekly Adjusted Time Series"] })
         }

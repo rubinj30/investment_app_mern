@@ -6,6 +6,7 @@
   "dependencies": {
     "accounting": "^0.4.1",
     "axios": "^0.18.0",
+    "randomcolor": "^0.5.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-easy-chart": "^1.0.0",
