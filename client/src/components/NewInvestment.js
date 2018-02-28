@@ -67,7 +67,7 @@ class NewInvestment extends Component {
 
 export default NewInvestment
 
-const NewForm = styled.div`
+const NewForm = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
