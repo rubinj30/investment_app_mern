@@ -77,7 +77,11 @@ class InvestmentList extends Component {
                                 {this.state.investments.map(investment => (
                                     <TickerContainer key={investment._id}>
                                         <LinkTag href={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
-                                            <Ticker><TickerName>{investment.ticker}</TickerName><FaFolderOpenO /></Ticker>
+                                            <Ticker><TickerName>{investment.ticker}</TickerName>
+                                            
+                                            <FolerIconSpan><FaFolderOpenO /></FolerIconSpan>
+                                            
+                                            </Ticker>
                                         </LinkTag>
                                     </TickerContainer>
                                 ))}
@@ -247,4 +251,8 @@ const NewInvestmentContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+`
+
+const FolerIconSpan = styled.div`
+    /* width: 20px; */
 `

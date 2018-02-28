@@ -3,50 +3,68 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'r
 import styled from 'styled-components'
 
 class LineGraph extends Component {
+
+    state = {
+        dailyChartTimeFrame: true
+    }
+
+    toggleChartTimeFrame = () => {
+        this.setState({dailyChartTimeFrame: !this.state.dailyChartTimeFrame})
+    }
+
     render() {
-        const dailyStockPrices = this.props.dailyStockPrices
+        const investmentName = this.props.investmentName
         const ticker = this.props.investment.ticker
-        
-        //
+
+
+        const dailyStockPrices = this.props.dailyStockPrices
+
         const lineData = []
         for (var property1 in dailyStockPrices) {
             const ticker = parseInt(dailyStockPrices[property1]['4. close'])
-            // console.log(typeof(dailyStockPrices[property1]['4. close']))
-            console.log("INDIVIDUAL DAY INFO: ", {name: '', pv: parseInt(dailyStockPrices[property1]['4. close']), amt: 150})
             lineData.push({name: '', stock: parseInt(dailyStockPrices[property1]['4. close']), amt: 100})
         }
-        console.log(lineData)
 
-        // const test = this.state.dailyStockPrices.map((stock, index) => {
-        //     return {name: `date ${index}`, stock: 1000, pv: stock.open, amt: 2000}
-        // })
-        // console.log("TESTTESTETSETETSETES", test)
+        const monthlyStockPrices = this.props.monthlyStockPrices
+        const monthlyLineData = []
+        for (var property1 in monthlyStockPrices){
+            const ticker = parseInt(monthlyStockPrices[property1]['4. close'])
+            monthlyLineData.push({name: '', stock: parseInt(monthlyStockPrices[property1]['4. close']), amt: 100})
+        }
 
-        // { name: '2000-01-14', AMZN: close },d
-        { name: ''}
-        // name is the date which is the object name, but how do i grab that while looping thru
-        // { name: '2000-01-14, AMZN:, pv: 2400, amt: 2400 }
-        const data = [
-            { name: '', stock: 4000, pv: 2400, amt: 2400 },
-            { name: '', stock: 3000, pv: 1398, amt: 2210 },
-            { name: '', stock: 2000, pv: 9800, amt: 2290 },
-            { name: '', stock: 2780, pv: 3908, amt: 2000 },
-            { name: '', stock: 1890, pv: 4800, amt: 2181 },
-            { name: '', stock: 2390, pv: 3800, amt: 2500 },
-            { name: '', stock: 3490, pv: 4300, amt: 2100 }
-        ];
+        console.log(monthlyLineData)
 
         return (
             <LineChartContainer>
-                <LineChart width={350} height={200} data={lineData}
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
-                </LineChart>
+                <div>{investmentName} ({ticker})</div>
+                { this.state.dailyChartTimeFrame ? 
+                <div>
+                    <div>Daily Performance for Last 100 Days</div>
+                    <LineChart width={300} height={200} data={lineData}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <Tooltip />
+                        <Legend />
+                        <Line type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
+                    </LineChart>
+                </div>
+                : 
+                <div>
+                    <div>Monthly Performance</div>
+                    <LineChart width={300} height={200} data={monthlyLineData}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <Tooltip />
+                        <Legend />
+                        <Line type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
+                    </LineChart>
+                </div>
+                } 
+                <button onClick={this.toggleChartTimeFrame}>Switch Timeframe</button>
             </LineChartContainer>
         );
     }

@@ -11,6 +11,7 @@ class SingleInvestmentPage extends Component {
         investment: {},
         investmentInfo: {},
         dailyStockPrices: {},
+        monthlyStockPrices: {},
         fundamentals: {},
         redirect: false,
         descriptionShowing: false,
@@ -22,6 +23,7 @@ class SingleInvestmentPage extends Component {
         await this.fetchStockInfoFromApi()
         await this.fetchDailyStockPrices()
         await this.fetchFundamentals()
+        await this.fetchMonthlyStockPrices()
         // this.setState({ fundamentalsReady: true })
     }
 
@@ -54,12 +56,25 @@ class SingleInvestmentPage extends Component {
             const api_key = process.env.REACT_APP_TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
-            console.log("TETSTETST", response.data)
             this.setState({ dailyStockPrices: response.data["Time Series (Daily)"] })
         }
         catch (err) {
             console.log(err)
         }
+    }
+
+    fetchMonthlyStockPrices = async () => {
+        try {
+            const api_key = process.env.REACT_APP_TIME_SERIES
+            const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
+            const response = await axios.get(URL)
+            console.log("TETSTETST", response.data)
+            this.setState({ monthlyStockPrices: response.data["Monthly Time Series"] })
+        }
+        catch (err) {
+
+        }
+
     }
 
     fetchFundamentals = async () => {
@@ -162,6 +177,8 @@ class SingleInvestmentPage extends Component {
                 <LineGraph
                 dailyStockPrices={this.state.dailyStockPrices}
                 investment={this.state.investment}
+                investmentName={this.state.investmentInfo.name}
+                monthlyStockPrices={this.state.monthlyStockPrices}
                 />
             </div>
         )
