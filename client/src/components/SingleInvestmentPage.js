@@ -37,12 +37,12 @@ class SingleInvestmentPage extends Component {
 
     fetchStockInfoFromApi = async () => {
         if (this.state.investment.type === 'stock') {
-
+            const api_key = process.env.REACT_APP_STOCK_INFO
             const URL = `https://api.intrinio.com/companies?identifier=${this.state.investment.ticker}`
             const response = await axios.get(URL,
-                {
+            {
                     headers: {
-                        "X-Authorization-Public-Key": process.env.REACT_APP_STOCK_INFO
+                        "X-Authorization-Public-Key": api_key
                     }
                 })
             this.setState({ investmentInfo: response.data })
