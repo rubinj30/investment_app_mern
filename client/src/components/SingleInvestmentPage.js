@@ -22,14 +22,13 @@ class SingleInvestmentPage extends Component {
         await this.fetchStockInfoFromApi()
         await this.fetchDailyStockPrices()
         await this.fetchFundamentals()
-        this.setState({ fundamentalsReady: true })
+        // this.setState({ fundamentalsReady: true })
     }
 
     getInvestment = async () => {
         const userId = this.props.match.params.userId
         const investmentId = this.props.match.params.id
         const response = await axios.get(`/api/users/${userId}/investments/${this.props.match.params.investmentId}`)
-        console.log("INVESTMENT", response.data.investment)
         this.setState({
             user: response.data.user,
             investment: response.data.investment
@@ -55,7 +54,8 @@ class SingleInvestmentPage extends Component {
             const api_key = process.env.REACT_APP_TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
-            this.setState({ dailyStockPrices: response.data["Weekly Adjusted Time Series"] })
+            console.log("TETSTETST", response.data)
+            this.setState({ dailyStockPrices: response.data["Time Series (Daily)"] })
         }
         catch (err) {
             console.log(err)
