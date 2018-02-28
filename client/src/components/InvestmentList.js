@@ -6,7 +6,8 @@ import NewInvestment from './NewInvestment'
 import StyledButton from './styled-components/StyledButton'
 import { PieChart } from 'react-easy-chart'
 import accounting from 'accounting'
-import { FaArrowCircleRight, FaUser } from 'react-icons/lib/fa'
+import { FaArrowCircleRight, FaUser, FaFolderOpenO } from 'react-icons/lib/fa'
+import PortfolioSummary from './PortfolioSummary';
 
 
 class InvestmentList extends Component {
@@ -17,7 +18,8 @@ class InvestmentList extends Component {
         portfolioTotal: '',
         portfolioCost: '',
         profitOrLoss: '',
-        profitLossColor: ''
+        profitLossColor: '',
+        pageReady: false
     }
 
     componentWillMount = async () => {
@@ -35,7 +37,8 @@ class InvestmentList extends Component {
                 profitOrLoss: (response.data.portfolioTotal.toFixed(2) - response.data.portfolioCost.toFixed(2)),
                 user: response.data.user,
                 profitLossColor: response.data.profitLossColor,
-                showNewForm: false
+                showNewForm: false,
+                pageReady: true
             })
         }
         catch (err) {
@@ -50,76 +53,88 @@ class InvestmentList extends Component {
     render() {
         return (
             <div>
-                <UserDiv>
-                    <Username>{this.state.user.username}</Username>
-                    <Link to={`/users/${this.state.user._id}`}><FaUser /></Link>
-                </UserDiv>
-                <Table>
+                {this.state.pageReady ?
+                    <div>
+                        <UserDiv>
+                            <Username>{this.state.user.username}</Username>
+                            <Link to={`/users/${this.state.user._id}`}><FaUser /></Link>
+                        </UserDiv>
+                        <Table>
 
-                    <Column1>
-                        <ColumnTitle>ticker</ColumnTitle>
+                            <Column1>
+                                <ColumnTitle>ticker</ColumnTitle>
 
-                        {this.state.investments.map(investment => (
-                            <TickerContainer key={investment._id}>
-                                <LinkTag href={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
-                                    <Ticker><TickerName>{investment.ticker}</TickerName><FaArrowCircleRight /></Ticker>
-                                </LinkTag>
-                            </TickerContainer>
-                        ))}
-                    </Column1>
+                                {this.state.investments.map(investment => (
+                                    <TickerContainer key={investment._id}>
+                                        <LinkTag href={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
+                                            <Ticker><TickerName>{investment.ticker}</TickerName><FaFolderOpenO /></Ticker>
+                                        </LinkTag>
+                                    </TickerContainer>
+                                ))}
+                            </Column1>
 
-                    <Column className='stock-item-pad'>
-                        <ColumnTitle>quantity</ColumnTitle>
-                        {this.state.investments.map(investment => {
-                            return <Holder key={investment._id}>{investment.quantity}</Holder>
-                        })}
-                    </Column>
-                    <Column className='stock-item-pad'>
-                        <ColumnTitle>price</ColumnTitle>
-                        {this.state.investments.map(investment => {
-                            return <Holder key={investment._id}>{investment.price}</Holder>
-                        })}
-                    </Column>
-                    <Column4 className='stock-item-pad'>
-                        <ColumnTitle>total</ColumnTitle>
-                        {this.state.investments.map(investment => {
-                            return <Holder key={investment._id}>{accounting.formatMoney(investment.total)}</Holder>
-                        })}
-                    </Column4>
-
-
-                </Table>
-                <div>TOTAL COST: {accounting.formatMoney(this.state.portfolioCost)}</div>
-                <div>TOTAL PROFIT/LOSS: <ProfitLoss profitLossColor={this.state.profitLossColor}>
-                    {accounting.formatMoney(this.state.profitOrLoss)}
-                </ProfitLoss></div>
-                <div>TOTAL VALUE: {accounting.formatMoney(this.state.portfolioTotal)}</div>
-
-                <StyledButton onClick={this.toggleAddStockForm}>Add Investment</StyledButton>
-
-                {this.state.showNewForm ? <NewInvestment userId={this.props.match.params.id} getAllInvestments={this.getAllInvestments} /> : null}
-
-                <PieChart className="pie-chart"
-                    size={250}
-                    labels
-                    data={[
-                        // use randomizer between certain colors
-                        { key: 'LL', value: 100, color: 'rgb(10, 90, 250)' },
-                        { key: 'DAL', value: 200, color: 'rgb(30, 70, 230)' },
-                        { key: 'NKE', value: 200, color: 'rgb(50, 50, 210)' },
-                        { key: 'AMZN', value: 200, color: 'rgb(70, 30, 190)' },
-                        { key: 'T', value: 200, color: 'rgb(90, 10, 170)' }
-
-                    ]}
-                    styles={{
-                        '.chart_text': {
-                            fontSize: '1em',
-                            fill: '#fff'
-                        }
-                    }}
-                />
+                            <Column className='stock-item-pad'>
+                                <ColumnTitle>quantity</ColumnTitle>
+                                {this.state.investments.map(investment => {
+                                    return <Holder key={investment._id}>{investment.quantity}</Holder>
+                                })}
+                            </Column>
+                            <Column className='stock-item-pad'>
+                                <ColumnTitle>price</ColumnTitle>
+                                {this.state.investments.map(investment => {
+                                    return <Holder key={investment._id}>{investment.price}</Holder>
+                                })}
+                            </Column>
+                            <Column4 className='stock-item-pad'>
+                                <ColumnTitle>total</ColumnTitle>
+                                {this.state.investments.map(investment => {
+                                    return <Holder key={investment._id}>{accounting.formatMoney(investment.total)}</Holder>
+                                })}
+                            </Column4>
 
 
+                        </Table>
+                        <BottomPageContainer>
+                        <PortfolioSummary
+                            profitLossColor={this.state.profitLossColor}
+                            portfolioTotal={this.state.portfolioTotal}
+                            portfolioCost={this.state.portfolioCost}
+                            profitOrLoss={this.state.profitOrLoss}
+                        />
+
+                        <StyledButton onClick={this.toggleAddStockForm}>Add Investment</StyledButton>
+
+                        {this.state.showNewForm ? <NewInvestment userId={this.props.match.params.id} getAllInvestments={this.getAllInvestments} /> : null}
+
+                        <PieChart className="pie-chart"
+                            size={250}
+                            labels
+                            data={[
+                                // use randomizer between certain colors
+                                { key: 'LL', value: 100, color: 'rgb(10, 90, 250)' },
+                                { key: 'DAL', value: 200, color: 'rgb(30, 70, 230)' },
+                                { key: 'NKE', value: 200, color: 'rgb(50, 50, 210)' },
+                                { key: 'AMZN', value: 200, color: 'rgb(70, 30, 190)' },
+                                { key: 'T', value: 200, color: 'rgb(90, 10, 170)' }
+
+                            ]}
+                            styles={{
+                                '.chart_text': {
+                                    fontSize: '1em',
+                                    fill: '#fff'
+                                }
+                            }}
+                        />
+                        </BottomPageContainer>
+                    </div>
+
+                    :
+                    <div>
+
+                        <SplashPage>
+                            <QuoteHolder>"The Trapper Keeper of stock trackers"  - Warren Buffet</QuoteHolder>
+                        </SplashPage>
+                    </div>}
             </div>
         )
     }
@@ -168,10 +183,10 @@ const Table = styled.div`
 
 `
 const Ticker = styled.div`
-    text-decoration: none;
+    text-decoration: underline;
     color: white;
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
 
 `
@@ -188,4 +203,24 @@ const TickerName = styled.div`
 
 const ProfitLoss = styled.span`
     color: ${props => props.profitLossColor};
+`
+
+const SplashPage = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background-color: #947CB0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+`
+
+const QuoteHolder = styled.div`
+    color: white;
+    padding: 20px
+`
+const BottomPageContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
