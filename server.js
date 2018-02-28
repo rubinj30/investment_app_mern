@@ -46,7 +46,7 @@ app.use(function (req, res, next) {
     next(err);
 });
 
-
+// test
 app.use(logger('dev'))
 app.use(bodyParser.json({ extended: false }))
 app.get('/', (req, res) => {
