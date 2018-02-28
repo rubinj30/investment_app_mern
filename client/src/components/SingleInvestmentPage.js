@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link, Redirect } from 'react-router-dom'
 import StyledButton from './styled-components/StyledButton'
 import styled from 'styled-components'
+import LineGraph from './LineGraph'
 
 class SingleInvestmentPage extends Component {
     state = {
@@ -19,7 +20,7 @@ class SingleInvestmentPage extends Component {
     componentWillMount = async () => {
         await this.getInvestment()
         await this.fetchStockInfoFromApi()
-        // await this.fetchDailyStockPrices()
+        await this.fetchDailyStockPrices()
         await this.fetchFundamentals()
         this.setState({ fundamentalsReady: true })
     }
@@ -156,6 +157,11 @@ class SingleInvestmentPage extends Component {
                         </div>
                     </div>
                 }
+
+                <LineGraph
+                dailyStockPrices={this.state.dailyStockPrices}
+                investment={this.state.investment}
+                />
             </div>
         )
     }
