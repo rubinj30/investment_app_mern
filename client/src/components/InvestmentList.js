@@ -6,14 +6,15 @@ import NewInvestment from './NewInvestment'
 import StyledButton from './styled-components/StyledButton'
 import { PieChart } from 'react-easy-chart'
 import accounting from 'accounting'
-import { FaArrowCircleRight } from 'react-icons/lib/fa'
+import { FaArrowCircleRight, FaUser } from 'react-icons/lib/fa'
+
 
 class InvestmentList extends Component {
     state = {
         user: {},
         investments: [],
         showNewForm: false,
-        portfolioTotal: '', 
+        portfolioTotal: '',
         portfolioCost: '',
         profitOrLoss: '',
         profitLossColor: ''
@@ -49,6 +50,10 @@ class InvestmentList extends Component {
     render() {
         return (
             <div>
+                <UserDiv>
+                    <Username>{this.state.user.username}</Username>
+                    <Link to={`/users/${this.state.user._id}`}><FaUser /></Link>
+                </UserDiv>
                 <Table>
 
                     <Column1>
@@ -60,7 +65,7 @@ class InvestmentList extends Component {
                                     <Ticker><TickerName>{investment.ticker}</TickerName><FaArrowCircleRight /></Ticker>
                                 </LinkTag>
                             </TickerContainer>
-                    ))}
+                        ))}
                     </Column1>
 
                     <Column className='stock-item-pad'>
@@ -86,8 +91,8 @@ class InvestmentList extends Component {
                 </Table>
                 <div>TOTAL COST: {accounting.formatMoney(this.state.portfolioCost)}</div>
                 <div>TOTAL PROFIT/LOSS: <ProfitLoss profitLossColor={this.state.profitLossColor}>
-                                                    {accounting.formatMoney(this.state.profitOrLoss)}
-                                        </ProfitLoss></div>
+                    {accounting.formatMoney(this.state.profitOrLoss)}
+                </ProfitLoss></div>
                 <div>TOTAL VALUE: {accounting.formatMoney(this.state.portfolioTotal)}</div>
 
                 <StyledButton onClick={this.toggleAddStockForm}>Add Investment</StyledButton>
@@ -113,12 +118,23 @@ class InvestmentList extends Component {
                         }
                     }}
                 />
+
+
             </div>
         )
     }
 }
 
 export default InvestmentList
+
+const UserDiv = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 25px;
+`
+const Username = styled.div`
+    padding-right: 10px;
+`
 
 const Column = styled.div`
     /* border-right: 1px black solid; */
