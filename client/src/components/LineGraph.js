@@ -6,12 +6,14 @@ class LineGraph extends Component {
     render() {
         const dailyStockPrices = this.props.dailyStockPrices
         const ticker = this.props.investment.ticker
-
+        
+        
         const lineData = []
         for (var property1 in dailyStockPrices) {
+            const ticker = parseInt(dailyStockPrices[property1]['4. close'])
             // console.log(typeof(dailyStockPrices[property1]['4. close']))
-            console.log({name: '', pv: parseInt(dailyStockPrices[property1]['4. close']), amt: 150})
-            lineData.push({name: '', pv: parseInt(dailyStockPrices[property1]['4. close']), amt: 66666})
+            console.log("INDIVIDUAL DAY INFO: ", {name: '', pv: parseInt(dailyStockPrices[property1]['4. close']), amt: 150})
+            lineData.push({name: '', stock: parseInt(dailyStockPrices[property1]['4. close']), amt: 100})
         }
         console.log(lineData)
 
@@ -43,8 +45,7 @@ class LineGraph extends Component {
                     <CartesianGrid strokeDasharray="3 3" />
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-                    <Line type="monotone" dataKey="ticker" stroke="#82ca9d" />
+                    <Line type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
                 </LineChart>
             </LineChartContainer>
         );
