@@ -7,7 +7,7 @@ class LineGraph extends Component {
         const dailyStockPrices = this.props.dailyStockPrices
         const ticker = this.props.investment.ticker
         
-        
+        //
         const lineData = []
         for (var property1 in dailyStockPrices) {
             const ticker = parseInt(dailyStockPrices[property1]['4. close'])
