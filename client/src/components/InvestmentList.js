@@ -54,7 +54,9 @@ class InvestmentList extends Component {
     render() {
 
         const pieData = this.state.investments.map((investment) => {
-            return {key: investment.ticker, value: investment.total, color: randomColor()}
+            const random = Math.floor(Math.random() * 180) + 1
+           
+            return {key: investment.ticker, value: investment.total, color: `rgb(${random}, ${random}, 255)`}
         })
 
         console.log(pieData)
