@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
+import styled from 'styled-components'
 import StyledButton from './styled-components/StyledButton'
 
 class NewInvestment extends Component {
@@ -27,11 +28,10 @@ class NewInvestment extends Component {
         const payload = {
             ticker: this.state.newInvestment.ticker,
             quantity: parseInt(this.state.newInvestment.quantity),
-            type: "stock",
-            stockPurchasePrice: 0
+            type: "stock"
         }
 
-        console.log("SUBMITTIN for ", payload)
+        console.log("SUBMITTING FOR ", payload)
         await axios.post(`/api/users/${this.props.userId}/investments`, payload)
         this.props.getAllInvestments()
         // this.setState({ 
@@ -45,7 +45,7 @@ class NewInvestment extends Component {
             <div>
                 {this.state.redirect ?
                 <Redirect to={`/users/${this.props.userId}/investments`} /> :
-                <form onSubmit={this.addStockToPortfolio}>
+                <NewForm onSubmit={this.addStockToPortfolio}>
 
                     <div><label>Enter the Stock Ticker</label></div>
                     <div>
@@ -58,7 +58,7 @@ class NewInvestment extends Component {
                         value={this.state.newInvestment.quantity} required />
                     </div>
                     <StyledButton>Add To Portfolio</StyledButton>
-                </form>
+                </NewForm>
                 } 
             </div>
         )
@@ -66,3 +66,9 @@ class NewInvestment extends Component {
 }
 
 export default NewInvestment
+
+const NewForm = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`

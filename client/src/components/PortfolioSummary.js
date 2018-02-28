@@ -16,6 +16,7 @@ class PortfolioSummary extends Component {
 
                 <ProfitContainer>
                     <div>profit/loss:</div> <ProfitLoss profitLossColor={this.props.profitLossColor}>
+                        {this.props.profitOrLoss > 0 ? "+ " : "- "}
                         {accounting.formatMoney(this.props.profitOrLoss)}
                     </ProfitLoss>
                 </ProfitContainer>

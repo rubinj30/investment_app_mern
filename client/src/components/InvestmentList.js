@@ -95,36 +95,44 @@ class InvestmentList extends Component {
 
                         </Table>
                         <BottomPageContainer>
-                        <PortfolioSummary
-                            profitLossColor={this.state.profitLossColor}
-                            portfolioTotal={this.state.portfolioTotal}
-                            portfolioCost={this.state.portfolioCost}
-                            profitOrLoss={this.state.profitOrLoss}
-                        />
+                            <PortfolioSummary
+                                profitLossColor={this.state.profitLossColor}
+                                portfolioTotal={this.state.portfolioTotal}
+                                portfolioCost={this.state.portfolioCost}
+                                profitOrLoss={this.state.profitOrLoss}
+                            />
 
-                        <StyledButton onClick={this.toggleAddStockForm}>Add Investment</StyledButton>
+                            {this.state.showNewForm ?
+                                <NewInvestmentContainer>
+                                    <StyledButton onClick={this.toggleAddStockForm}>- Add Investment</StyledButton>
 
-                        {this.state.showNewForm ? <NewInvestment userId={this.props.match.params.id} getAllInvestments={this.getAllInvestments} /> : null}
 
-                        <PieChart className="pie-chart"
-                            size={250}
-                            labels
-                            data={[
-                                // use randomizer between certain colors
-                                { key: 'LL', value: 100, color: 'rgb(10, 90, 250)' },
-                                { key: 'DAL', value: 200, color: 'rgb(30, 70, 230)' },
-                                { key: 'NKE', value: 200, color: 'rgb(50, 50, 210)' },
-                                { key: 'AMZN', value: 200, color: 'rgb(70, 30, 190)' },
-                                { key: 'T', value: 200, color: 'rgb(90, 10, 170)' }
 
-                            ]}
-                            styles={{
-                                '.chart_text': {
-                                    fontSize: '1em',
-                                    fill: '#fff'
-                                }
-                            }}
-                        />
+                                    <NewInvestment userId={this.props.match.params.id} getAllInvestments={this.getAllInvestments} />
+                                </NewInvestmentContainer>
+                                :
+                                <StyledButton onClick={this.toggleAddStockForm}>+ Add Investment</StyledButton>
+                            }
+
+                            <PieChart className="pie-chart"
+                                size={250}
+                                labels
+                                data={[
+                                    // use randomizer between certain colors
+                                    { key: 'LL', value: 100, color: 'rgb(10, 90, 250)' },
+                                    { key: 'DAL', value: 200, color: 'rgb(30, 70, 230)' },
+                                    { key: 'NKE', value: 200, color: 'rgb(50, 50, 210)' },
+                                    { key: 'AMZN', value: 200, color: 'rgb(70, 30, 190)' },
+                                    { key: 'T', value: 200, color: 'rgb(90, 10, 170)' }
+
+                                ]}
+                                styles={{
+                                    '.chart_text': {
+                                        fontSize: '1em',
+                                        fill: '#fff'
+                                    }
+                                }}
+                            />
                         </BottomPageContainer>
                     </div>
 
@@ -132,7 +140,8 @@ class InvestmentList extends Component {
                     <div>
 
                         <SplashPage>
-                            <QuoteHolder>"The Trapper Keeper of stock trackers"  - Warren Buffet</QuoteHolder>
+                            <QuoteHolder>"The creator of this app is why I am rich."</QuoteHolder>
+                            <QuoteBy> <div>- Warren Buffet</div></QuoteBy>
                         </SplashPage>
                     </div>}
             </div>
@@ -210,16 +219,29 @@ const SplashPage = styled.div`
     height: 100vh;
     background-color: #947CB0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
 `
 
+const QuoteBy = styled.div`
+    display:flex;
+    justify-content: center;
+    color: white;
+`
+
 const QuoteHolder = styled.div`
     color: white;
-    padding: 20px
+    padding: 20px;
 `
+
 const BottomPageContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+const NewInvestmentContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
