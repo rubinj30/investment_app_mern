@@ -20,7 +20,7 @@ router.get('/', async (request, response) => {
                     stockPrice: data['Stock Quotes'][i]['2. price']}
                 )
             }
-        });
+        })
 
         updatedStockInfo = []
         let portfolioTotal = 0
