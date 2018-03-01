@@ -102,7 +102,7 @@ const SelectedTimeFrame = styled.button`
 `
 
 const UnselectedTimeFrame = styled.button`
-    border: 2px black solid;
+    /* border: 2px black solid; */
     color: #947CB0;
     border-radius: 5px;
     padding: 1px;

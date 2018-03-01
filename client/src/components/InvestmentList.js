@@ -76,12 +76,12 @@ class InvestmentList extends Component {
 
                                 {this.state.investments.map(investment => (
                                     <TickerContainer key={investment._id}>
-                                        <LinkTag href={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
+                                        <Link to={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
                                             <Ticker><TickerName>{investment.ticker}</TickerName>
                                             <FolderIconSpan><FaFolderOpenO /></FolderIconSpan>
                                             
                                             </Ticker>
-                                        </LinkTag>
+                                        </Link>
                                     </TickerContainer>
                                 ))}
                             </Column1>
