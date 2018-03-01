@@ -31,7 +31,6 @@ User.remove({}).then(() => {
         price: 0,
         totalPurchasePrice: 0,
         stockPurchasePrice: 97.24
-        
     })
     const hd = new Investment({
         ticker: 'HD' ,
@@ -96,7 +95,7 @@ User.remove({}).then(() => {
         quantity: 20,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 140.12
+        stockPurchasePrice: 140.12,
     })
     const jnj = new Investment({
         ticker: 'JNJ' ,

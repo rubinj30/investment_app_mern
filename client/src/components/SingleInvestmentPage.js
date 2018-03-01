@@ -5,6 +5,7 @@ import StyledButton from './styled-components/StyledButton'
 import styled from 'styled-components'
 import LineGraph from './LineGraph'
 import accounting from 'accounting'
+import StockNews from './StockNews'
 
 class SingleInvestmentPage extends Component {
     state = {
@@ -17,6 +18,7 @@ class SingleInvestmentPage extends Component {
         redirect: false,
         descriptionShowing: false,
         fundamentalsReady: false,
+        newsReady: false,
         news: {}
     }
 
@@ -26,7 +28,7 @@ class SingleInvestmentPage extends Component {
         await this.fetchDailyStockPrices()
         await this.fetchFundamentals()
         await this.fetchMonthlyStockPrices()
-        await this.fetchNews() 
+        await this.fetchNews()
     }
 
     getInvestment = async () => {
@@ -44,7 +46,7 @@ class SingleInvestmentPage extends Component {
             const api_key = process.env.REACT_APP_STOCK_INFO
             const URL = `https://api.intrinio.com/companies?identifier=${this.state.investment.ticker}`
             const response = await axios.get(URL,
-            {
+                {
                     headers: {
                         "X-Authorization-Public-Key": api_key
                     }
@@ -70,7 +72,6 @@ class SingleInvestmentPage extends Component {
             const api_key = process.env.REACT_APP_TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
-            console.log("TETSTETST", response.data)
             this.setState({ monthlyStockPrices: response.data["Monthly Time Series"] })
         }
         catch (err) {
@@ -80,16 +81,16 @@ class SingleInvestmentPage extends Component {
     }
 
     fetchFundamentals = async () => {
-        const URL = `https://api.intrinio.com/data_point?identifier=${this.state.investment.ticker}&item=debttoequity,pricetoearnings,ebitda,grossmargin,debttoequity`
+        const URL = `https://api.intrinio.com/data_point?identifier=${this.state.investment.ticker}&item=pricetoearnings,grossmargin,debttoequity`
         const response = await axios.get(URL,
             {
                 headers: {
                     "X-Authorization-Public-Key": process.env.REACT_APP_STOCK_INFO
                 }
             })
-        this.setState({ 
+        this.setState({
             fundamentals: response.data.data,
-            fundamentalsReady: true 
+            fundamentalsReady: true
         })
     }
 
@@ -101,7 +102,10 @@ class SingleInvestmentPage extends Component {
                     "X-Authorization-Public-Key": process.env.REACT_APP_STOCK_INFO
                 }
             })
-        this.setState({ news: response.data.data })
+        this.setState({ 
+            news: response.data.data,
+            newsReady: true
+        })
     }
 
     deleteStock = async () => {
@@ -131,7 +135,7 @@ class SingleInvestmentPage extends Component {
         }
         const url = "http://" + this.state.investmentInfo.company_url
 
-        
+
 
         return (
 
@@ -171,27 +175,24 @@ class SingleInvestmentPage extends Component {
                                 <Detail>
                                     <DetailKey>Website: </DetailKey><DetailValue><a href={url} target="_blank"> {this.state.investmentInfo.company_url}</a></DetailValue>
                                 </Detail>
-                                    {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
-    
+                                {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
+
                             </StockDetails>
 
                             {this.state.fundamentalsReady ?
-                            <FundamentalsDetails>
+                                <FundamentalsDetails>
 
-                                <Detail>
-                                    <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[0].value}</DetailValue>
-                                </Detail>
-                                <Detail>
-                                    <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[1].value}</DetailValue>
-                                </Detail>
-                                <Detail>
-        <DetailKey>EBITDA:</DetailKey><DetailValue> {accounting.formatMoney(this.state.fundamentals[2].value)}</DetailValue>
-                                </Detail>
-                                <Detail>
-                                    <DetailKey>Gross Margin:</DetailKey><DetailValue> {this.state.fundamentals[3].value}</DetailValue>
-                                </Detail>
-                            </FundamentalsDetails>
-                            : null
+                                    <Detail>
+                                        <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[0].value}</DetailValue>
+                                    </Detail>
+                                    <Detail>
+                                        <DetailKey>Gross Margin</DetailKey><DetailValue> {this.state.fundamentals[1].value}</DetailValue>
+                                    </Detail>
+                                    <Detail>
+                                        <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[2].value}</DetailValue>
+                                    </Detail>
+                                </FundamentalsDetails>
+                                : null
                             }
                             <div>
                                 {this.state.descriptionShowing ?
@@ -209,17 +210,22 @@ class SingleInvestmentPage extends Component {
                                         <StyledButton>Back to Portfolio</StyledButton>
                                     </Link>
                                 </div>
-
                             </div>
+
                         </div>
                     </div>
                 }
 
                 <LineGraph
-                dailyStockPrices={this.state.dailyStockPrices}
-                investment={this.state.investment}
-                investmentName={this.state.investmentInfo.name}
-                monthlyStockPrices={this.state.monthlyStockPrices}
+                    dailyStockPrices={this.state.dailyStockPrices}
+                    investment={this.state.investment}
+                    investmentName={this.state.investmentInfo.name}
+                    monthlyStockPrices={this.state.monthlyStockPrices}
+                />
+                
+                <StockNews 
+                news={this.state.news}
+                newsReady={this.state.newsReady}
                 />
 
             </InvestmentContainer>

@@ -86,25 +86,25 @@ class InvestmentList extends Component {
                                 ))}
                             </Column1>
 
-                            <Column className='stock-item-pad'>
+                            <Column>
                                 <ColumnTitle>quantity</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.quantity}</Holder>
                                 })}
                             </Column>
-                            <Column className='stock-item-pad'>
+                            <Column>
                                 <ColumnTitle>price</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.price}</Holder>
                                 })}
                             </Column>
-                            <Column4 className='stock-item-pad'>
+                            <Column4>
                                 <ColumnTitle>total</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{accounting.formatMoney(investment.total)}</Holder>
                                 })}
                             </Column4>
-                            <Column className='stock-item-pad'>
+                            <Column>
                                 <ColumnTitle>price</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.price}</Holder>
