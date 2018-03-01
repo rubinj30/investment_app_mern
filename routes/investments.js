@@ -36,11 +36,11 @@ router.get('/', async (request, response) => {
                     // calculates total value of individual investment
                     investment.total = (investment.price * investment.quantity).toFixed(2)
 
+                    // calculate individual stocks total profit
+                    investment.profit = investment.total - (investment.stockPurchasePrice * investment.quantity)
+
                     // adds that value to the portfolio total
                     portfolioTotal += investment.total
-
-                    // profit or loss of individual stock
-                    investment.
 
                     // multiplies original stock purchase price * quantity and adds to portfolio cost
                     portfolioCost += (investment.stockPurchasePrice * investment.quantity)

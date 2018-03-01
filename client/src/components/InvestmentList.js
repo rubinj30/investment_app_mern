@@ -6,8 +6,9 @@ import NewInvestment from './NewInvestment'
 import StyledButton from './styled-components/StyledButton'
 import { PieChart } from 'react-easy-chart'
 import accounting from 'accounting'
-import { FaArrowCircleRight, FaUser, FaFolderOpenO } from 'react-icons/lib/fa'
+import { FaArrowCircleRight, FaFolderOpenO } from 'react-icons/lib/fa'
 import PortfolioSummary from './PortfolioSummary'
+import UserIcon from './UserIcon'
 var randomColor = require('randomcolor')
 
 
@@ -65,10 +66,10 @@ class InvestmentList extends Component {
             <div>
                 {this.state.pageReady ?
                     <div>
-                        <UserDiv>
-                            <Username>{this.state.user.username}</Username>
-                            <Link to={`/users/${this.state.user._id}`}><FaUser /></Link>
-                        </UserDiv>
+                        <UserIcon 
+                            user={this.state.user}
+                            />
+
                         <Table>
 
                             <Column1>
@@ -78,7 +79,7 @@ class InvestmentList extends Component {
                                     <TickerContainer key={investment._id}>
                                         <Link to={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
                                             <Ticker><TickerName>{investment.ticker}</TickerName>
-                                            <FolderIconSpan><FaFolderOpenO /></FolderIconSpan>
+                                            {/* <FolderIconSpan><FaFolderOpenO /></FolderIconSpan> */}
                                             
                                             </Ticker>
                                         </Link>
@@ -87,13 +88,13 @@ class InvestmentList extends Component {
                             </Column1>
 
                             <Column>
-                                <ColumnTitle>quantity</ColumnTitle>
+                                <ColumnTitle>#</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.quantity}</Holder>
                                 })}
                             </Column>
                             <Column>
-                                <ColumnTitle>price</ColumnTitle>
+                                <ColumnTitle>value</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.price}</Holder>
                                 })}
@@ -101,18 +102,19 @@ class InvestmentList extends Component {
                             <Column4>
                                 <ColumnTitle>total</ColumnTitle>
                                 {this.state.investments.map(investment => {
-                                    return <Holder key={investment._id}>{accounting.formatMoney(investment.total)}</Holder>
+                                    return <Holder key={investment._id}>{investment.total.toFixed(2)}</Holder>
                                 })}
                             </Column4>
                             <Column>
-                                <ColumnTitle>price</ColumnTitle>
+                                <ColumnTitle>profit</ColumnTitle>
                                 {this.state.investments.map(investment => {
-                                    return <Holder key={investment._id}>{investment.price}</Holder>
+                                    return <Holder key={investment._id}>{investment.profit.toFixed(2)}</Holder>
                                 })}
                             </Column>
                         </Table>
                         
                         <BottomPageContainer>
+                            <div>Porfolio Summary</div>
                             <PortfolioSummary
                                 profitLossColor={this.state.profitLossColor}
                                 portfolioTotal={this.state.portfolioTotal}
@@ -161,14 +163,6 @@ class InvestmentList extends Component {
 
 export default InvestmentList
 
-const UserDiv = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px 25px;
-`
-const Username = styled.div`
-    padding-right: 10px;
-`
 
 const Column = styled.div`
     /* border-right: 1px black solid; */

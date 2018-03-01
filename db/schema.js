@@ -14,7 +14,7 @@ const InvestmentSchema = new Schema(
         total: Number,
         totalPurchasePrice: Number,
         stockPurchasePrice: Number,
-        profitLoss: Number
+        profit: Number
     },
     {
         timestamps: {}

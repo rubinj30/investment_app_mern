@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import LineGraph from './LineGraph'
 import accounting from 'accounting'
 import StockNews from './StockNews'
+import UserIcon from './UserIcon'
 
 class SingleInvestmentPage extends Component {
     state = {
@@ -24,11 +25,11 @@ class SingleInvestmentPage extends Component {
 
     componentWillMount = async () => {
         await this.getInvestment()
-        await this.fetchStockInfoFromApi()
-        await this.fetchDailyStockPrices()
-        await this.fetchFundamentals()
-        await this.fetchMonthlyStockPrices()
-        await this.fetchNews()
+        this.fetchStockInfoFromApi()
+        this.fetchDailyStockPrices()
+        this.fetchFundamentals()
+        this.fetchMonthlyStockPrices()
+        this.fetchNews()
     }
 
     getInvestment = async () => {
@@ -140,6 +141,12 @@ class SingleInvestmentPage extends Component {
         return (
 
             <InvestmentContainer>
+                <ProfileHolder>
+                    <UserIcon 
+                        user={this.state.user}
+                        />
+                </ProfileHolder>
+                    
                 {this.state.redirect ?
                     <Redirect to={`/users/${this.props.match.params.userId}/investments`} /> :
                     <div>
@@ -266,4 +273,9 @@ const InvestmentContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+`
+
+const ProfileHolder = styled.div`
+    display: flex;
+    justify-content: flex-end;
 `
