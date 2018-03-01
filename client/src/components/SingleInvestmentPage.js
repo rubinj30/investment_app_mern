@@ -119,7 +119,7 @@ class SingleInvestmentPage extends Component {
 
         return (
 
-            <div>
+            <InvestmentContainer>
                 {this.state.redirect ?
                     <Redirect to={`/users/${this.props.match.params.userId}/investments`} /> :
                     <div>
@@ -218,7 +218,7 @@ class SingleInvestmentPage extends Component {
                 monthlyStockPrices={this.state.monthlyStockPrices}
                 />
 
-            </div>
+            </InvestmentContainer>
         )
     }
 }
@@ -250,4 +250,10 @@ const StockDetails = styled.div`
 `
 const FundamentalsDetails = styled.div`
 
+`
+
+const InvestmentContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `

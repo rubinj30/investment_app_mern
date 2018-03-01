@@ -41,8 +41,8 @@ class LineGraph extends Component {
             <LineChartContainer>
                 <div>{investmentName} ({ticker})</div>
                 { this.state.dailyChartTimeFrame ? 
-                <div>
-                    <div>Daily Performance for Last 100 Days</div>
+                <ChartSubContainer>
+                    <div>1 Month</div>
                     <LineChart width={300} height={200} data={reversedLineData}
                         margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
                         <XAxis dataKey="name" />
@@ -50,11 +50,15 @@ class LineGraph extends Component {
                         <CartesianGrid strokeDasharray="3 3" />
                         <Tooltip />
                         <Legend />
-                        <Line type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
+                        <Line dot={false} type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
                     </LineChart>
-                </div>
+                    <div>
+                        <UnselectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Year</UnselectedTimeFrame>
+                        <SelectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Month</SelectedTimeFrame>
+                    </div>
+                </ChartSubContainer>
                 : 
-                <div>
+                <ChartSubContainer>
                     <div>Monthly Performance</div>
                     <LineChart width={300} height={200} data={reversedMonthlyData}
                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -65,9 +69,13 @@ class LineGraph extends Component {
                         <Legend />
                         <Line dot={false} type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
                     </LineChart>
-                </div>
+                    <div>
+                        <SelectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Year</SelectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Month</UnselectedTimeFrame>
+                    </div>
+                </ChartSubContainer>
                 } 
-                <StyledButton onClick={this.toggleChartTimeFrame}>Switch Timeframe</StyledButton>
+
             </LineChartContainer>
         );
     }
@@ -77,4 +85,33 @@ export default LineGraph
 
 const LineChartContainer = styled.div`
     width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+const SelectedTimeFrame = styled.button`
+    border-radius: 5px;
+    background-color : #947CB0;
+    border: 2px black solid;
+    color: white;
+    padding: 3px;
+    width: 100px;
+    margin: 3px;
+
+`
+
+const UnselectedTimeFrame = styled.button`
+    border: 2px black solid;
+    color: #947CB0;
+    border-radius: 5px;
+    padding: 1px;
+    width: 100px;
+    margin: 3px;
+`
+
+const ChartSubContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
