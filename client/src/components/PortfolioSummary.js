@@ -6,6 +6,7 @@ class PortfolioSummary extends Component {
     render() {
         return (
             <SummaryContainer>
+                <SummaryTitle>Porfolio Summary</SummaryTitle>
                 <TotalCost>
                     <div>total cost:</div> <div> {accounting.formatMoney(this.props.portfolioCost)}</div>
                 </TotalCost>
@@ -49,7 +50,6 @@ const TotalValue = styled.div`
     display: flex;
     width: 200px;
     justify-content: space-between;
-
 `
 
 const SummaryContainer = styled.div`
@@ -57,5 +57,10 @@ const SummaryContainer = styled.div`
     display:flex;
     flex-direction: column;
     justify-content: space-around;
+    padding: 15px 10px 30px 15px;
+`
 
+const SummaryTitle = styled.div`
+    text-align: center;
+    padding-bottom: 10px;
 `

@@ -11,12 +11,12 @@ export const StyledButton = styled.button`
     background-image: linear-gradient(to bottom, #3498db, #2980b9);
     -webkit-border-radius: 28;
     -moz-border-radius: 28;
-    border-radius: 28px;
+    border-radius: 5px;
     font-family: Arial;
     color: #ffffff;
-    font-size: 10px;
+    font-size: 16px;
     width: 175px;
-    padding: 10px 20px 10px 20px;
+    padding: 5px;
     text-decoration: none;
     &:hover {
     background: #3cb0fd;

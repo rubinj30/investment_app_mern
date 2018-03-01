@@ -6,7 +6,7 @@ import NewInvestment from './NewInvestment'
 import StyledButton from './styled-components/StyledButton'
 import { PieChart } from 'react-easy-chart'
 import accounting from 'accounting'
-import { FaArrowCircleRight, FaFolderOpenO } from 'react-icons/lib/fa'
+// import { FaArrowCircleRight, FaFolderOpenO } from 'react-icons/lib/fa'
 import PortfolioSummary from './PortfolioSummary'
 import UserIcon from './UserIcon'
 var randomColor = require('randomcolor')
@@ -56,7 +56,6 @@ class InvestmentList extends Component {
 
         const pieData = this.state.investments.map((investment) => {
             const random = Math.floor(Math.random() * 180) + 1
-           
             return {key: investment.ticker, value: investment.total, color: `rgb(${random}, ${random}, 255)`}
         })
 
@@ -87,34 +86,33 @@ class InvestmentList extends Component {
                                 ))}
                             </Column1>
 
-                            <Column>
+                            <Column2>
                                 <ColumnTitle>#</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.quantity}</Holder>
                                 })}
-                            </Column>
-                            <Column>
+                            </Column2>
+                            <ColumnOdd>
                                 <ColumnTitle>value</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.price}</Holder>
                                 })}
-                            </Column>
-                            <Column4>
+                            </ColumnOdd>
+                            <ColumnEven>
                                 <ColumnTitle>total</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.total.toFixed(2)}</Holder>
                                 })}
-                            </Column4>
-                            <Column>
+                            </ColumnEven>
+                            <ColumnOdd>
                                 <ColumnTitle>profit</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.profit.toFixed(2)}</Holder>
                                 })}
-                            </Column>
+                            </ColumnOdd>
                         </Table>
                         
                         <BottomPageContainer>
-                            <div>Porfolio Summary</div>
                             <PortfolioSummary
                                 profitLossColor={this.state.profitLossColor}
                                 portfolioTotal={this.state.portfolioTotal}
@@ -152,7 +150,7 @@ class InvestmentList extends Component {
                     <div>
 
                         <SplashPage>
-                            <QuoteHolder>"The creator of this app is why I am rich."</QuoteHolder>
+                            <QuoteHolder>"This app made me rich."</QuoteHolder>
                             <QuoteBy> <div>- Warren Buffet</div></QuoteBy>
                         </SplashPage>
                     </div>}
@@ -166,7 +164,9 @@ export default InvestmentList
 
 const Column = styled.div`
     /* border-right: 1px black solid; */
-    text-align: right;
+    text-align: center;
+    background-color: #135f7c;
+    padding: center
 `
 
 const Holder = styled.div`
@@ -174,12 +174,31 @@ const Holder = styled.div`
 `
 
 const Column1 = styled.div`
-    /* border-right: 1px black solid; */
     text-align: left;
+    background-color: #45b9f2;
+    padding-left: 8px;
 `
-const Column4 = styled.div`
-    /* border-right: 1px black solid; */
-    text-align: right;
+
+const Column2 = styled.div`
+    background-color: #238dce;
+    text-align: center;
+    padding: 0 7px;
+    
+`
+
+const ColumnOdd = styled.div`
+    text-align: center;
+    background-color: #45b9f2;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+`
+
+const ColumnEven = styled.div`
+    background-color: #238dce;
+    width: 100%;
+    text-align: center;
 `
 
 const ColumnTitle = styled.div`
@@ -187,29 +206,30 @@ const ColumnTitle = styled.div`
 
 `
 const Table = styled.div`
-    border: 1px black solid;
-    padding: 7px;
     display: flex;
     justify-content: space-between;
-    background-color: #947CB0;
     color: white;
+    padding-top: 10px;
 
 `
+
 const Ticker = styled.div`
     text-decoration: underline;
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 `
+
 const TickerContainer = styled.div`
     padding: 5px 0;
     width: 100%;
 `
+
 const LinkTag = styled.a`
     text-decoration: none;
 `
+
 const TickerName = styled.div`
     padding-right: 5px;
 `
@@ -221,12 +241,11 @@ const ProfitLoss = styled.span`
 const SplashPage = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: #947CB0;
+    background-color: #45b9f2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
 `
 
 const QuoteBy = styled.div`
@@ -253,4 +272,7 @@ const NewInvestmentContainer = styled.div`
 
 const FolderIconSpan = styled.div`
     /* width: 20px; */
+`
+const SummaryTitle = styled.div`
+
 `
