@@ -4,6 +4,7 @@ import { Link, Redirect } from 'react-router-dom'
 import StyledButton from './styled-components/StyledButton'
 import styled from 'styled-components'
 import LineGraph from './LineGraph'
+import accounting from 'accounting'
 
 class SingleInvestmentPage extends Component {
     state = {
@@ -15,7 +16,8 @@ class SingleInvestmentPage extends Component {
         fundamentals: {},
         redirect: false,
         descriptionShowing: false,
-        fundamentalsReady: false
+        fundamentalsReady: false,
+        news: {}
     }
 
     componentWillMount = async () => {
@@ -24,7 +26,7 @@ class SingleInvestmentPage extends Component {
         await this.fetchDailyStockPrices()
         await this.fetchFundamentals()
         await this.fetchMonthlyStockPrices()
-        // this.setState({ fundamentalsReady: true })
+        await this.fetchNews() 
     }
 
     getInvestment = async () => {
@@ -85,7 +87,21 @@ class SingleInvestmentPage extends Component {
                     "X-Authorization-Public-Key": process.env.REACT_APP_STOCK_INFO
                 }
             })
-        this.setState({ fundamentals: response.data.data })
+        this.setState({ 
+            fundamentals: response.data.data,
+            fundamentalsReady: true 
+        })
+    }
+
+    fetchNews = async () => {
+        const URL = `https://api.intrinio.com/news?identifier=${this.state.investment.ticker}`
+        const response = await axios.get(URL,
+            {
+                headers: {
+                    "X-Authorization-Public-Key": process.env.REACT_APP_STOCK_INFO
+                }
+            })
+        this.setState({ news: response.data.data })
     }
 
     deleteStock = async () => {
@@ -132,15 +148,7 @@ class SingleInvestmentPage extends Component {
                         <div>
                             <StyledButton> Change # of {this.state.investment.ticker} Shares</StyledButton>
                         </div>
-                        {this.fundamentalsReady ?
-                            <Fundamentals>
 
-                                <div>Fundamentals</div>
-                                <div>P/E Ratio: {this.state.fundamentals[0].value} </div>
-
-                            </Fundamentals>
-                            : null
-                        }
 
                         <div>
                             <StockDetails>
@@ -166,29 +174,25 @@ class SingleInvestmentPage extends Component {
                                     {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
     
                             </StockDetails>
+
+                            {this.state.fundamentalsReady ?
                             <FundamentalsDetails>
-                                <Detail>
-                                    <DetailKey>CEO:</DetailKey><DetailValue> {this.state.investmentInfo.ceo}</DetailValue>
-                                </Detail>
-                                <Detail>
-                                    <DetailKey># of Employees:</DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>
-                                </Detail>
-                                <Detail>
-                                    <DetailKey>HQs Located in:</DetailKey><DetailValue> {this.state.investmentInfo.hq_state}</DetailValue>
-                                </Detail>
-                                <Detail>
-                                    <DetailKey>Industry:</DetailKey><DetailValue> {this.state.investmentInfo.industry_category}</DetailValue>
-                                </Detail>
-                                <Detail>
-                                    <DetailKey>Exchange:</DetailKey><DetailValue> {this.state.investmentInfo.stock_exchange}</DetailValue>
-                                </Detail>
 
                                 <Detail>
-                                    <DetailKey>Website: </DetailKey><DetailValue><a href={url} target="_blank"> {this.state.investmentInfo.company_url}</a></DetailValue>
+                                    <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[0].value}</DetailValue>
                                 </Detail>
-                                    {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
-    
+                                <Detail>
+                                    <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[1].value}</DetailValue>
+                                </Detail>
+                                <Detail>
+        <DetailKey>EBITDA:</DetailKey><DetailValue> {accounting.formatMoney(this.state.fundamentals[2].value)}</DetailValue>
+                                </Detail>
+                                <Detail>
+                                    <DetailKey>Gross Margin:</DetailKey><DetailValue> {this.state.fundamentals[3].value}</DetailValue>
+                                </Detail>
                             </FundamentalsDetails>
+                            : null
+                            }
                             <div>
                                 {this.state.descriptionShowing ?
                                     <div>

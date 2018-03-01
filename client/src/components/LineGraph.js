@@ -52,10 +52,10 @@ class LineGraph extends Component {
                         <Legend />
                         <Line dot={false} type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
                     </LineChart>
-                    <div>
+                    <TimeFrameContainer>
                         <UnselectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Year</UnselectedTimeFrame>
                         <SelectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Month</SelectedTimeFrame>
-                    </div>
+                    </TimeFrameContainer>
                 </ChartSubContainer>
                 : 
                 <ChartSubContainer>
@@ -69,10 +69,10 @@ class LineGraph extends Component {
                         <Legend />
                         <Line dot={false} type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
                     </LineChart>
-                    <div>
+                    <TimeFrameContainer>
                         <SelectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Year</SelectedTimeFrame>
                         <UnselectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Month</UnselectedTimeFrame>
-                    </div>
+                    </TimeFrameContainer>
                 </ChartSubContainer>
                 } 
 
@@ -90,28 +90,34 @@ const LineChartContainer = styled.div`
     align-items: center;
 `
 
-const SelectedTimeFrame = styled.button`
+const SelectedTimeFrame = styled.div`
     border-radius: 5px;
     background-color : #947CB0;
-    border: 2px black solid;
     color: white;
     padding: 3px;
-    width: 100px;
+    width: 75px;
     margin: 3px;
 
 `
 
-const UnselectedTimeFrame = styled.button`
+const UnselectedTimeFrame = styled.div`
     /* border: 2px black solid; */
     color: #947CB0;
     border-radius: 5px;
     padding: 1px;
-    width: 100px;
+    width: 75px;
     margin: 3px;
+    background-color: white;
+    text-align: center;
 `
 
 const ChartSubContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    
+`
+const TimeFrameContainer = styled.div`
+    display: flex;
 `
