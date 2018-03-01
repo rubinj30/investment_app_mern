@@ -118,8 +118,8 @@ router.patch('/:investmentId', async (request, response) => {
     try {
         const user = await User.findById(request.params.userId)
         const investment = await user.investments.id(request.params.investmentId)
-        investment = request.body
-        await investment.save()
+        investment.quantity = request.body.quantity
+        await user.save()
         response.json(investment)
     }
     catch (err) {

@@ -143,16 +143,53 @@ class SingleInvestmentPage extends Component {
                         }
 
                         <div>
+                            <StockDetails>
+                                <Detail>
+                                    <DetailKey>CEO:</DetailKey><DetailValue> {this.state.investmentInfo.ceo}</DetailValue>
+                                </Detail>
+                                <Detail>
+                                    <DetailKey># of Employees:</DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>
+                                </Detail>
+                                <Detail>
+                                    <DetailKey>HQs Located in:</DetailKey><DetailValue> {this.state.investmentInfo.hq_state}</DetailValue>
+                                </Detail>
+                                <Detail>
+                                    <DetailKey>Industry:</DetailKey><DetailValue> {this.state.investmentInfo.industry_category}</DetailValue>
+                                </Detail>
+                                <Detail>
+                                    <DetailKey>Exchange:</DetailKey><DetailValue> {this.state.investmentInfo.stock_exchange}</DetailValue>
+                                </Detail>
+
+                                <Detail>
+                                    <DetailKey>Website: </DetailKey><DetailValue><a href={url} target="_blank"> {this.state.investmentInfo.company_url}</a></DetailValue>
+                                </Detail>
+                                    {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
+    
+                            </StockDetails>
+                            <FundamentalsDetails>
+                                <Detail>
+                                    <DetailKey>CEO:</DetailKey><DetailValue> {this.state.investmentInfo.ceo}</DetailValue>
+                                </Detail>
+                                <Detail>
+                                    <DetailKey># of Employees:</DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>
+                                </Detail>
+                                <Detail>
+                                    <DetailKey>HQs Located in:</DetailKey><DetailValue> {this.state.investmentInfo.hq_state}</DetailValue>
+                                </Detail>
+                                <Detail>
+                                    <DetailKey>Industry:</DetailKey><DetailValue> {this.state.investmentInfo.industry_category}</DetailValue>
+                                </Detail>
+                                <Detail>
+                                    <DetailKey>Exchange:</DetailKey><DetailValue> {this.state.investmentInfo.stock_exchange}</DetailValue>
+                                </Detail>
+
+                                <Detail>
+                                    <DetailKey>Website: </DetailKey><DetailValue><a href={url} target="_blank"> {this.state.investmentInfo.company_url}</a></DetailValue>
+                                </Detail>
+                                    {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
+    
+                            </FundamentalsDetails>
                             <div>
-                                <div>CEO: {this.state.investmentInfo.ceo}</div>
-                                <div># of Employees: {this.state.investmentInfo.employees}</div>
-                                <div>Headquarters Located in: {this.state.investmentInfo.hq_state}</div>
-
-                                <div>Industry: {this.state.investmentInfo.industry_category}</div>
-                                <div>Exchange: {this.state.investmentInfo.stock_exchange}</div>
-                                {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
-                                <div>Website: <a href={url} target="_blank">{this.state.investmentInfo.company_url}</a></div>
-
                                 {this.state.descriptionShowing ?
                                     <div>
                                         <StyledButton onClick={this.toggleDescriptionShowing}>Hide Company Description</StyledButton>
@@ -180,6 +217,7 @@ class SingleInvestmentPage extends Component {
                 investmentName={this.state.investmentInfo.name}
                 monthlyStockPrices={this.state.monthlyStockPrices}
                 />
+
             </div>
         )
     }
@@ -189,4 +227,27 @@ export default SingleInvestmentPage
 
 const Fundamentals = styled.div`
     width: 200px;
+`
+
+const Detail = styled.div`
+    display:flex;
+    justify-content: space-between;
+`
+
+const DetailKey = styled.div`
+    /* display: flex; */
+`
+
+const DetailValue = styled.div`
+    text-align: right;
+`
+const StockDetails = styled.div`
+    width: 270px;
+    background-color: #947CB0;
+    border-radius: 5px;
+    padding: 8px;
+    color: white;
+`
+const FundamentalsDetails = styled.div`
+
 `

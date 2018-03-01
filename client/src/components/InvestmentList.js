@@ -78,8 +78,7 @@ class InvestmentList extends Component {
                                     <TickerContainer key={investment._id}>
                                         <LinkTag href={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
                                             <Ticker><TickerName>{investment.ticker}</TickerName>
-                                            
-                                            <FolerIconSpan><FaFolderOpenO /></FolerIconSpan>
+                                            <FolderIconSpan><FaFolderOpenO /></FolderIconSpan>
                                             
                                             </Ticker>
                                         </LinkTag>
@@ -105,9 +104,14 @@ class InvestmentList extends Component {
                                     return <Holder key={investment._id}>{accounting.formatMoney(investment.total)}</Holder>
                                 })}
                             </Column4>
-
-
+                            <Column className='stock-item-pad'>
+                                <ColumnTitle>price</ColumnTitle>
+                                {this.state.investments.map(investment => {
+                                    return <Holder key={investment._id}>{investment.price}</Holder>
+                                })}
+                            </Column>
                         </Table>
+                        
                         <BottomPageContainer>
                             <PortfolioSummary
                                 profitLossColor={this.state.profitLossColor}
@@ -253,6 +257,6 @@ const NewInvestmentContainer = styled.div`
     align-items: center;
 `
 
-const FolerIconSpan = styled.div`
+const FolderIconSpan = styled.div`
     /* width: 20px; */
 `

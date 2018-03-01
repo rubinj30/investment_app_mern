@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 import styled from 'styled-components'
+import StyledButton from './styled-components/StyledButton'
 
 class LineGraph extends Component {
 
@@ -25,14 +26,16 @@ class LineGraph extends Component {
             lineData.push({name: '', stock: parseInt(dailyStockPrices[property1]['4. close']), amt: 100})
         }
 
+        const reversedLineData = lineData.slice(1, 30).reverse()
+
         const monthlyStockPrices = this.props.monthlyStockPrices
         const monthlyLineData = []
         for (var property1 in monthlyStockPrices){
             const ticker = parseInt(monthlyStockPrices[property1]['4. close'])
-            monthlyLineData.push({name: '', stock: parseInt(monthlyStockPrices[property1]['4. close']), amt: 100})
+            monthlyLineData.push({name: '', stock: parseInt(monthlyStockPrices[property1]['4. close']), amt: 5})
         }
 
-        console.log(monthlyLineData)
+        const reversedMonthlyData = monthlyLineData.slice(1, 52).reverse()
 
         return (
             <LineChartContainer>
@@ -40,8 +43,8 @@ class LineGraph extends Component {
                 { this.state.dailyChartTimeFrame ? 
                 <div>
                     <div>Daily Performance for Last 100 Days</div>
-                    <LineChart width={300} height={200} data={lineData}
-                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                    <LineChart width={300} height={200} data={reversedLineData}
+                        margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
                         <XAxis dataKey="name" />
                         <YAxis />
                         <CartesianGrid strokeDasharray="3 3" />
@@ -53,18 +56,18 @@ class LineGraph extends Component {
                 : 
                 <div>
                     <div>Monthly Performance</div>
-                    <LineChart width={300} height={200} data={monthlyLineData}
+                    <LineChart width={300} height={200} data={reversedMonthlyData}
                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                         <XAxis dataKey="name" />
                         <YAxis />
                         <CartesianGrid strokeDasharray="3 3" />
                         <Tooltip />
                         <Legend />
-                        <Line type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
+                        <Line dot={false} type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
                     </LineChart>
                 </div>
                 } 
-                <button onClick={this.toggleChartTimeFrame}>Switch Timeframe</button>
+                <StyledButton onClick={this.toggleChartTimeFrame}>Switch Timeframe</StyledButton>
             </LineChartContainer>
         );
     }

@@ -19,7 +19,7 @@ User.remove({}).then(() => {
     const amzn = new Investment({
         ticker: 'AMZN' ,
         type: 'stock',
-        quantity: 10,
+        quantity: 9,
         price: 0,
         totalPurchasePrice: 0,
         stockPurchasePrice: 320
@@ -36,7 +36,7 @@ User.remove({}).then(() => {
     const hd = new Investment({
         ticker: 'HD' ,
         type: 'stock',
-        quantity: 8,
+        quantity: 20,
         price: 0,
         totalPurchasePrice: 0,
         stockPurchasePrice: 153.32
@@ -57,14 +57,14 @@ User.remove({}).then(() => {
         totalPurchasePrice: 1333,
         stockPurchasePrice: 45.32
     })
-    const ll = new Investment({
-        ticker: 'LL',
-        type: 'stock',
-        quantity: 700,
-        price: 0,
-        totalPurchasePrice: 12551,
-        stockPurchasePrice: 17.93
-    })
+    // const ll = new Investment({
+    //     ticker: 'LL',
+    //     type: 'stock',
+    //     quantity: 700,
+    //     price: 0,
+    //     totalPurchasePrice: 12551,
+    //     stockPurchasePrice: 17.93
+    // })
     const twlo = new Investment({
         ticker: 'TWLO',
         type: 'stock',
@@ -74,7 +74,7 @@ User.remove({}).then(() => {
         stockPurchasePrice: 33.00
     })
 
-    user1.investments.push(amzn, fb, hd,  tsla, dal, ll, twlo)
+    user1.investments.push(amzn, fb, hd,  tsla, dal, twlo)
     return user1.save()
 }).then(() => {
     const user2 = new User({
@@ -85,7 +85,7 @@ User.remove({}).then(() => {
     const amzn = new Investment({
         ticker: 'AMZN' ,
         type: 'stock',
-        quantity: 5,
+        quantity: 10,
         price: 0,
         totalPurchasePrice: 0,
         stockPurchasePrice: 320.43
@@ -93,7 +93,7 @@ User.remove({}).then(() => {
     const fb = new Investment({
         ticker: 'FB' ,
         type: 'stock',
-        quantity: 6,
+        quantity: 20,
         price: 0,
         totalPurchasePrice: 0,
         stockPurchasePrice: 140.12
@@ -118,7 +118,7 @@ User.remove({}).then(() => {
     const ibm = new Investment({
         ticker: 'IBM',
         type: 'stock',
-        quantity: 12,
+        quantity: 15,
         price: 0,
         totalPurchasePrice: 0,
         stockPurchasePrice: 194.23
