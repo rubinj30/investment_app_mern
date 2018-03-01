@@ -201,9 +201,9 @@ class SingleInvestmentPage extends Component {
                                     </div>
                                 }
                                 <div>
-                                    <a href={`/users/${this.props.match.params.userId}/investments`}>
+                                    <Link to={`/users/${this.props.match.params.userId}/investments`}>
                                         <StyledButton>Back to Portfolio</StyledButton>
-                                    </a>
+                                    </Link>
                                 </div>
 
                             </div>

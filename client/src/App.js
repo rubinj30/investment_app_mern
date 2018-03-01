@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom"
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import HomePage from "./components/HomePage"
 import InvestmentList from "./components/InvestmentList"
 import SingleInvestmentPage from "./components/SingleInvestmentPage"
