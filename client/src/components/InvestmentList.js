@@ -6,7 +6,6 @@ import NewInvestment from './NewInvestment'
 import StyledButton from './styled-components/StyledButton'
 import { PieChart } from 'react-easy-chart'
 import accounting from 'accounting'
-// import { FaArrowCircleRight, FaFolderOpenO } from 'react-icons/lib/fa'
 import PortfolioSummary from './PortfolioSummary'
 import UserIcon from './UserIcon'
 var randomColor = require('randomcolor')
@@ -26,7 +25,7 @@ class InvestmentList extends Component {
     }
 
     componentWillMount = async () => {
-        setTimeout(await this.getAllInvestments(), 5000)
+        await this.getAllInvestments(), 5000
     }
 
     getAllInvestments = async () => {
@@ -66,9 +65,11 @@ class InvestmentList extends Component {
             <div>
                 {this.state.pageReady ?
                     <div>
-                        <UserIcon 
-                            user={this.state.user}
-                            />
+                        <HeaderPlacement>
+                            <UserIcon 
+                                user={this.state.user}
+                                />
+                        </HeaderPlacement>
 
                         <Table>
 
@@ -94,13 +95,13 @@ class InvestmentList extends Component {
                                 })}
                             </Column2>
                             <ColumnOdd>
-                                <ColumnTitle>value ($)</ColumnTitle>
+                                <ColumnTitle>current ($)</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.price}</Holder>
                                 })}
                             </ColumnOdd>
                             <ColumnEven>
-                                <ColumnTitle>current price ($)</ColumnTitle>
+                                <ColumnTitle>total ($)</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.total.toFixed(2)}</Holder>
                                 })}
@@ -132,7 +133,7 @@ class InvestmentList extends Component {
                                 :
                                 <StyledButton onClick={this.toggleAddStockForm}>+ Add Investment</StyledButton>
                             }
-
+                            <PieContainer>
                             <PieChart className="pie-chart"
                                 size={250}
                                 labels
@@ -144,6 +145,7 @@ class InvestmentList extends Component {
                                     }
                                 }}
                             />
+                            </PieContainer>
                         </BottomPageContainer>
                     </div>
 
@@ -169,7 +171,7 @@ const Column = styled.div`
     /* border-right: 1px black solid; */
     text-align: center;
     background-color: #135f7c;
-    padding: center
+    padding: center;
 `
 
 const Holder = styled.div`
@@ -180,12 +182,15 @@ const Column1 = styled.div`
     text-align: left;
     background-color: #45b9f2;
     padding-left: 8px;
+    padding-top: 10px;
 `
 
 const Column2 = styled.div`
     background-color: #238dce;
     text-align: center;
     padding: 0 7px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     
 `
 
@@ -197,24 +202,28 @@ const ColumnOdd = styled.div`
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
+    padding-top: 10px;
+    padding-bottom: 10px;
 `
 
 const ColumnEven = styled.div`
     background-color: #238dce;
     width: 100%;
     text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 `
 
 const ColumnTitle = styled.div`
     padding-bottom: 10px;
-
+    padding-top: 10px;
+    padding-bottom: 10px;
 `
+
 const Table = styled.div`
     display: flex;
     justify-content: space-between;
     color: white;
-    padding-top: 10px;
-
 `
 
 const Ticker = styled.div`
@@ -275,4 +284,16 @@ const FolderIconSpan = styled.div`
 `
 const SummaryTitle = styled.div`
 
+`
+
+const PieContainer = styled.div`
+    margin-top: 30px;
+`
+
+const HeaderPlacement = styled.div`
+    display: flex;
+    justify-content: center;
+    background-color: #45b9f2;
+    color: white;
+    padding-bottom: 10px;
 `

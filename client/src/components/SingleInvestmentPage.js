@@ -7,6 +7,7 @@ import LineGraph from './LineGraph'
 import accounting from 'accounting'
 import StockNews from './StockNews'
 import UserIcon from './UserIcon'
+import { FaArrowCircleLeft } from 'react-icons/lib/fa'
 
 
 class SingleInvestmentPage extends Component {
@@ -28,9 +29,9 @@ class SingleInvestmentPage extends Component {
         await this.getInvestment()
         this.fetchStockInfoFromApi()
         this.fetchDailyStockPrices()
-        this.fetchFundamentals()
-        this.fetchMonthlyStockPrices()
-        this.fetchNews()
+        // this.fetchFundamentals()
+        // this.fetchMonthlyStockPrices()
+        // this.fetchNews()
     }
 
     getInvestment = async () => {
@@ -104,7 +105,7 @@ class SingleInvestmentPage extends Component {
                     "X-Authorization-Public-Key": process.env.REACT_APP_STOCK_INFO
                 }
             })
-        this.setState({ 
+        this.setState({
             news: response.data.data,
             newsReady: true
         })
@@ -142,15 +143,13 @@ class SingleInvestmentPage extends Component {
         return (
 
             <InvestmentContainer>
-                <ProfileHolder>
-                    <UserIcon 
+                    <UserIcon
                         user={this.state.user}
-                        />
-                </ProfileHolder>
-                    
+                    />
+
                 {this.state.redirect ?
                     <Redirect to={`/users/${this.props.match.params.userId}/investments`} /> :
-                    <div>
+                    <Company>
                         <div>
                             {this.state.investmentInfo.name} ({this.state.investment.ticker})
                         </div>
@@ -181,60 +180,67 @@ class SingleInvestmentPage extends Component {
                                 </Detail>
 
                                 <Detail>
-                                   <DetailValue><a href={url} target="_blank">Go to the {this.state.investmentInfo.name} website</a></DetailValue>
+                                    <DetailValue><a href={url} target="_blank">Go to the {this.state.investmentInfo.name} website</a></DetailValue>
                                 </Detail>
-                                {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
 
                             </StockDetails>
 
                             {this.state.fundamentalsReady ?
-                                <FundamentalsDetails>
+                                <Fundamentals>
+                                    <FundamentalsTitle>Key Metrics</FundamentalsTitle>
 
-                                    <Detail>
-                                        <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[0].value}</DetailValue>
-                                    </Detail>
-                                    <Detail>
-                                        <DetailKey>Gross Margin</DetailKey><DetailValue> {this.state.fundamentals[1].value}</DetailValue>
-                                    </Detail>
-                                    <Detail>
-                                        <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[2].value}</DetailValue>
-                                    </Detail>
-                                </FundamentalsDetails>
+                                    <FundamentalsDetails>
+
+
+                                        <Detail>
+                                            <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[0].value}</DetailValue>
+                                        </Detail>
+                                        <Detail>
+                                            <DetailKey>Gross Margin</DetailKey><DetailValue> {this.state.fundamentals[1].value}</DetailValue>
+                                        </Detail>
+                                        <Detail>
+                                            <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[2].value}</DetailValue>
+                                        </Detail>
+                                    </FundamentalsDetails>
+                                </Fundamentals>
                                 : null
                             }
                             <div>
                                 {this.state.descriptionShowing ?
-                                    <div>
+                                    <BelowFundamentalsButtons>
                                         <StyledButton onClick={this.toggleDescriptionShowing}>Hide Company Description</StyledButton>
                                         <p>{this.state.investmentInfo.short_description}</p>
-                                    </div>
+                                    </BelowFundamentalsButtons>
                                     :
-                                    <div>
+                                    <BelowFundamentalsButtons>
                                         <StyledButton onClick={this.toggleDescriptionShowing}>More About {this.state.investmentInfo.ticker}</StyledButton>
-                                    </div>
+                                    </BelowFundamentalsButtons>
                                 }
                                 <div>
-                                    <Link to={`/users/${this.props.match.params.userId}/investments`}>
-                                        <StyledButton>Back to Portfolio</StyledButton>
-                                    </Link>
+                                    <BelowFundamentalsButtons>
+                                        <Link to={`/users/${this.props.match.params.userId}/investments`}>
+                                            <StyledButton>Back to Portfolio</StyledButton>
+                                        </Link>
+                                    </BelowFundamentalsButtons>
                                 </div>
                             </div>
 
                         </div>
-                    </div>
+                    </Company>
                 }
-
+                <LineContainer>
                 <LineGraph
                     dailyStockPrices={this.state.dailyStockPrices}
                     investment={this.state.investment}
                     investmentName={this.state.investmentInfo.name}
                     monthlyStockPrices={this.state.monthlyStockPrices}
                 />
-                
-                <StockNews 
-                news={this.state.news}
-                newsReady={this.state.newsReady}
-                investmentName={this.state.investmentInfo.name}
+                </LineContainer>
+
+                <StockNews
+                    news={this.state.news}
+                    newsReady={this.state.newsReady}
+                    investmentName={this.state.investmentInfo.name}
                 />
 
             </InvestmentContainer>
@@ -244,8 +250,11 @@ class SingleInvestmentPage extends Component {
 
 export default SingleInvestmentPage
 
-const Fundamentals = styled.div`
-    width: 200px;
+
+const Company = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 const Detail = styled.div`
@@ -261,14 +270,18 @@ const DetailValue = styled.div`
     text-align: right;
 `
 const StockDetails = styled.div`
-    width: 270px;
+    width: 300px;
+    margin: 30px 0;
+    padding: 40px;
     background-color: #947CB0;
     border-radius: 5px;
     padding: 8px;
     color: white;
 `
 const FundamentalsDetails = styled.div`
-
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
 `
 
 const InvestmentContainer = styled.div`
@@ -277,7 +290,25 @@ const InvestmentContainer = styled.div`
     align-items: center;
 `
 
-const ProfileHolder = styled.div`
+const Fundamentals = styled.div`
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
+
+`
+
+const FundamentalsTitle = styled.div`
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+`
+
+const BelowFundamentalsButtons = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+const LineContainer = styled.div`
+    /* display: flex */
 `

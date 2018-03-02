@@ -42,9 +42,9 @@ class LineGraph extends Component {
                 <div>{investmentName} ({ticker})</div>
                 { this.state.dailyChartTimeFrame ? 
                 <ChartSubContainer>
-                    <div>1 Month</div>
-                    <LineChart width={300} height={200} data={reversedLineData}
-                        margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <div>Past Month</div>
+                    <LineChart width={360} height={200} data={reversedLineData}
+                        margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
                         <XAxis dataKey="name" />
                         <YAxis />
                         <CartesianGrid strokeDasharray="3 3" />
@@ -59,9 +59,9 @@ class LineGraph extends Component {
                 </ChartSubContainer>
                 : 
                 <ChartSubContainer>
-                    <div>Monthly Performance</div>
-                    <LineChart width={300} height={200} data={reversedMonthlyData}
-                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                    <div>Past Year</div>
+                    <LineChart width={350} height={200} data={reversedMonthlyData}
+                        margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
                         <XAxis dataKey="name" />
                         <YAxis />
                         <CartesianGrid strokeDasharray="3 3" />
