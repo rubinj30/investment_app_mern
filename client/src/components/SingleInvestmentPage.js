@@ -8,8 +8,6 @@ import accounting from 'accounting'
 import StockNews from './StockNews'
 import UserIcon from './UserIcon'
 import { FaArrowCircleLeft } from 'react-icons/lib/fa'
-import underscore from 'underscore'
-
 
 class SingleInvestmentPage extends Component {
     state = {
