@@ -24,9 +24,7 @@ connection.on('error', (err) => {
 })
 
 app.use(express.static(__dirname + '/client/build/'))
-app.get('/', (req,res) => {
-    res.sendFile(__dirname + '/client/build/index.html')
-})
+
 
 app.use(logger('dev'))
 app.use(bodyParser.json())
@@ -39,6 +37,10 @@ app.use('/api/users', UsersController)
 const InvestmentsController = require('./routes/investments')
 app.use('/api/users/:userId/investments', InvestmentsController)
 
+app.get('*', (req,res) => {
+    res.sendFile(__dirname + '/client/build/index.html')
+})
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     const err = new Error('Not Found');
@@ -49,9 +51,6 @@ app.use(function (req, res, next) {
 // test
 app.use(logger('dev'))
 app.use(bodyParser.json({ extended: false }))
-app.get('/', (req, res) => {
-    res.send('Hello world!')
-})
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
