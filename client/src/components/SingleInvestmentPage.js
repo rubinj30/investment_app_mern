@@ -145,10 +145,10 @@ class SingleInvestmentPage extends Component {
         const url = "http://" + this.state.investmentInfo.company_url
         if (this.state.dailyReady) {
         const yesterdayClosePrice = Object.values(dailyStockPrices)[0]['1. close']
-        console.log(yesterdayClosePrice)
-        console.log("Price",this.state.investment.price)
-        const priceChange = this.state.investment.price - parseInt(yesterdayClosePrice)
-        console.log(priceChange)
+            console.log("YESTERDAY", yesterdayClosePrice)
+            console.log("Price",this.state.investment.price)
+            const priceChange = this.state.investment.price - parseInt(yesterdayClosePrice)
+            console.log(priceChange)
         }
         
         
@@ -165,9 +165,9 @@ class SingleInvestmentPage extends Component {
                 {this.state.redirect ?
                     <Redirect to={`/users/${this.props.match.params.userId}/investments`} /> :
                     <Company>
-                        <div>
+                        <CompanyName>
                             {this.state.investmentInfo.name} ({this.state.investment.ticker})
-                        </div>
+                        </CompanyName>
                         <div>
                             <StyledButton onClick={this.handleClick}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
                         </div>
@@ -176,7 +176,7 @@ class SingleInvestmentPage extends Component {
                         </div>
                         <PriceDetail>
                             <Detail>
-                                <DetailKey>Current Price:</DetailKey><DetailValue> {this.state.investment.price}</DetailValue>
+                                <DetailKey>Current Price:</DetailKey><DetailValue> {accounting.formatMoney(this.state.investment.price)}</DetailValue>
                             </Detail>
                             <Detail>
                                 <DetailKey>% Change Since Yesterday: </DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>
@@ -349,4 +349,9 @@ const HeaderWrapper = styled.div`
     color: white;
     padding-bottom: 10px;
     width: 100%;
+`
+
+const CompanyName = styled.div`
+    padding: 20px 0;
+    font-size: 20px;
 `

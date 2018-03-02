@@ -14,7 +14,7 @@ export const StyledButton = styled.button`
     font-family: Arial;
     color: #ffffff;
     font-size: 16px;
-    width: 200px;
+    width: 240px;
     padding: 5px;
     text-decoration: none;
     &:hover {

@@ -44,12 +44,12 @@ router.get('/', async (request, response) => {
 
                     // multiplies original stock purchase price * quantity and adds to portfolio cost
                     portfolioCost += (investment.stockPurchasePrice * investment.quantity)
-
-
+                    
                     updatedStockInfo.push(investment)
                 }
             })
         })
+
         profitOrLoss = portfolioTotal - portfolioCost
         let profitLossColor = ''
         profitOrLoss > 0 ? profitLossColor = 'green' : profitLossColor = 'red;'
@@ -71,15 +71,9 @@ router.get('/:investmentId', async (request, response) => {
         const user = await User.findById(request.params.userId)
         const investment = await user.investments.id(request.params.investmentId)
 
-        // console.log(investment)
-        // let response = ''
-        // alpha.data.batch(investment.ticker).then(data => {
-        //     response = data['Stock Quotes'][0]['2. price']
-        //     return response
-        // });
-        
-        
-        console.log("TESTTESTTESTTEST", investment)
+        await alpha.data.batch(investment.ticker).then(data => {
+            investment.price = data['Stock Quotes'][0]['2. price']
+        })
 
         response.json({
             user,
