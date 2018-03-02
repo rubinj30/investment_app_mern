@@ -1,31 +1,34 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+var Spinner = require('react-spinkit');
 
 class StockNews extends Component {
-    
+
     state = {
         showMore: false
     }
-    
+
     render() {
-        
+
         return (
-            <div>
-                {this.props.newsReady ? 
+            <NewsContainer>
+                <NewsSectionTitle>News Related to {this.props.investmentName}</NewsSectionTitle>
+
+                {this.props.newsReady ?
 
                     this.props.news.slice(1, 10).map((item, index) => {
                         return <NewsItem>
-                        
-                        <NewsTitle><Link to={`${item.url}`} key={index}>{item.title}</Link></NewsTitle>
-                        <div>{item.summary}</div>
-                        
+
+                            <NewsTitle><Link to={`${item.url}`} key={index}>{item.title}</Link></NewsTitle>
+                            <div>{item.summary} <Link to={`${item.url}`} key={index}>See more...</Link></div>
                         </NewsItem>
                     })
-                : 
-                null
+                    :
+                        <Spinner name="line-scale" />
+
                 }
-            </div>
+            </NewsContainer>
         );
     }
 }
@@ -42,7 +45,21 @@ const NewsTitle = styled.div`
     padding: 5px;
     a {
         text-decoration: none;
-        color: 
+        color: #238dce;
     }
+`
 
+const NewsContainer = styled.div`
+    padding-top: 30px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+const NewsSectionTitle = styled.div`
+
+`
+
+const SpinnerContainer = styled.div`
+    display: flex;
 `

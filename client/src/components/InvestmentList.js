@@ -10,6 +10,7 @@ import accounting from 'accounting'
 import PortfolioSummary from './PortfolioSummary'
 import UserIcon from './UserIcon'
 var randomColor = require('randomcolor')
+var Spinner = require('react-spinkit');
 
 
 class InvestmentList extends Component {
@@ -25,7 +26,7 @@ class InvestmentList extends Component {
     }
 
     componentWillMount = async () => {
-        await this.getAllInvestments()
+        setTimeout(await this.getAllInvestments(), 5000)
     }
 
     getAllInvestments = async () => {
@@ -93,19 +94,19 @@ class InvestmentList extends Component {
                                 })}
                             </Column2>
                             <ColumnOdd>
-                                <ColumnTitle>value</ColumnTitle>
+                                <ColumnTitle>value ($)</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.price}</Holder>
                                 })}
                             </ColumnOdd>
                             <ColumnEven>
-                                <ColumnTitle>total</ColumnTitle>
+                                <ColumnTitle>current price ($)</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.total.toFixed(2)}</Holder>
                                 })}
                             </ColumnEven>
                             <ColumnOdd>
-                                <ColumnTitle>profit</ColumnTitle>
+                                <ColumnTitle>profit ($)</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.profit.toFixed(2)}</Holder>
                                 })}
@@ -150,6 +151,8 @@ class InvestmentList extends Component {
                     <div>
 
                         <SplashPage>
+
+                            <Spinner name="line-scale" />
                             <QuoteHolder>"This app made me rich."</QuoteHolder>
                             <QuoteBy> <div>- Warren Buffet</div></QuoteBy>
                         </SplashPage>
@@ -192,6 +195,7 @@ const ColumnOdd = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-direction: column;
 `
 
@@ -202,7 +206,7 @@ const ColumnEven = styled.div`
 `
 
 const ColumnTitle = styled.div`
-    padding-bottom: 8px;
+    padding-bottom: 10px;
 
 `
 const Table = styled.div`
@@ -224,10 +228,6 @@ const Ticker = styled.div`
 const TickerContainer = styled.div`
     padding: 5px 0;
     width: 100%;
-`
-
-const LinkTag = styled.a`
-    text-decoration: none;
 `
 
 const TickerName = styled.div`

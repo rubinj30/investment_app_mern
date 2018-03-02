@@ -53,8 +53,8 @@ class LineGraph extends Component {
                         <Line dot={false} type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
                     </LineChart>
                     <TimeFrameContainer>
-                        <UnselectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Year</UnselectedTimeFrame>
                         <SelectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Month</SelectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Year</UnselectedTimeFrame>
                     </TimeFrameContainer>
                 </ChartSubContainer>
                 : 
@@ -70,8 +70,8 @@ class LineGraph extends Component {
                         <Line dot={false} type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
                     </LineChart>
                     <TimeFrameContainer>
-                        <SelectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Year</SelectedTimeFrame>
                         <UnselectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Month</UnselectedTimeFrame>
+                        <SelectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Year</SelectedTimeFrame>
                     </TimeFrameContainer>
                 </ChartSubContainer>
                 } 

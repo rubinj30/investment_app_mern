@@ -8,6 +8,7 @@ import accounting from 'accounting'
 import StockNews from './StockNews'
 import UserIcon from './UserIcon'
 
+
 class SingleInvestmentPage extends Component {
     state = {
         user: {},
@@ -180,7 +181,7 @@ class SingleInvestmentPage extends Component {
                                 </Detail>
 
                                 <Detail>
-                                    <DetailKey>Website: </DetailKey><DetailValue><a href={url} target="_blank"> {this.state.investmentInfo.company_url}</a></DetailValue>
+                                   <DetailValue><a href={url} target="_blank">Go to the {this.state.investmentInfo.name} website</a></DetailValue>
                                 </Detail>
                                 {/* <div>Fundamentals: Debt-to-Equity Ratio {this.state.fundamentals}</div> */}
 
@@ -233,6 +234,7 @@ class SingleInvestmentPage extends Component {
                 <StockNews 
                 news={this.state.news}
                 newsReady={this.state.newsReady}
+                investmentName={this.state.investmentInfo.name}
                 />
 
             </InvestmentContainer>
