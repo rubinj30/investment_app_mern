@@ -8,6 +8,7 @@ import accounting from 'accounting'
 import StockNews from './StockNews'
 import UserIcon from './UserIcon'
 import { FaArrowCircleLeft } from 'react-icons/lib/fa'
+import underscore from 'underscore'
 
 
 class SingleInvestmentPage extends Component {
@@ -16,6 +17,8 @@ class SingleInvestmentPage extends Component {
         investment: {},
         investmentInfo: {},
         dailyStockPrices: {},
+        dailyReady: false,
+        investmentReady: false,
         monthlyStockPrices: {},
         fundamentals: {},
         redirect: false,
@@ -29,18 +32,20 @@ class SingleInvestmentPage extends Component {
         await this.getInvestment()
         this.fetchStockInfoFromApi()
         this.fetchDailyStockPrices()
-        // this.fetchFundamentals()
-        // this.fetchMonthlyStockPrices()
-        // this.fetchNews()
+        this.fetchFundamentals()
+        this.fetchMonthlyStockPrices()
+        this.fetchNews()
     }
 
     getInvestment = async () => {
         const userId = this.props.match.params.userId
         const investmentId = this.props.match.params.id
         const response = await axios.get(`/api/users/${userId}/investments/${this.props.match.params.investmentId}`)
+        console.log("GET INVESTMENT TEST", response.data.investment)
         this.setState({
             user: response.data.user,
-            investment: response.data.investment
+            investment: response.data.investment,
+            investmentReady: !this.state.investmentReady
         })
     }
 
@@ -63,7 +68,9 @@ class SingleInvestmentPage extends Component {
             const api_key = process.env.REACT_APP_TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
-            this.setState({ dailyStockPrices: response.data["Time Series (Daily)"] })
+            this.setState({ 
+                dailyStockPrices: response.data["Time Series (Daily)"],
+                dailyReady: !this.state.dailyReady })
         }
         catch (err) {
             console.log(err)
@@ -136,16 +143,23 @@ class SingleInvestmentPage extends Component {
         for (var property1 in dailyStockPrices) {
             stockArray.push(dailyStockPrices[property1])
         }
+
         const url = "http://" + this.state.investmentInfo.company_url
-
-
-
+        if (this.state.dailyReady) {
+        const yesterdayClosePrice = Object.values(dailyStockPrices)[0]['1. close']
+        console.log(yesterdayClosePrice)
+        console.log("Price",this.state.investment.price)
+        const priceChange = this.state.investment.price - parseInt(yesterdayClosePrice)
+        console.log(priceChange)
+        }
+        
+        
         return (
 
             <InvestmentContainer>
-                    <UserIcon
-                        user={this.state.user}
-                    />
+                <UserIcon
+                    user={this.state.user}
+                />
 
                 {this.state.redirect ?
                     <Redirect to={`/users/${this.props.match.params.userId}/investments`} /> :
@@ -159,6 +173,16 @@ class SingleInvestmentPage extends Component {
                         <div>
                             <StyledButton> Change # of {this.state.investment.ticker} Shares</StyledButton>
                         </div>
+                        <PriceDetail>
+                            <Detail>
+                                <DetailKey>Current Price:</DetailKey><DetailValue> {this.state.investment.price}</DetailValue>
+                            </Detail>
+                            <Detail>
+                                <DetailKey>% Change Since Yesterday: </DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>
+                            </Detail>
+
+
+                        </PriceDetail>
 
 
                         <div>
@@ -229,12 +253,12 @@ class SingleInvestmentPage extends Component {
                     </Company>
                 }
                 <LineContainer>
-                <LineGraph
-                    dailyStockPrices={this.state.dailyStockPrices}
-                    investment={this.state.investment}
-                    investmentName={this.state.investmentInfo.name}
-                    monthlyStockPrices={this.state.monthlyStockPrices}
-                />
+                    <LineGraph
+                        dailyStockPrices={this.state.dailyStockPrices}
+                        investment={this.state.investment}
+                        investmentName={this.state.investmentInfo.name}
+                        monthlyStockPrices={this.state.monthlyStockPrices}
+                    />
                 </LineContainer>
 
                 <StockNews
@@ -311,4 +335,8 @@ const BelowFundamentalsButtons = styled.div`
 
 const LineContainer = styled.div`
     /* display: flex */
+`
+
+const PriceDetail = styled.div`
+
 `

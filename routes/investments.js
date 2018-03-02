@@ -45,8 +45,6 @@ router.get('/', async (request, response) => {
                     // multiplies original stock purchase price * quantity and adds to portfolio cost
                     portfolioCost += (investment.stockPurchasePrice * investment.quantity)
 
-                    // calculates the profit/loss total and 
-                    // profitOrLoss += (investment.stockPurchasePrice * investment.quantity).toFixed(2)
 
                     updatedStockInfo.push(investment)
                 }
@@ -72,6 +70,17 @@ router.get('/:investmentId', async (request, response) => {
     try {
         const user = await User.findById(request.params.userId)
         const investment = await user.investments.id(request.params.investmentId)
+
+        // console.log(investment)
+        // let response = ''
+        // alpha.data.batch(investment.ticker).then(data => {
+        //     response = data['Stock Quotes'][0]['2. price']
+        //     return response
+        // });
+        
+        
+        console.log("TESTTESTTESTTEST", investment)
+
         response.json({
             user,
             investment

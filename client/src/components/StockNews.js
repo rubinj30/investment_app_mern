@@ -57,7 +57,7 @@ const NewsContainer = styled.div`
 `
 
 const NewsSectionTitle = styled.div`
-
+    max-width: 300px;
 `
 
 const SpinnerContainer = styled.div`
