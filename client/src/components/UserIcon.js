@@ -2,21 +2,25 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { FaUser } from 'react-icons/lib/fa'
 import styled from 'styled-components'
-import { FaArrowCircleLeft } from 'react-icons/lib/fa'
+import { FaArrowCircleLeft, FaLineChart } from 'react-icons/lib/fa'
 
 class UserIcon extends Component {
     render() {
         return (
-            <UserDiv>
-                <ArrowSize><Link to={`${this.props.backLink}`}><FaArrowCircleLeft /></Link></ArrowSize>
-                
-                <Link to={`/users/${this.props.user._id}`}>
-                    <Holder>
-                        <Username>{this.props.user.username}</Username>
-                        <UserIconSize><FaUser /></UserIconSize>
-                    </Holder>
-                </Link>
-            </UserDiv>
+
+            <Header>
+                <UserDiv>
+                    <ArrowSize><Link to={`${this.props.backLink}`}><FaArrowCircleLeft /></Link></ArrowSize>
+
+                    <Link to={`/users/${this.props.user._id}`}>
+                        <Holder>
+                            <Username>{this.props.user.username}</Username>
+                            <UserIconSize><FaUser /></UserIconSize>
+                        </Holder>
+                    </Link>
+                </UserDiv>
+                <AppTitle><AppText>StockUp</AppText><FaLineChart /></AppTitle>
+            </Header>
         );
     }
 }
@@ -57,3 +61,21 @@ const UserIconSize = styled.div`
     font-size: 20px;
     color: white;
 `
+
+const AppTitle = styled.div`
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const Header = styled.div`
+    
+`
+
+const AppText = styled.div`
+    padding-right: 6px;
+`
+
