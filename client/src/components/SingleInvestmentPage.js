@@ -155,9 +155,12 @@ class SingleInvestmentPage extends Component {
         return (
 
             <InvestmentContainer>
-                <UserIcon
-                    user={this.state.user}
-                />
+                <HeaderWrapper>
+                    <UserIcon
+                        user={this.state.user}
+                        backLink={`/users/${this.state.user._id}/investments`}
+                    />
+                </HeaderWrapper>
 
                 {this.state.redirect ?
                     <Redirect to={`/users/${this.props.match.params.userId}/investments`} /> :
@@ -337,4 +340,13 @@ const LineContainer = styled.div`
 
 const PriceDetail = styled.div`
 
+`
+
+const HeaderWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    background-color: #45b9f2;
+    color: white;
+    padding-bottom: 10px;
+    width: 100%;
 `

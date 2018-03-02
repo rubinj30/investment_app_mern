@@ -68,6 +68,7 @@ class InvestmentList extends Component {
                         <HeaderPlacement>
                             <UserIcon 
                                 user={this.state.user}
+                                backLink={`/users/${this.state.user._id}`}
                                 />
                         </HeaderPlacement>
 

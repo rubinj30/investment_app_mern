@@ -8,7 +8,7 @@ class UserIcon extends Component {
     render() {
         return (
             <UserDiv>
-                <ArrowSize><Link to={`/users/${this.props.user._id}/investments`}><FaArrowCircleLeft /></Link></ArrowSize>
+                <ArrowSize><Link to={`${this.props.backLink}`}><FaArrowCircleLeft /></Link></ArrowSize>
                 
                 <Link to={`/users/${this.props.user._id}`}>
                     <Holder>
