@@ -1,8 +1,8 @@
 # Stock Tracker
-This is an app for tracking the performance of your investments. 
+This is an app for tracking the performance of your investments.
 
 ## Link to site
-https://track-stacks.com
+https://stock-up-app.herokuapp.com
 
 ## Technologies/Frameworks used:
 MERN stack:
@@ -17,16 +17,32 @@ Mongoose.js
 CSS and HTML
 styled-components
 React Materialize
+Recharts
 Heroku
 
 ### More About the Project
 
 Planning and Project Management
-User Stories: https://trello.com/b/SUzslxtZ/stocks-app
-Wireframes: https://i.imgur.com/zYyY8AM.png
-ERD: 
 
+- User Stories: https://trello.com/b/SUzslxtZ/stocks-app
+- Wireframes: https://i.imgur.com/zYyY8AM.png
+- ERD: 
 
+### API's 
+I spent a lot of time researching and testing different API's. Some that I found even inspired some of my favorite features on the site that I never imagined I could do. For instance, when I found the Alpha Vantage free API for time series stock prices, I knew I had to try to leverage this to make a line graph. 
+
+#### Intrinio
+- Financial Ratios
+- News
+- Company Info 
+#### Alpha Vantage
+- Time Series
+- Current Price
 
 Remaining goals:
-Grab city, states, and dates dynamically for API calls Implement notifications to gardeners based on plant types and recent sunlight/rainfall Complete Styling and spruce up splash page Review funcitonality of all CRUD Add detail to Plants Add an indicator of weather a gardener is willing to share sell their items based on a boolean value Add pricing of plots and vegetables/plants
+- Add cryptocurrencies
+- Add gain/loss color indicator for each stock like I have for the total portfolio
+- add a homepage with a general newsfeed, maybe based on specific user's interests
+- authentication
+- watch lists for stocks that you want to keep an eye on but not yet purchase
+- confirmation with total price of purchase
