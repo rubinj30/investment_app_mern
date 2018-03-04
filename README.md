@@ -26,7 +26,7 @@ Planning and Project Management
 
 - User Stories: https://trello.com/b/SUzslxtZ/stocks-app
 - Wireframes: https://i.imgur.com/zYyY8AM.png
-- ERD: 
+- ERD: https://i.imgur.com/yFghmws.png
 
 ### API's 
 I spent a lot of time researching and testing different API's. Some that I found even inspired some of my favorite features on the site that I never imagined I could do. For instance, when I found the Alpha Vantage free API for time series stock prices, I knew I had to try to leverage this to make a line graph. 
