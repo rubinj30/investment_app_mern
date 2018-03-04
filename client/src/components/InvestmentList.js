@@ -126,9 +126,6 @@ class InvestmentList extends Component {
                             {this.state.showNewForm ?
                                 <NewInvestmentContainer>
                                     <StyledButton onClick={this.toggleAddStockForm}>- Add Investment</StyledButton>
-
-
-
                                     <NewInvestment userId={this.props.match.params.id} getAllInvestments={this.getAllInvestments} />
                                 </NewInvestmentContainer>
                                 :

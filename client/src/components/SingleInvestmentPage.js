@@ -36,28 +36,38 @@ class SingleInvestmentPage extends Component {
     }
 
     getInvestment = async () => {
-        const userId = this.props.match.params.userId
-        const investmentId = this.props.match.params.id
-        const response = await axios.get(`/api/users/${userId}/investments/${this.props.match.params.investmentId}`)
-        console.log("GET INVESTMENT TEST", response.data.investment)
-        this.setState({
-            user: response.data.user,
-            investment: response.data.investment,
-            investmentReady: !this.state.investmentReady
-        })
+        try {
+            const userId = this.props.match.params.userId
+            const investmentId = this.props.match.params.id
+            const response = await axios.get(`/api/users/${userId}/investments/${this.props.match.params.investmentId}`)
+            console.log("GET INVESTMENT TEST", response.data.investment)
+            this.setState({
+                user: response.data.user,
+                investment: response.data.investment,
+                investmentReady: !this.state.investmentReady
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
     fetchStockInfoFromApi = async () => {
-        if (this.state.investment.type === 'stock') {
-            const api_key = process.env.REACT_APP_STOCK_INFO
-            const URL = `https://api.intrinio.com/companies?identifier=${this.state.investment.ticker}`
-            const response = await axios.get(URL,
-                {
-                    headers: {
-                        "X-Authorization-Public-Key": api_key
-                    }
-                })
-            this.setState({ investmentInfo: response.data })
+        try {
+            if (this.state.investment.type === 'stock') {
+                const api_key = process.env.REACT_APP_STOCK_INFO
+                const URL = `https://api.intrinio.com/companies?identifier=${this.state.investment.ticker}`
+                const response = await axios.get(URL,
+                    {
+                        headers: {
+                            "X-Authorization-Public-Key": api_key
+                        }
+                    })
+                this.setState({ investmentInfo: response.data })
+            }
+        }
+        catch (err) {
+            console.log(err)
         }
     }
 
@@ -66,9 +76,10 @@ class SingleInvestmentPage extends Component {
             const api_key = process.env.REACT_APP_TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
-            this.setState({ 
+            this.setState({
                 dailyStockPrices: response.data["Time Series (Daily)"],
-                dailyReady: !this.state.dailyReady })
+                dailyReady: !this.state.dailyReady
+            })
         }
         catch (err) {
             console.log(err)
@@ -83,9 +94,7 @@ class SingleInvestmentPage extends Component {
             this.setState({ monthlyStockPrices: response.data["Monthly Time Series"] })
         }
         catch (err) {
-
         }
-
     }
 
     fetchFundamentals = async () => {
@@ -131,7 +140,6 @@ class SingleInvestmentPage extends Component {
         this.setState({ descriptionShowing: !this.state.descriptionShowing })
     }
 
-
     render() {
         // object of weekly stock prices
         const dailyStockPrices = this.state.dailyStockPrices
@@ -144,14 +152,13 @@ class SingleInvestmentPage extends Component {
 
         const url = "http://" + this.state.investmentInfo.company_url
         if (this.state.dailyReady) {
-        const yesterdayClosePrice = Object.values(dailyStockPrices)[0]['1. close']
+            const yesterdayClosePrice = Object.values(dailyStockPrices)[0]['1. close']
             console.log("YESTERDAY", yesterdayClosePrice)
-            console.log("Price",this.state.investment.price)
+            console.log("Price", this.state.investment.price)
             const priceChange = this.state.investment.price - parseInt(yesterdayClosePrice)
             console.log(priceChange)
         }
-        
-        
+
         return (
 
             <InvestmentContainer>
@@ -182,9 +189,7 @@ class SingleInvestmentPage extends Component {
                                 <DetailKey>% Change Since Yesterday: </DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>
                             </Detail>
 
-
                         </PriceDetail>
-
 
                         <div>
                             <StockDetails>
