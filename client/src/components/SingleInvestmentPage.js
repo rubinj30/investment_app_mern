@@ -14,6 +14,7 @@ class SingleInvestmentPage extends Component {
         user: {},
         investment: {},
         investmentInfo: {},
+        hourlyStockPrices: {},
         dailyStockPrices: {},
         dailyReady: false,
         investmentReady: false,
@@ -29,6 +30,7 @@ class SingleInvestmentPage extends Component {
     componentWillMount = async () => {
         await this.getInvestment()
         this.fetchStockInfoFromApi()
+        this.fetchHourlyStockPrices()
         this.fetchDailyStockPrices()
         this.fetchFundamentals()
         this.fetchMonthlyStockPrices()
@@ -70,7 +72,23 @@ class SingleInvestmentPage extends Component {
             console.log(err)
         }
     }
-
+    // https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.state.investment.ticker}&interval=15min&outputsize=full&apikey=${api_key}`
+    
+    fetchHourlyStockPrices = async () => {
+        try {
+            const api_key = process.env.REACT_APP_TIME_SERIES
+            const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.state.investment.ticker}&interval=60min&outputsize=full&apikey=${api_key}`
+            const response = await axios.get(URL)
+            console.log("HOURLY", response.data)
+            this.setState({
+                hourlyStockPrices: response.data["Time Series (60min)"]
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    
     fetchDailyStockPrices = async () => {
         try {
             const api_key = process.env.REACT_APP_TIME_SERIES
@@ -264,6 +282,7 @@ class SingleInvestmentPage extends Component {
                         investment={this.state.investment}
                         investmentName={this.state.investmentInfo.name}
                         monthlyStockPrices={this.state.monthlyStockPrices}
+                        hourlyStockPrices={this.state.hourlyStockPrices}
                     />
                 </LineContainer>
 
