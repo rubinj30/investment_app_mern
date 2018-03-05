@@ -4,14 +4,12 @@ import { FaUser } from 'react-icons/lib/fa'
 import styled from 'styled-components'
 import { FaArrowCircleLeft, FaLineChart } from 'react-icons/lib/fa'
 
-class UserIcon extends Component {
+class HeaderBar extends Component {
     render() {
         return (
 
             <Header>
                 <UserDiv>
-                    <ArrowSize><Link to={`${this.props.backLink}`}><FaArrowCircleLeft /></Link></ArrowSize>
-
                     <Link to={`/users/${this.props.user._id}`}>
                         <Holder>
                             <Username>{this.props.user.username}</Username>
@@ -19,18 +17,22 @@ class UserIcon extends Component {
                         </Holder>
                     </Link>
                 </UserDiv>
-                <AppTitle><AppText>StockUp</AppText><FaLineChart /></AppTitle>
+                <NameAndBackDiv>
+                    <ArrowSize><Link to={`${this.props.backLink}`}><FaArrowCircleLeft /></Link></ArrowSize>
+                    <AppTitle><AppText>StockUp</AppText><FaLineChart /></AppTitle>
+                    <Blank></Blank>
+                </NameAndBackDiv>
             </Header>
         );
     }
 }
 
-export default UserIcon
+export default HeaderBar
 
 const UserDiv = styled.div`
     display: flex;
-    justify-content: space-between;
-    width: 80vw;
+    justify-content: flex-end;
+    width: 90vw;
     
     a {
         text-decoration: none;
@@ -38,8 +40,8 @@ const UserDiv = styled.div`
     }
 `
 const Username = styled.div`
-    text-decoration: none;
-    padding: 10px;
+   
+    padding-top:7px;
     display: flex;
     align-items: center;
 `
@@ -54,7 +56,12 @@ const IconSize = styled.div`
 `
 
 const ArrowSize = styled.div`
-    font-size: 30px;
+    font-size: 50px;
+    display:flex;
+    /* flex-direction: column;
+    justify-content: center; */
+    padding-bottom: 15px;
+    align-self: flex-start;
 `
 
 const UserIconSize = styled.div`
@@ -63,7 +70,6 @@ const UserIconSize = styled.div`
 `
 
 const AppTitle = styled.div`
-    color: white;
     font-size: 30px;
     text-align: center;
     display: flex;
@@ -79,3 +85,19 @@ const AppText = styled.div`
     padding-right: 6px;
 `
 
+const NameAndBackDiv = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: white;
+    a {
+        text-decoration: none;
+        color: white;
+    }
+    
+`
+
+const Blank = styled.div`
+    width: 35px;
+`

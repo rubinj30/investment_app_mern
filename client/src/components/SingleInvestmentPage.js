@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import LineGraph from './LineGraph'
 import accounting from 'accounting'
 import StockNews from './StockNews'
-import UserIcon from './UserIcon'
+import HeaderBar from './HeaderBar'
 import { FaArrowCircleLeft } from 'react-icons/lib/fa'
 
 class SingleInvestmentPage extends Component {
@@ -181,7 +181,7 @@ class SingleInvestmentPage extends Component {
 
             <InvestmentContainer>
                 <HeaderWrapper>
-                    <UserIcon
+                    <HeaderBar
                         user={this.state.user}
                         backLink={`/users/${this.state.user._id}/investments`}
                     />
@@ -203,9 +203,9 @@ class SingleInvestmentPage extends Component {
                             <Detail>
                                 <DetailKey>Current Price:</DetailKey><DetailValue> {accounting.formatMoney(this.state.investment.price)}</DetailValue>
                             </Detail>
-                            <Detail>
+                            {/* <Detail>
                                 <DetailKey>% Change Since Yesterday: </DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>
-                            </Detail>
+                            </Detail> */}
 
                         </PriceDetail>
 

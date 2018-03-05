@@ -7,7 +7,7 @@ import StyledButton from './styled-components/StyledButton'
 import { PieChart } from 'react-easy-chart'
 import accounting from 'accounting'
 import PortfolioSummary from './PortfolioSummary'
-import UserIcon from './UserIcon'
+import HeaderBar from './HeaderBar'
 var randomColor = require('randomcolor')
 var Spinner = require('react-spinkit');
 
@@ -66,7 +66,7 @@ class InvestmentList extends Component {
                 {this.state.pageReady ?
                     <div>
                         <HeaderPlacement>
-                            <UserIcon 
+                            <HeaderBar 
                                 user={this.state.user}
                                 backLink={`/users/${this.state.user._id}`}
                                 />
