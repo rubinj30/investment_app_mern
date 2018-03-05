@@ -54,11 +54,14 @@ const NewsContainer = styled.div`
     display:flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 40px;
 `
 
 const NewsSectionTitle = styled.div`
     max-width: 300px;
     font-size: 20px;
+    padding-bottom: 20px;
+    text-align: center;
 `
 
 const SpinnerContainer = styled.div`
