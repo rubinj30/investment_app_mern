@@ -213,12 +213,37 @@ class SingleInvestmentPage extends Component {
                             />
                         </LineContainer>
 
-                        <div>
-                            <StyledButton onClick={this.handleClick}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
-                        </div>
-                        <div>
-                            <StyledButton> Change # of {this.state.investment.ticker} Shares</StyledButton>
-                        </div>
+
+                        <EditDeleteButtonsContainer>
+                            <div>
+                                <StyledButton onClick={this.handleClick}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
+                            </div>
+                            <div>
+                                <StyledButton> Change # of {this.state.investment.ticker} Shares</StyledButton>
+                            </div>
+                        </EditDeleteButtonsContainer>
+
+
+                        {this.state.fundamentalsReady ?
+                            <Fundamentals>
+                                <FundamentalsTitle>Key Metrics</FundamentalsTitle>
+
+                                <FundamentalsDetails>
+
+
+                                    <Detail>
+                                        <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[0].value.toFixed(2)}</DetailValue>
+                                    </Detail>
+                                    <Detail>
+                                        <DetailKey>Gross Margin</DetailKey><DetailValue> {this.state.fundamentals[1].value.toFixed(2)}</DetailValue>
+                                    </Detail>
+                                    <Detail>
+                                        <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[2].value.toFixed(2)}</DetailValue>
+                                    </Detail>
+                                </FundamentalsDetails>
+                            </Fundamentals>
+                            : null
+                        }
 
 
                         <div>
@@ -239,32 +264,12 @@ class SingleInvestmentPage extends Component {
                                     <DetailKey>Exchange:</DetailKey><DetailValue> {this.state.investmentInfo.stock_exchange}</DetailValue>
                                 </Detail>
 
-                                <Detail>
+                                <Website>
                                     <DetailValue><a href={url} target="_blank">Go to the {this.state.investmentInfo.name} website</a></DetailValue>
-                                </Detail>
+                                </Website>
 
                             </StockDetails>
 
-                            {this.state.fundamentalsReady ?
-                                <Fundamentals>
-                                    <FundamentalsTitle>Key Metrics</FundamentalsTitle>
-
-                                    <FundamentalsDetails>
-
-
-                                        <Detail>
-                                            <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[0].value}</DetailValue>
-                                        </Detail>
-                                        <Detail>
-                                            <DetailKey>Gross Margin</DetailKey><DetailValue> {this.state.fundamentals[1].value}</DetailValue>
-                                        </Detail>
-                                        <Detail>
-                                            <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[2].value}</DetailValue>
-                                        </Detail>
-                                    </FundamentalsDetails>
-                                </Fundamentals>
-                                : null
-                            }
                             <div>
                                 {this.state.descriptionShowing ?
                                     <BelowFundamentalsButtons>
@@ -314,6 +319,11 @@ const Detail = styled.div`
     justify-content: space-between;
 `
 
+const Website = styled.div`
+    padding-top: 10px;
+    padding-bottom: 10px;
+`
+
 const DetailKey = styled.div`
     /* display: flex; */
 `
@@ -334,6 +344,7 @@ const FundamentalsDetails = styled.div`
     display: flex;
     flex-direction: column;
     align-items: space-between;
+    width: 300px;
 `
 
 const InvestmentContainer = styled.div`
@@ -346,6 +357,7 @@ const Fundamentals = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 300px;
 
 `
 
@@ -383,4 +395,8 @@ const HeaderWrapper = styled.div`
 const CompanyName = styled.div`
     padding: 20px 0;
     font-size: 26px;
+`
+
+const EditDeleteButtonsContainer = styled.div`
+    padding-bottom: 20px;
 `
