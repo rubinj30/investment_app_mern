@@ -226,7 +226,7 @@ class SingleInvestmentPage extends Component {
                             </div>
                             {this.state.sellConfirmationShowing ?
                                 <ReviewContainer>
-                                    <ReviewTitle>Review Details:</ReviewTitle>
+                                    <SectionTitle>Review Details</SectionTitle>
                                     <div>Current price: {accounting.formatMoney(this.state.investment.price)}</div>
                                     <div>Number of shares: {accounting.formatMoney(this.state.investment.quantity)}</div>
                                     <div>Total current value: {accounting.formatMoney(totalPurchasePrice)}</div>
@@ -247,10 +247,10 @@ class SingleInvestmentPage extends Component {
 
                         {this.state.fundamentalsReady ?
                             <Fundamentals>
-                                <FundamentalsTitle>Key Metrics</FundamentalsTitle>
+                                
 
                                 <FundamentalsDetails>
-
+                                <SectionTitle>Key Metrics</SectionTitle>
 
                                     <Detail>
                                         <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[0].value.toFixed(2)}</DetailValue>
@@ -267,8 +267,11 @@ class SingleInvestmentPage extends Component {
                         }
 
 
-                        <CompanyDescriptionContainer>
+                        <DescriptionAndFundamentals>
+
+
                             <StockDetails>
+                                <SectionTitle>Company Details</SectionTitle>
                                 <Detail>
                                     <DetailKey>CEO:</DetailKey><DetailValue> {this.state.investmentInfo.ceo}</DetailValue>
                                 </Detail>
@@ -303,7 +306,7 @@ class SingleInvestmentPage extends Component {
                                     </BelowFundamentalsButtons>
                                 }
                             </div>
-                        </CompanyDescriptionContainer>
+                        </DescriptionAndFundamentals>
                     </Company>
                 }
 
@@ -348,16 +351,21 @@ const StockDetails = styled.div`
     width: 300px;
     margin: 30px 0;
     padding: 40px;
-    background-color: #947CB0;
+    /* background-color: #947CB0; */
+    border: 1px solid black;
     border-radius: 5px;
     padding: 8px;
-    color: white;
+    /* color: white; */
 `
 const FundamentalsDetails = styled.div`
     display: flex;
     flex-direction: column;
     align-items: space-between;
     width: 300px;
+    border-radius: 5px;
+    border: 1px solid black;
+    /* background-color: rgba(0,0,0, .2); */
+    padding: 10px;
 `
 
 const InvestmentContainer = styled.div`
@@ -370,12 +378,13 @@ const Fundamentals = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 300px;
+    width: 250px;
 
 `
 
-const FundamentalsTitle = styled.div`
+const SectionTitle = styled.div`
     font-size: 20px;
+    padding-bottom: 10px;
 `
 
 const BelowFundamentalsButtons = styled.div`
@@ -437,7 +446,7 @@ const CompanyDescription = styled.p`
     margin-right: 10px;
 `
 
-const CompanyDescriptionContainer = styled.div`
+const DescriptionAndFundamentals = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -453,3 +462,6 @@ const ReviewContainer = styled.div`
 const ReviewTitle = styled.div`
     font-size: 18px;
 `
+// const FundamentalsDetails = styled.div`
+
+// `
