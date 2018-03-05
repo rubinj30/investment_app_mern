@@ -225,8 +225,8 @@ class SingleInvestmentPage extends Component {
                                 <StyledButton onClick={this.toggleSellConfirmShowing}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
                             </div>
                             {this.state.sellConfirmationShowing ?
-                                <div>
-                                    <div>Review Details:</div>
+                                <ReviewContainer>
+                                    <ReviewTitle>Review Details:</ReviewTitle>
                                     <div>Current price: {accounting.formatMoney(this.state.investment.price)}</div>
                                     <div>Number of shares: {accounting.formatMoney(this.state.investment.quantity)}</div>
                                     <div>Total current value: {accounting.formatMoney(totalPurchasePrice)}</div>
@@ -234,7 +234,7 @@ class SingleInvestmentPage extends Component {
                                     <div>Overall Gain/Loss: {accounting.formatMoney(gainLoss)}</div>
                                     <ConfirmButton onClick={this.deleteStock}>Click to Confirm Sale</ConfirmButton>
 
-                                </div>
+                                </ReviewContainer>
                                 : null
                             }
 
@@ -414,12 +414,13 @@ const EditDeleteButtonsContainer = styled.div`
 `
 
 const ConfirmButton = styled.div`
-    padding: 5px;
     font-size: 12px;
     text-transform: uppercase;
     border: 1px solid black;
     background-color: rgba(0,0,0,.15);
-    width: 200px;
+    /* width: 100%; */
+    padding: 6px;
+    margin: 10px;
     border-radius: 5px;
     text-align: center;
 `
@@ -440,4 +441,15 @@ const CompanyDescriptionContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+`
+
+const ReviewContainer = styled.div`
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid black;
+`
+
+const ReviewTitle = styled.div`
+    font-size: 18px;
 `
