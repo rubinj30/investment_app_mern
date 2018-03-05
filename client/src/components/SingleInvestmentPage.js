@@ -31,7 +31,7 @@ class SingleInvestmentPage extends Component {
     componentWillMount = async () => {
         await this.getInvestment()
         this.fetchStockInfoFromApi()
-        this.fetchHourlyStockPrices()
+        // this.fetchHourlyStockPrices()
         this.fetchDailyStockPrices()
         this.fetchFundamentals()
         this.fetchMonthlyStockPrices()
