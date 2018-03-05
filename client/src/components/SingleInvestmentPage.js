@@ -24,7 +24,8 @@ class SingleInvestmentPage extends Component {
         descriptionShowing: false,
         fundamentalsReady: false,
         newsReady: false,
-        news: {}
+        news: {},
+        sellConfirmationShowing: false
     }
 
     componentWillMount = async () => {
@@ -144,18 +145,17 @@ class SingleInvestmentPage extends Component {
     }
 
     deleteStock = async () => {
+        await alert(`Sale completed`)
         await axios.delete(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`)
         this.setState({ redirect: !this.state.redirect })
     }
 
-    handleClick = () => {
-        if (window.confirm(`Are you sure you want to sell all of your shares for ${this.state.investmentInfo.name}?`)) {
-            this.deleteStock()
-        }
-    }
-
     toggleDescriptionShowing = () => {
         this.setState({ descriptionShowing: !this.state.descriptionShowing })
+    }
+
+    toggleSellConfirmShowing = () => {
+        this.setState({ sellConfirmationShowing: !this.state.sellConfirmationShowing })
     }
 
     render() {
@@ -176,6 +176,10 @@ class SingleInvestmentPage extends Component {
             const priceChange = this.state.investment.price - parseInt(yesterdayClosePrice)
             console.log(priceChange)
         }
+
+        const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
+        const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
+        const gainLoss = totalCurrentValue - totalPurchasePrice
 
         return (
 
@@ -216,8 +220,23 @@ class SingleInvestmentPage extends Component {
 
                         <EditDeleteButtonsContainer>
                             <div>
-                                <StyledButton onClick={this.handleClick}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
+                                <StyledButton onClick={this.toggleSellConfirmShowing}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
                             </div>
+                            {this.state.sellConfirmationShowing ?
+                                <div>
+                                    <div>Review Details:</div>
+                                    <div>Current price of {this.state.investment.ticker}: {accounting.formatMoney(this.state.investment.price)}</div>
+                                    <div>Current of shares {this.state.investment.ticker}: {accounting.formatMoney(this.state.investment.quantity)}</div>
+                                    <div>Total current value: {accounting.formatMoney(totalPurchasePrice)}</div>
+                                    <div>Total current value: {accounting.formatMoney(totalCurrentValue)}</div>
+                                    <div>Overall Gain/Loss: {accounting.formatMoney(gainLoss)}</div>
+                                    <ConfirmButton onClick={this.deleteStock}>Click to Confirm Sale</ConfirmButton>
+
+                                </div>
+                                : null
+                            }
+
+
                             <div>
                                 <StyledButton> Change # of {this.state.investment.ticker} Shares</StyledButton>
                             </div>
@@ -399,4 +418,14 @@ const CompanyName = styled.div`
 
 const EditDeleteButtonsContainer = styled.div`
     padding-bottom: 20px;
+`
+
+const ConfirmButton = styled.div`
+    padding: 5px;
+    text-transform: uppercase;
+    border: 1px solid black;
+    background-color: rgba(0,0,0,.15);
+    width: 200px;
+    border-radius: 5px;
+    text-align: center;
 `
