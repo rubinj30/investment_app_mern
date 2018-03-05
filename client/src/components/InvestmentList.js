@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import NewInvestment from './NewInvestment'
 import StyledButton from './styled-components/StyledButton'
 import { PieChart } from 'react-easy-chart'
-import accounting from 'accounting'
+// import accounting from 'accounting'
 import PortfolioSummary from './PortfolioSummary'
 import HeaderBar from './HeaderBar'
 var randomColor = require('randomcolor')

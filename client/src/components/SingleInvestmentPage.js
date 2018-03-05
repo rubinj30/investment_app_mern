@@ -199,7 +199,7 @@ class SingleInvestmentPage extends Component {
                         </CompanyName>
                         <PriceDetail>
                             <Detail>
-                                <DetailKey>Current Price:</DetailKey><DetailValue> {accounting.formatMoney(this.state.investment.price)}</DetailValue>
+                                <CurrentPrice>Current Price:</CurrentPrice><DetailValue> {accounting.formatMoney(this.state.investment.price)}</DetailValue>
                             </Detail>
                             {/* <Detail>
                                 <DetailKey>% Change Since Yesterday: </DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>
@@ -225,8 +225,8 @@ class SingleInvestmentPage extends Component {
                             {this.state.sellConfirmationShowing ?
                                 <div>
                                     <div>Review Details:</div>
-                                    <div>Current price of {this.state.investment.ticker}: {accounting.formatMoney(this.state.investment.price)}</div>
-                                    <div>Current of shares {this.state.investment.ticker}: {accounting.formatMoney(this.state.investment.quantity)}</div>
+                                    <div>Current price: {accounting.formatMoney(this.state.investment.price)}</div>
+                                    <div>Number of shares: {accounting.formatMoney(this.state.investment.quantity)}</div>
                                     <div>Total current value: {accounting.formatMoney(totalPurchasePrice)}</div>
                                     <div>Total current value: {accounting.formatMoney(totalCurrentValue)}</div>
                                     <div>Overall Gain/Loss: {accounting.formatMoney(gainLoss)}</div>
@@ -422,10 +422,15 @@ const EditDeleteButtonsContainer = styled.div`
 
 const ConfirmButton = styled.div`
     padding: 5px;
+    font-size: 12px;
     text-transform: uppercase;
     border: 1px solid black;
     background-color: rgba(0,0,0,.15);
     width: 200px;
     border-radius: 5px;
     text-align: center;
+`
+
+const CurrentPrice = styled.div`
+    font-size: 18px
 `
