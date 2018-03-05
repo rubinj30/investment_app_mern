@@ -40,6 +40,7 @@ class SingleInvestmentPage extends Component {
 
     getInvestment = async () => {
         try {
+            console.log("getting investment")
             const userId = this.props.match.params.userId
             const investmentId = this.props.match.params.id
             const response = await axios.get(`/api/users/${userId}/investments/${this.props.match.params.investmentId}`)
@@ -49,6 +50,7 @@ class SingleInvestmentPage extends Component {
                 investment: response.data.investment,
                 investmentReady: !this.state.investmentReady
             })
+            console.log("got investment")
         }
         catch (err) {
             console.log(err)
@@ -73,7 +75,6 @@ class SingleInvestmentPage extends Component {
             console.log(err)
         }
     }
-    // https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.state.investment.ticker}&interval=15min&outputsize=full&apikey=${api_key}`
 
     fetchHourlyStockPrices = async () => {
         try {
@@ -107,6 +108,7 @@ class SingleInvestmentPage extends Component {
 
     fetchMonthlyStockPrices = async () => {
         try {
+            console.log("get monthly stock times")
             const api_key = process.env.REACT_APP_TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
@@ -131,7 +133,7 @@ class SingleInvestmentPage extends Component {
     }
 
     fetchNews = async () => {
-        const URL = `https://api.intrinio.com/news?identifier=${this.state.investment.ticker}`
+        const URL = `https://api.intrinio.com/news?identifier=${this.state.investment.ticker}&page_number=1&page_size=12`
         const response = await axios.get(URL,
             {
                 headers: {
@@ -265,7 +267,7 @@ class SingleInvestmentPage extends Component {
                         }
 
 
-                        <div>
+                        <CompanyDescriptionContainer>
                             <StockDetails>
                                 <Detail>
                                     <DetailKey>CEO:</DetailKey><DetailValue> {this.state.investmentInfo.ceo}</DetailValue>
@@ -293,23 +295,15 @@ class SingleInvestmentPage extends Component {
                                 {this.state.descriptionShowing ?
                                     <BelowFundamentalsButtons>
                                         <StyledButton onClick={this.toggleDescriptionShowing}>Hide Company Description</StyledButton>
-                                        <p>{this.state.investmentInfo.short_description}</p>
+                                        <CompanyDescription>{this.state.investmentInfo.short_description}</CompanyDescription>
                                     </BelowFundamentalsButtons>
                                     :
                                     <BelowFundamentalsButtons>
                                         <StyledButton onClick={this.toggleDescriptionShowing}>More About {this.state.investmentInfo.ticker}</StyledButton>
                                     </BelowFundamentalsButtons>
                                 }
-                                <div>
-                                    <BelowFundamentalsButtons>
-                                        <Link to={`/users/${this.props.match.params.userId}/investments`}>
-                                            <StyledButton>Back to Portfolio</StyledButton>
-                                        </Link>
-                                    </BelowFundamentalsButtons>
-                                </div>
                             </div>
-
-                        </div>
+                        </CompanyDescriptionContainer>
                     </Company>
                 }
 
@@ -381,9 +375,7 @@ const Fundamentals = styled.div`
 `
 
 const FundamentalsTitle = styled.div`
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
+    font-size: 20px;
 `
 
 const BelowFundamentalsButtons = styled.div`
@@ -412,8 +404,9 @@ const HeaderWrapper = styled.div`
 `
 
 const CompanyName = styled.div`
-    padding: 20px 0;
+    padding: 20px 5px 20px 5px;
     font-size: 26px;
+    text-align: center;
 `
 
 const EditDeleteButtonsContainer = styled.div`
@@ -432,5 +425,19 @@ const ConfirmButton = styled.div`
 `
 
 const CurrentPrice = styled.div`
-    font-size: 18px
+    font-size: 18px;
+`
+
+const CompanyDescription = styled.p`
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin-left: 10px;
+    margin-right: 10px;
+`
+
+const CompanyDescriptionContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `

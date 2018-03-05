@@ -167,12 +167,12 @@ class InvestmentList extends Component {
 export default InvestmentList
 
 
-const Column = styled.div`
-    /* border-right: 1px black solid; */
-    text-align: center;
-    background-color: #135f7c;
-    padding: center;
-`
+// const Column = styled.div`
+//     /* border-right: 1px black solid; */
+//     text-align: center;
+//     background-color: #135f7c;
+//     padding: center;
+// `
 
 const Holder = styled.div`
     padding: 5px 0;
@@ -243,9 +243,9 @@ const TickerName = styled.div`
     padding-right: 5px;
 `
 
-const ProfitLoss = styled.span`
-    color: ${props => props.profitLossColor};
-`
+// const ProfitLoss = styled.span`
+//     color: ${props => props.profitLossColor};
+// `
 
 const SplashPage = styled.div`
     width: 100vw;

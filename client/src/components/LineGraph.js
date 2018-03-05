@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 import styled from 'styled-components'
-import StyledButton from './styled-components/StyledButton'
+// import StyledButton from './styled-components/StyledButton'
 
 class LineGraph extends Component {
 
@@ -15,7 +15,7 @@ class LineGraph extends Component {
 
     render() {
         const investmentName = this.props.investmentName
-        const ticker = this.props.investment.ticker
+        // const ticker = this.props.investment.ticker
 
 
         const dailyStockPrices = this.props.dailyStockPrices

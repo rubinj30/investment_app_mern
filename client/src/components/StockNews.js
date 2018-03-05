@@ -18,7 +18,7 @@ class StockNews extends Component {
                 {this.props.newsReady ?
 
                     this.props.news.slice(1, 10).map((item, index) => {
-                        return <NewsItem>
+                        return <NewsItem key={index}>
 
                             <NewsTitle><Link to={`${item.url}`} key={index}>{item.title}</Link></NewsTitle>
                             <div>{item.summary} <Link to={`${item.url}`} key={index}>See more...</Link></div>
@@ -58,6 +58,7 @@ const NewsContainer = styled.div`
 
 const NewsSectionTitle = styled.div`
     max-width: 300px;
+    font-size: 20px;
 `
 
 const SpinnerContainer = styled.div`
