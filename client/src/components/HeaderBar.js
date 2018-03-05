@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { FaUser } from 'react-icons/lib/fa'
 import styled from 'styled-components'
-import { FaArrowCircleLeft, FaLineChart } from 'react-icons/lib/fa'
+import { FaArrowCircleLeft, FaLineChart, FaArrowLeft } from 'react-icons/lib/fa'
 
 class HeaderBar extends Component {
     render() {
@@ -18,7 +18,7 @@ class HeaderBar extends Component {
                     </Link>
                 </UserDiv>
                 <NameAndBackDiv>
-                    <ArrowSize><Link to={`${this.props.backLink}`}><FaArrowCircleLeft /></Link></ArrowSize>
+                    <ArrowSize><Link to={`${this.props.backLink}`}><FaArrowLeft /></Link></ArrowSize>
                     <AppTitle><AppText>StockUp</AppText><FaLineChart /></AppTitle>
                     <Blank></Blank>
                 </NameAndBackDiv>
@@ -40,7 +40,6 @@ const UserDiv = styled.div`
     }
 `
 const Username = styled.div`
-   
     padding-top:7px;
     display: flex;
     align-items: center;
@@ -56,7 +55,7 @@ const IconSize = styled.div`
 `
 
 const ArrowSize = styled.div`
-    font-size: 50px;
+    font-size: 35px;
     display:flex;
     /* flex-direction: column;
     justify-content: center; */
@@ -68,6 +67,7 @@ const UserIconSize = styled.div`
     font-size: 20px;
     color: white;
 `
+
 
 const AppTitle = styled.div`
     font-size: 30px;

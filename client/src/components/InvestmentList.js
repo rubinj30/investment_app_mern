@@ -51,12 +51,14 @@ class InvestmentList extends Component {
     toggleAddStockForm = async () => {
         this.setState({ showNewForm: !this.state.showNewForm })
     }
-
+//75 186 240
     render() {
 
         const pieData = this.state.investments.map((investment) => {
-            const random = Math.floor(Math.random() * 180) + 1
-            return {key: investment.ticker, value: investment.total, color: `rgb(${random}, ${random}, 255)`}
+            const randomR = Math.floor(Math.random() * 60) + 50
+            const randomG = Math.floor(Math.random() * 60) + 150
+            const randomB = Math.floor(Math.random() * 34) + 220 
+            return {key: investment.ticker, value: investment.total, color: `rgb(${randomR}, ${randomG}, ${randomB})`}
         })
 
         console.log(pieData)
