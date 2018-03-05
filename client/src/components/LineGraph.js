@@ -39,7 +39,7 @@ class LineGraph extends Component {
 
         return (
             <LineChartContainer>
-                <div>{investmentName} ({ticker})</div>
+                {/* <div>{investmentName} ({ticker})</div> */}
                 { this.state.dailyChartTimeFrame ? 
                 <ChartSubContainer>
                     <div>Past Month</div>

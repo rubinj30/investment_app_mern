@@ -73,7 +73,7 @@ class SingleInvestmentPage extends Component {
         }
     }
     // https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.state.investment.ticker}&interval=15min&outputsize=full&apikey=${api_key}`
-    
+
     fetchHourlyStockPrices = async () => {
         try {
             const api_key = process.env.REACT_APP_TIME_SERIES
@@ -88,7 +88,7 @@ class SingleInvestmentPage extends Component {
             console.log(err)
         }
     }
-    
+
     fetchDailyStockPrices = async () => {
         try {
             const api_key = process.env.REACT_APP_TIME_SERIES
@@ -193,12 +193,6 @@ class SingleInvestmentPage extends Component {
                         <CompanyName>
                             {this.state.investmentInfo.name} ({this.state.investment.ticker})
                         </CompanyName>
-                        <div>
-                            <StyledButton onClick={this.handleClick}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
-                        </div>
-                        <div>
-                            <StyledButton> Change # of {this.state.investment.ticker} Shares</StyledButton>
-                        </div>
                         <PriceDetail>
                             <Detail>
                                 <DetailKey>Current Price:</DetailKey><DetailValue> {accounting.formatMoney(this.state.investment.price)}</DetailValue>
@@ -208,6 +202,24 @@ class SingleInvestmentPage extends Component {
                             </Detail> */}
 
                         </PriceDetail>
+
+                        <LineContainer>
+                            <LineGraph
+                                dailyStockPrices={this.state.dailyStockPrices}
+                                investment={this.state.investment}
+                                investmentName={this.state.investmentInfo.name}
+                                monthlyStockPrices={this.state.monthlyStockPrices}
+                                hourlyStockPrices={this.state.hourlyStockPrices}
+                            />
+                        </LineContainer>
+
+                        <div>
+                            <StyledButton onClick={this.handleClick}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
+                        </div>
+                        <div>
+                            <StyledButton> Change # of {this.state.investment.ticker} Shares</StyledButton>
+                        </div>
+
 
                         <div>
                             <StockDetails>
@@ -276,15 +288,6 @@ class SingleInvestmentPage extends Component {
                         </div>
                     </Company>
                 }
-                <LineContainer>
-                    <LineGraph
-                        dailyStockPrices={this.state.dailyStockPrices}
-                        investment={this.state.investment}
-                        investmentName={this.state.investmentInfo.name}
-                        monthlyStockPrices={this.state.monthlyStockPrices}
-                        hourlyStockPrices={this.state.hourlyStockPrices}
-                    />
-                </LineContainer>
 
                 <StockNews
                     news={this.state.news}
@@ -359,11 +362,13 @@ const BelowFundamentalsButtons = styled.div`
 `
 
 const LineContainer = styled.div`
-    /* display: flex */
+    display: flex;
+    padding-right: 20px;
+    padding-bottom: 20px;
 `
 
 const PriceDetail = styled.div`
-
+    padding-bottom: 10px;
 `
 
 const HeaderWrapper = styled.div`
@@ -377,5 +382,5 @@ const HeaderWrapper = styled.div`
 
 const CompanyName = styled.div`
     padding: 20px 0;
-    font-size: 20px;
+    font-size: 26px;
 `
