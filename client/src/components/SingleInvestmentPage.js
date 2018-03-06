@@ -25,7 +25,8 @@ class SingleInvestmentPage extends Component {
         fundamentalsReady: false,
         newsReady: false,
         news: {},
-        sellConfirmationShowing: false
+        sellConfirmationShowing: false,
+        editFormShowing: false
     }
 
     componentWillMount = async () => {
@@ -152,12 +153,27 @@ class SingleInvestmentPage extends Component {
         this.setState({ redirect: !this.state.redirect })
     }
 
+    handleEditChange = async (event) => {
+        const investment = {...this.state.investment}
+        investment[event.target.quantity] = event.target.value 
+        this.setState({ investment })
+    }
+
+    updateNumberOfShares = async (event) => {
+        // probably best to just send the number of shares updating to
+        // and use toggle to show difference and how much the user would stand to gain/lose
+    }
+
     toggleDescriptionShowing = () => {
         this.setState({ descriptionShowing: !this.state.descriptionShowing })
     }
 
     toggleSellConfirmShowing = () => {
         this.setState({ sellConfirmationShowing: !this.state.sellConfirmationShowing })
+    }
+
+    toggleEditFormShowing = () => {
+        this.setState({ editFormShowing: !this.state.editFormShowing })
     }
 
     render() {
@@ -247,10 +263,19 @@ class SingleInvestmentPage extends Component {
                                 : null
                             }
 
+                            {this.state.editFormShowing ?
+                                <div>
+                                    <StyledButton onClick={this.toggleEditFormShowing}> Hide Edit Form </StyledButton>
+                                    <div>
+                                        <input onChange={this.handleEditChange} name="quantity" value={this.state.investment.quantity} />
+                                    </div>
+                                </div>
 
-                            <div>
-                                <StyledButton> Change # of {this.state.investment.ticker} Shares</StyledButton>
-                            </div>
+                                :
+                                <div>
+                                    <StyledButton onClick={this.toggleEditFormShowing}> Change # of {this.state.investment.ticker} Shares</StyledButton>
+                                </div>
+                            }
                         </EditDeleteButtonsContainer>
 
 
