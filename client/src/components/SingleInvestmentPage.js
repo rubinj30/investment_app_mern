@@ -26,7 +26,8 @@ class SingleInvestmentPage extends Component {
         newsReady: false,
         news: {},
         sellConfirmationShowing: false,
-        editFormShowing: false
+        editFormShowing: false,
+        profitLossColor: ''
     }
 
     componentWillMount = async () => {
@@ -41,17 +42,16 @@ class SingleInvestmentPage extends Component {
 
     getInvestment = async () => {
         try {
-            console.log("getting investment")
+
             const userId = this.props.match.params.userId
             const investmentId = this.props.match.params.id
             const response = await axios.get(`/api/users/${userId}/investments/${this.props.match.params.investmentId}`)
-            console.log("GET INVESTMENT TEST", response.data.investment)
             this.setState({
                 user: response.data.user,
                 investment: response.data.investment,
+                profitLossColor: response.data.profitLossColor,
                 investmentReady: !this.state.investmentReady
             })
-            console.log("got investment")
         }
         catch (err) {
             console.log(err)
@@ -189,16 +189,18 @@ class SingleInvestmentPage extends Component {
         const url = "http://" + this.state.investmentInfo.company_url
         if (this.state.dailyReady) {
             const yesterdayClosePrice = Object.values(dailyStockPrices)[0]['1. close']
-            console.log("YESTERDAY", yesterdayClosePrice)
-            console.log("Price", this.state.investment.price)
+            // console.log("YESTERDAY", yesterdayClosePrice)
+            // console.log("Price", this.state.investment.price)
             const priceChange = this.state.investment.price - parseInt(yesterdayClosePrice)
-            console.log(priceChange)
+            // console.log(priceChange)
         }
 
         const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
         const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
         const gainLoss = totalCurrentValue - totalPurchasePrice
         const percentagGainLoss = (gainLoss / totalPurchasePrice) * 100
+
+        console.log("P/L color color color", typeof(this.state.profitLossColor))
 
         return (
 
@@ -225,7 +227,7 @@ class SingleInvestmentPage extends Component {
                                     <CurrentPrice>Purchase Price: </CurrentPrice><DetailValue> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</DetailValue>
                                 </PricingDetailDiv>
                                 <PricingDetailDiv>
-                                    <CurrentPrice>Overall % Gain/Loss: </CurrentPrice><DetailValue> {percentagGainLoss.toFixed(1)}</DetailValue>
+                                    <CurrentPrice>Overall % Gain/Loss: </CurrentPrice><GainLossDetailValue> {percentagGainLoss.toFixed(1)}%</GainLossDetailValue>
                                 </PricingDetailDiv>
                             </PricingDetail>
                             {/* <Detail>
@@ -388,6 +390,11 @@ const DetailKey = styled.div`
 
 const DetailValue = styled.div`
     text-align: right;
+`
+
+const GainLossDetailValue = styled.div`
+    background-color: ${props => props.profitLossColor};
+    /* background-color: red; */
 `
 
 const DetailValueSpan = styled.span`

@@ -52,7 +52,7 @@ router.get('/', async (request, response) => {
 
         profitOrLoss = portfolioTotal - portfolioCost
         let profitLossColor = ''
-        profitOrLoss > 0 ? profitLossColor = 'green' : profitLossColor = 'red;'
+        profitOrLoss >= 0 ? profitLossColor = 'green' : profitLossColor = 'red;'
         response.json({
             updatedStockInfo,
             user,
@@ -75,9 +75,13 @@ router.get('/:investmentId', async (request, response) => {
             investment.price = data['Stock Quotes'][0]['2. price']
         })
 
+        let profitLossColor = ''
+        investment.price - investment.stockPurchasePrice >= 0 ? profitLossColor = 'green' : profitLossColor = 'red;'
+        
         response.json({
             user,
-            investment
+            investment,
+            profitLossColor
         })
     }
     catch (err) {
