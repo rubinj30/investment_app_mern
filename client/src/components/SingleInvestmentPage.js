@@ -59,7 +59,7 @@ class SingleInvestmentPage extends Component {
 
     fetchStockInfoFromApi = async () => {
         try {
-            if (this.state.investment.type === 'stock') {
+            if (this.state.investment.type === 'stock') { // originally using with plans to setup for cyrpto currencies
                 const api_key = process.env.REACT_APP_STOCK_INFO
                 const URL = `https://api.intrinio.com/companies?identifier=${this.state.investment.ticker}`
                 const response = await axios.get(URL,
@@ -182,6 +182,7 @@ class SingleInvestmentPage extends Component {
         const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
         const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
         const gainLoss = totalCurrentValue - totalPurchasePrice
+        const percentagGainLoss = (gainLoss / totalPurchasePrice) * 100
 
         return (
 
@@ -200,9 +201,17 @@ class SingleInvestmentPage extends Component {
                             {this.state.investmentInfo.name} ({this.state.investment.ticker})
                         </CompanyName>
                         <PriceDetail>
-                            <Detail>
-                                <CurrentPrice>Current Price:</CurrentPrice><DetailValue> {accounting.formatMoney(this.state.investment.price)}</DetailValue>
-                            </Detail>
+                            <PricingDetail>
+                                <PricingDetailDiv>
+                                    <CurrentPrice>Current Price: </CurrentPrice><DetailValue> {accounting.formatMoney(this.state.investment.price)}</DetailValue>
+                                </PricingDetailDiv>
+                                <PricingDetailDiv>
+                                    <CurrentPrice>Purchase Price: </CurrentPrice><DetailValue> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</DetailValue>
+                                </PricingDetailDiv>
+                                <PricingDetailDiv>
+                                    <CurrentPrice>Overall % Gain/Loss: </CurrentPrice><DetailValue> {percentagGainLoss.toFixed(1)}</DetailValue>
+                                </PricingDetailDiv>
+                            </PricingDetail>
                             {/* <Detail>
                                 <DetailKey>% Change Since Yesterday: </DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>
                             </Detail> */}
@@ -228,7 +237,7 @@ class SingleInvestmentPage extends Component {
                                 <ReviewContainer>
                                     <SectionTitle>Review Details</SectionTitle>
                                     <div>Current price: {accounting.formatMoney(this.state.investment.price)}</div>
-                                    <div>Number of shares: {accounting.formatMoney(this.state.investment.quantity)}</div>
+                                    <div>Number of shares: {this.state.investment.quantity}</div>
                                     <div>Total current value: {accounting.formatMoney(totalPurchasePrice)}</div>
                                     <div>Total current value: {accounting.formatMoney(totalCurrentValue)}</div>
                                     <div>Overall Gain/Loss: {accounting.formatMoney(gainLoss)}</div>
@@ -247,10 +256,10 @@ class SingleInvestmentPage extends Component {
 
                         {this.state.fundamentalsReady ?
                             <Fundamentals>
-                                
+
 
                                 <FundamentalsDetails>
-                                <SectionTitle>Key Metrics</SectionTitle>
+                                    <SectionTitle>Key Metrics</SectionTitle>
 
                                     <Detail>
                                         <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[0].value.toFixed(2)}</DetailValue>
@@ -334,6 +343,14 @@ const Detail = styled.div`
     display:flex;
     justify-content: space-between;
 `
+const PricingDetailDiv = styled.div`
+    display: flex;
+    font-size: 14px;
+`
+
+const PricingDetail = styled.div`
+
+`
 
 const Website = styled.div`
     padding-top: 10px;
@@ -347,6 +364,11 @@ const DetailKey = styled.div`
 const DetailValue = styled.div`
     text-align: right;
 `
+
+const DetailValueSpan = styled.span`
+
+`
+
 const StockDetails = styled.div`
     width: 300px;
     margin: 30px 0;
@@ -435,7 +457,7 @@ const ConfirmButton = styled.div`
 `
 
 const CurrentPrice = styled.div`
-    font-size: 18px;
+    font-size: 14px;
 `
 
 const CompanyDescription = styled.p`
