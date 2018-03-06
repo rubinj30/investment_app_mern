@@ -71,9 +71,9 @@ router.get('/:investmentId', async (request, response) => {
         const user = await User.findById(request.params.userId)
         const investment = await user.investments.id(request.params.investmentId)
 
-        // await alpha.data.batch(investment.ticker).then(data => {
-        //     investment.price = data['Stock Quotes'][0]['2. price']
-        // })
+        await alpha.data.batch(investment.ticker).then(data => {
+            investment.price = data['Stock Quotes'][0]['2. price']
+        })
 
         response.json({
             user,
