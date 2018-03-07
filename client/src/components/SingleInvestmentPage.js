@@ -129,6 +129,7 @@ class SingleInvestmentPage extends Component {
                     "X-Authorization-Public-Key": process.env.REACT_APP_STOCK_INFO
                 }
             })
+        console.log(response.data.data)
         this.setState({
             fundamentals: response.data.data,
             fundamentalsReady: true
@@ -293,13 +294,13 @@ class SingleInvestmentPage extends Component {
                                     <SectionTitle>Key Metrics</SectionTitle>
 
                                     <Detail>
-                                        <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[0].value.toFixed(2)}</DetailValue>
+                                        <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[0].value}</DetailValue>
                                     </Detail>
                                     <Detail>
-                                        <DetailKey>Gross Margin</DetailKey><DetailValue> {this.state.fundamentals[1].value.toFixed(2)}</DetailValue>
+                                        <DetailKey>Gross Margin</DetailKey><DetailValue> {this.state.fundamentals[1].value }</DetailValue>
                                     </Detail>
                                     <Detail>
-                                        <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[2].value.toFixed(2)}</DetailValue>
+                                        <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[2].value }</DetailValue>
                                     </Detail>
                                 </FundamentalsDetails>
                             </Fundamentals>
