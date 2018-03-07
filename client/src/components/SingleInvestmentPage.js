@@ -255,36 +255,30 @@ class SingleInvestmentPage extends Component {
                             <div>
                                 <StyledButton onClick={this.toggleSellConfirmShowing}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
                             </div>
-    
-                                <Collapse isOpened={this.state.sellConfirmationShowing}>
-                                    <ReviewContainer>
-                                        <SectionTitle>Review Details</SectionTitle>
-                                        <ReviewDetailLine><div>Current price:</div> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
-                                        <ReviewDetailLine><div>Number of shares: </div>{this.state.investment.quantity}</ReviewDetailLine>
-                                        <ReviewDetailLine><div>Original total value:</div> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
-                                        <ReviewDetailLine><div>Total current value: </div>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
-                                        <ReviewDetailLine>$ Gain/Loss: <GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
-                                        <ConfirmButton onClick={this.deleteStock}>Click to Confirm Sale</ConfirmButton>
 
-                                    </ReviewContainer>
-                                </Collapse>
+                            <Collapse isOpened={this.state.sellConfirmationShowing}>
+                                <ReviewContainer>
+                                    <SectionTitle>Review Details</SectionTitle>
+                                    <ReviewDetailLine><div>Current price:</div> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
+                                    <ReviewDetailLine><div>Number of shares: </div>{this.state.investment.quantity}</ReviewDetailLine>
+                                    <ReviewDetailLine><div>Original total value:</div> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
+                                    <ReviewDetailLine><div>Total current value: </div>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
+                                    <ReviewDetailLine>$ Gain/Loss: <GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
+                                    <ConfirmButton onClick={this.deleteStock}>Click to Confirm Sale</ConfirmButton>
 
-
-                            {this.state.editFormShowing ?
-                                <EditContainer>
-                                    <StyledButton onClick={this.toggleEditFormShowing}> Hide Edit Form </StyledButton>
+                                </ReviewContainer>
+                            </Collapse>
+                            <EditContainer>
+                                <StyledButton onClick={this.toggleEditFormShowing}> Hide Edit Form </StyledButton>
+                                <Collapse isOpened={this.state.editFormShowing}>
                                     <EditDiv>
                                         <div>How many shares would you like to own?</div>
                                         <EditInput onChange={this.handleEditChange} name="quantity" value={this.state.quantity} />
                                         <ConfirmButton onClick={this.updateNumberOfShares}>Click to Confirm Update</ConfirmButton>
                                     </EditDiv>
-                                </EditContainer>
+                                </Collapse>
+                            </EditContainer>
 
-                                :
-                                <div>
-                                    <StyledButton onClick={this.toggleEditFormShowing}> Change # of {this.state.investment.ticker} Shares</StyledButton>
-                                </div>
-                            }
                         </EditDeleteButtonsContainer>
 
 
