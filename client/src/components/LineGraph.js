@@ -23,7 +23,7 @@ class LineGraph extends Component {
         const lineData = []
         for (var property1 in dailyStockPrices) {
             const ticker = parseInt(dailyStockPrices[property1]['4. close'])
-            lineData.push({name: '', stock: parseInt(dailyStockPrices[property1]['4. close']), amt: 100})
+            lineData.push({name: '', price: parseInt(dailyStockPrices[property1]['4. close']), amt: 100})
         }
 
         const reversedLineData = lineData.slice(1, 30).reverse()
@@ -32,7 +32,7 @@ class LineGraph extends Component {
         const monthlyLineData = []
         for (var property1 in monthlyStockPrices){
             const ticker = parseInt(monthlyStockPrices[property1]['4. close'])
-            monthlyLineData.push({name: '', stock: parseInt(monthlyStockPrices[property1]['4. close']), amt: 5})
+            monthlyLineData.push({name: '', price: parseInt(monthlyStockPrices[property1]['4. close']), amt: 5})
         }
 
         const reversedMonthlyData = monthlyLineData.slice(1, 52).reverse()
@@ -50,7 +50,7 @@ class LineGraph extends Component {
                         <CartesianGrid strokeDasharray="3 3" />
                         <Tooltip />
                         <Legend />
-                        <Line dot={false} type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
+                        <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
                     </LineChart>
                     <TimeFrameContainer>
                         <SelectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Month</SelectedTimeFrame>
@@ -67,7 +67,7 @@ class LineGraph extends Component {
                         <CartesianGrid strokeDasharray="3 3" />
                         <Tooltip />
                         <Legend />
-                        <Line dot={false} type="monotone" dataKey="stock" stroke="#8884d8" activeDot={{ r: 8 }} />
+                        <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
                     </LineChart>
                     <TimeFrameContainer>
                         <UnselectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Month</UnselectedTimeFrame>

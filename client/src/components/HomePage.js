@@ -21,10 +21,11 @@ class HomePage extends Component {
 
         return (
             <div>
+
                 {this.state.users.map(user => (
                     <div>
 
-                        <Link key={user._id} to={`/users/${user._id}/investments/`}>
+                        <Link key={user._id} to={`/users/${user._id}/`}>
                             {user.username}
                         </Link>
 

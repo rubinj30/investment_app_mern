@@ -511,6 +511,7 @@ const CompanyDescription = styled.p`
     border: 1px solid black;
     margin-left: 10px;
     margin-right: 10px;
+    max-width: 500px;
 `
 
 const DescriptionAndFundamentals = styled.div`
