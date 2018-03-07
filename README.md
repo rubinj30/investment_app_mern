@@ -1,5 +1,5 @@
 # Stock Tracker
-This is an app for tracking the performance of your investments.
+This is an app for tracking the performance of your investments in an user-friendly app.
 
 ## Link to site
 https://stock-up-app.herokuapp.com
@@ -13,12 +13,14 @@ Express.js
 Node.js
 
 Other:
+React-router
+Axios
 Mongoose.js
 CSS and HTML
 styled-components
-React Materialize
 Recharts
 Heroku
+React Icons
 
 ### More About the Project
 
@@ -28,21 +30,23 @@ Planning and Project Management
 - Wireframes: https://i.imgur.com/zYyY8AM.png
 - ERD: https://i.imgur.com/yFghmws.png
 
-### API's 
-I spent a lot of time researching and testing different API's. Some that I found even inspired some of my favorite features on the site that I never imagined I could do. For instance, when I found the Alpha Vantage free API for time series stock prices, I knew I had to try to leverage this to make a line graph. 
+## API's
+I spent a lot of time researching and testing different API's. Some that I found even inspired some of my favorite features on the site that I was not sure if I was going to be able to complete. For instance, when I found the Alpha Vantage free API for time series stock prices, I knew I had to try to leverage this to make a line graph. Once I got it working for daily prices, I knew I wanted to give the option to quickly toggle between multiple timeframes.  
 
 #### Intrinio
 - Financial Ratios
 - News
-- Company Info 
-#### Alpha Vantage
-- Time Series
-- Current Price
+- Company Information
 
-Remaining goals:
+#### Alpha Vantage
+- Hourly close prices
+- Daily close prices
+- Weekly close prices
+- Current real-time price
+
+## Remaining goals:
 - Add cryptocurrencies
-- Add gain/loss color indicator for each stock like I have for the total portfolio
-- add a homepage with a general newsfeed, maybe based on specific user's interests
-- authentication
-- watch lists for stocks that you want to keep an eye on but not yet purchase
-- confirmation with total price of purchase
+- Add gain/loss color indicator for each stock like I have for the total portfolio on the index page
+- Add a homepage with a general newsfeed, maybe based on specific user's interests
+- Authentication
+- Watch lists for stocks that you want to keep an eye on but not yet purchase
