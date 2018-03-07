@@ -77,6 +77,10 @@ export default UserProfile
 
 const UserHeaderWrapper = styled.div`
     background-color: #45b9f2;
+    display: flex;
+    justify-content: center;
+    color: white;
+    padding-bottom: 10px;
 `
 const DetailsContainer = styled.div`
     width: 300px;
@@ -108,4 +112,12 @@ const FolderDiv = styled.div`
 
 const FolderText = styled.div`
     font-size: 20px;r
+`
+
+const HeaderContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    background-color: #45b9f2;
+    color: white;
+    padding-bottom: 10px;
 `

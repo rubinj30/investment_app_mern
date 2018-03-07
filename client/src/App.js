@@ -5,6 +5,7 @@ import InvestmentList from "./components/InvestmentList"
 import SingleInvestmentPage from "./components/SingleInvestmentPage"
 import UserProfile from "./components/UserProfile"
 import LogIn from "./components/LogIn"
+import UserList from './components/UserList'
 import "./App.css";
 
 class App extends Component {
@@ -16,7 +17,7 @@ class App extends Component {
 
               <Route exact path="/" component={HomePage}/>
               <Route exact path="/login" component={LogIn}/>
-              <Route exact path="/users" component={HomePage}/>
+              <Route exact path="/users" component={UserList}/>
               <Route exact path="/users/:id" component={UserProfile}/>
               <Route exact path="/users/:id/investments" component={InvestmentList}/>
               <Route exact path="/users/:userId/investments/:investmentId" component={SingleInvestmentPage}/>
