@@ -57,7 +57,7 @@ const SummaryContainer = styled.div`
     display:flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: 10px 10px 30px 10px;
+    padding: 10px 10px 10px 10px;
     margin: 15px;
     align-items: space-around;
     border-radius: 5px;
@@ -66,5 +66,5 @@ const SummaryContainer = styled.div`
 
 const SummaryTitle = styled.div`
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
 `

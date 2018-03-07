@@ -36,7 +36,7 @@ class SingleInvestmentPage extends Component {
         this.fetchStockInfoFromApi()
         // this.fetchHourlyStockPrices()
         this.fetchDailyStockPrices()
-        // this.fetchFundamentals()
+        this.fetchFundamentals()
         this.fetchMonthlyStockPrices()
         this.fetchNews()
     }
