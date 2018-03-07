@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
+import { Collapse } from 'react-collapse'
 import NewInvestment from './NewInvestment'
 import StyledButton from './styled-components/StyledButton'
 import { PieChart } from 'react-easy-chart'
@@ -9,7 +10,8 @@ import { PieChart } from 'react-easy-chart'
 import PortfolioSummary from './PortfolioSummary'
 import HeaderBar from './HeaderBar'
 var randomColor = require('randomcolor')
-var Spinner = require('react-spinkit');
+var Spinner = require('react-spinkit')
+
 
 
 class InvestmentList extends Component {
@@ -125,16 +127,13 @@ class InvestmentList extends Component {
                                 profitOrLoss={this.state.profitOrLoss}
                             />
 
-                            {this.state.showNewForm ?
                                 <NewInvestmentContainer>
                                     <StyledButton onClick={this.toggleAddStockForm}>- Add Investment</StyledButton>
-                                    <NewInvestment userId={this.props.match.params.id} getAllInvestments={this.getAllInvestments} />
+                                    <Collapse isOpened={this.state.showNewForm}>
+                                        <NewInvestment userId={this.props.match.params.id} getAllInvestments={this.getAllInvestments} />
+                                    </Collapse>
                                 </NewInvestmentContainer>
-                                :
-                                <NewInvestmentContainer>
-                                    <StyledButton onClick={this.toggleAddStockForm}>+ Add Investment</StyledButton>
-                                </NewInvestmentContainer>
-                            }
+                            
                             <PieContainer>
                             <PieChart className="pie-chart"
                                 size={250}
