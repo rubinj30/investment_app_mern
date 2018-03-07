@@ -490,12 +490,15 @@ const ConfirmButton = styled.div`
     font-size: 12px;
     text-transform: uppercase;
     border: 1px solid black;
-    background-color: rgba(0,0,0,.15);
+    background-color: rgba(0,0,0,.25);
     /* width: 100%; */
     padding: 6px;
     margin: 10px;
     border-radius: 5px;
     text-align: center;
+    &:hover {
+        background-color: #947CB0;
+    }
 `
 
 const CurrentPrice = styled.div`

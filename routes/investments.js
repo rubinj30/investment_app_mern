@@ -14,7 +14,8 @@ router.get('/', async (request, response) => {
         
         const currentPrices = []
         const tickersString = tickers.join(",")
-        const data = await axios.get(`https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=${tickersString}&apikey=J2JY3QVFS2WGX91L`)
+        const api_key = process.env.TIME_SERIES
+        const data = await axios.get(`https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=${tickersString}&apikey=${api_key}`)
         pricesArray = data.data['Stock Quotes']
         
         for (let i = 0; i < tickers.length; i++) {
