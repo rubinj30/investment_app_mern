@@ -53,14 +53,14 @@ class InvestmentList extends Component {
     toggleAddStockForm = async () => {
         this.setState({ showNewForm: !this.state.showNewForm })
     }
-//75 186 240
+    //75 186 240
     render() {
 
         const pieData = this.state.investments.map((investment) => {
             const randomR = Math.floor(Math.random() * 60) + 50
             const randomG = Math.floor(Math.random() * 60) + 150
-            const randomB = Math.floor(Math.random() * 34) + 220 
-            return {key: investment.ticker, value: investment.total, color: `rgb(${randomR}, ${randomG}, ${randomB})`}
+            const randomB = Math.floor(Math.random() * 34) + 220
+            return { key: investment.ticker, value: investment.total, color: `rgb(${randomR}, ${randomG}, ${randomB})` }
         })
 
         console.log(pieData)
@@ -70,10 +70,10 @@ class InvestmentList extends Component {
                 {this.state.pageReady ?
                     <div>
                         <HeaderPlacement>
-                            <HeaderBar 
+                            <HeaderBar
                                 user={this.state.user}
                                 backLink={`/users/${this.state.user._id}`}
-                                />
+                            />
                         </HeaderPlacement>
 
                         <Table>
@@ -85,8 +85,8 @@ class InvestmentList extends Component {
                                     <TickerContainer key={investment._id}>
                                         <Link to={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
                                             <Ticker><TickerName>{investment.ticker}</TickerName>
-                                            {/* <FolderIconSpan><FaFolderOpenO /></FolderIconSpan> */}
-                                            
+                                                {/* <FolderIconSpan><FaFolderOpenO /></FolderIconSpan> */}
+
                                             </Ticker>
                                         </Link>
                                     </TickerContainer>
@@ -118,7 +118,7 @@ class InvestmentList extends Component {
                                 })}
                             </ColumnOdd>
                         </Table>
-                        
+
                         <BottomPageContainer>
                             <PortfolioSummary
                                 profitLossColor={this.state.profitLossColor}
@@ -127,25 +127,28 @@ class InvestmentList extends Component {
                                 profitOrLoss={this.state.profitOrLoss}
                             />
 
-                                <NewInvestmentContainer>
-                                    <StyledButton onClick={this.toggleAddStockForm}>- Add Investment</StyledButton>
-                                    <Collapse isOpened={this.state.showNewForm}>
-                                        <NewInvestment userId={this.props.match.params.id} getAllInvestments={this.getAllInvestments} />
-                                    </Collapse>
-                                </NewInvestmentContainer>
-                            
+                            <NewInvestmentContainer>
+                                {this.state.showNewForm ?
+                                    <StyledButton onClick={this.toggleAddStockForm}>Cancel Purchase</StyledButton>
+                                    : <StyledButton onClick={this.toggleAddStockForm}>Add New Stock</StyledButton>
+                                }
+                                <Collapse isOpened={this.state.showNewForm}>
+                                    <NewInvestment userId={this.props.match.params.id} getAllInvestments={this.getAllInvestments} />
+                                </Collapse>
+                            </NewInvestmentContainer>
+
                             <PieContainer>
-                            <PieChart className="pie-chart"
-                                size={250}
-                                labels
-                                data={pieData}
-                                styles={{
-                                    '.chart_text': {
-                                        fontSize: '1em',
-                                        fill: '#fff'
-                                    }
-                                }}
-                            />
+                                <PieChart className="pie-chart"
+                                    size={250}
+                                    labels
+                                    data={pieData}
+                                    styles={{
+                                        '.chart_text': {
+                                            fontSize: '1em',
+                                            fill: '#fff'
+                                        }
+                                    }}
+                                />
                             </PieContainer>
                         </BottomPageContainer>
                     </div>

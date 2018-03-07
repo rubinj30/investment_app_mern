@@ -253,7 +253,10 @@ class SingleInvestmentPage extends Component {
 
                         <EditDeleteButtonsContainer>
                             <div>
-                                <StyledButton onClick={this.toggleSellConfirmShowing}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
+                                {this.state.sellConfirmationShowing ?
+                                    <StyledButton onClick={this.toggleSellConfirmShowing}>Cancel Sale</StyledButton>
+                                    : <StyledButton onClick={this.toggleSellConfirmShowing}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
+                                }
                             </div>
 
                             <Collapse isOpened={this.state.sellConfirmationShowing}>
@@ -269,7 +272,10 @@ class SingleInvestmentPage extends Component {
                                 </ReviewContainer>
                             </Collapse>
                             <EditContainer>
-                                <StyledButton onClick={this.toggleEditFormShowing}> Hide Edit Form </StyledButton>
+                                { this.state.editFormShowing ?
+                                <StyledButton onClick={this.toggleEditFormShowing}> Cancel Transaction </StyledButton>
+                                : <StyledButton onClick={this.toggleEditFormShowing}> Change # of {this.state.investment.ticker} Shares </StyledButton>
+                                }
                                 <Collapse isOpened={this.state.editFormShowing}>
                                     <EditDiv>
                                         <div>How many shares would you like to own?</div>
