@@ -7,20 +7,20 @@ https://stock-up-app.herokuapp.com
 ## Technologies/Frameworks used:
 MERN stack:
 
-React.js
-MongoDB
-Express.js
-Node.js
+- React.js
+- MongoDB
+- Express.js
+- Node.js
 
 Other:
-React-router
-Axios
-Mongoose.js
-CSS and HTML
-styled-components
-Recharts
-Heroku
-React Icons
+- React-router
+- Axios
+- Mongoose.js
+- CSS and HTML
+- styled-components
+- Recharts
+- Heroku
+- React Icons
 
 ### More About the Project
 
