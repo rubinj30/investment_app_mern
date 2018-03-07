@@ -53,11 +53,15 @@ const TotalValue = styled.div`
 `
 
 const SummaryContainer = styled.div`
-    height: 100px;
+    height: 120px;
     display:flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: 15px 10px 30px 15px;
+    padding: 10px 10px 30px 10px;
+    margin: 15px;
+    align-items: space-around;
+    border-radius: 5px;
+    border: 1px solid black;
 `
 
 const SummaryTitle = styled.div`

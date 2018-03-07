@@ -27,7 +27,8 @@ class SingleInvestmentPage extends Component {
         news: {},
         sellConfirmationShowing: false,
         editFormShowing: false,
-        profitLossColor: ''
+        profitLossColor: '',
+        quantity: ''
     }
 
     componentWillMount = async () => {
@@ -35,7 +36,7 @@ class SingleInvestmentPage extends Component {
         this.fetchStockInfoFromApi()
         // this.fetchHourlyStockPrices()
         this.fetchDailyStockPrices()
-        this.fetchFundamentals()
+        // this.fetchFundamentals()
         this.fetchMonthlyStockPrices()
         this.fetchNews()
     }
@@ -50,7 +51,8 @@ class SingleInvestmentPage extends Component {
                 user: response.data.user,
                 investment: response.data.investment,
                 profitLossColor: response.data.profitLossColor,
-                investmentReady: !this.state.investmentReady
+                investmentReady: !this.state.investmentReady,
+                quantity: response.data.investment.quantity
             })
         }
         catch (err) {
@@ -154,14 +156,14 @@ class SingleInvestmentPage extends Component {
     }
 
     handleEditChange = async (event) => {
-        const investment = {...this.state.investment}
-        investment[event.target.quantity] = event.target.value 
-        this.setState({ investment })
+
+        this.setState({ [event.target.name]: event.target.value })
+        event.preventDefault()
     }
 
-    updateNumberOfShares = async (event) => {
-        // probably best to just send the number of shares updating to
-        // and use toggle to show difference and how much the user would stand to gain/lose
+    updateNumberOfShares = async () => {
+        await axios.patch(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`, this.state.quantity )
+
     }
 
     toggleDescriptionShowing = () => {
@@ -200,7 +202,7 @@ class SingleInvestmentPage extends Component {
         const gainLoss = totalCurrentValue - totalPurchasePrice
         const percentagGainLoss = (gainLoss / totalPurchasePrice) * 100
 
-        console.log("P/L color color color", typeof(this.state.profitLossColor))
+        console.log("P/L color color color", typeof (this.state.profitLossColor))
 
         return (
 
@@ -227,7 +229,7 @@ class SingleInvestmentPage extends Component {
                                     <CurrentPrice>Purchase Price: </CurrentPrice><DetailValue> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</DetailValue>
                                 </PricingDetailDiv>
                                 <PricingDetailDiv>
-                                    <CurrentPrice>Overall % Gain/Loss: </CurrentPrice><GainLossDetailValue> {percentagGainLoss.toFixed(1)}%</GainLossDetailValue>
+                                    <CurrentPrice>% Gain/Loss: </CurrentPrice><GainLossDetailValue profitLossColor={this.state.profitLossColor}> {percentagGainLoss.toFixed(1)}%</GainLossDetailValue>
                                 </PricingDetailDiv>
                             </PricingDetail>
                             {/* <Detail>
@@ -254,11 +256,11 @@ class SingleInvestmentPage extends Component {
                             {this.state.sellConfirmationShowing ?
                                 <ReviewContainer>
                                     <SectionTitle>Review Details</SectionTitle>
-                                    <div>Current price: {accounting.formatMoney(this.state.investment.price)}</div>
-                                    <div>Number of shares: {this.state.investment.quantity}</div>
-                                    <div>Total current value: {accounting.formatMoney(totalPurchasePrice)}</div>
-                                    <div>Total current value: {accounting.formatMoney(totalCurrentValue)}</div>
-                                    <div>Overall Gain/Loss: {accounting.formatMoney(gainLoss)}</div>
+                                    <ReviewDetailLine><div>Current price:</div> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
+                                    <ReviewDetailLine><div>Number of shares: </div>{this.state.investment.quantity}</ReviewDetailLine>
+                                    <ReviewDetailLine><div>Original total value:</div> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
+                                    <ReviewDetailLine><div>Total current value: </div>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
+                                    <ReviewDetailLine>$ Gain/Loss: <GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
                                     <ConfirmButton onClick={this.deleteStock}>Click to Confirm Sale</ConfirmButton>
 
                                 </ReviewContainer>
@@ -266,12 +268,14 @@ class SingleInvestmentPage extends Component {
                             }
 
                             {this.state.editFormShowing ?
-                                <div>
+                                <EditContainer>
                                     <StyledButton onClick={this.toggleEditFormShowing}> Hide Edit Form </StyledButton>
-                                    <div>
-                                        <input onChange={this.handleEditChange} name="quantity" value={this.state.investment.quantity} />
-                                    </div>
-                                </div>
+                                    <EditDiv>
+                                        <div>How many shares would you like to own?</div>
+                                        <EditInput onChange={this.handleEditChange} name="quantity" value={this.state.quantity} />
+                                        <ConfirmButton onClick={this.updateNumberOfShares}>Click to Confirm Update</ConfirmButton>
+                                    </EditDiv>
+                                </EditContainer>
 
                                 :
                                 <div>
@@ -394,7 +398,10 @@ const DetailValue = styled.div`
 
 const GainLossDetailValue = styled.div`
     background-color: ${props => props.profitLossColor};
-    /* background-color: red; */
+    padding: 2px;
+    border-radius: 3px;
+    color: white;
+
 `
 
 const DetailValueSpan = styled.span`
@@ -474,6 +481,9 @@ const CompanyName = styled.div`
 
 const EditDeleteButtonsContainer = styled.div`
     padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 const ConfirmButton = styled.div`
@@ -516,6 +526,27 @@ const ReviewContainer = styled.div`
 const ReviewTitle = styled.div`
     font-size: 18px;
 `
-// const FundamentalsDetails = styled.div`
+const EditDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+`
 
-// `
+const EditInput = styled.input`
+    border-radius: 5px;
+    height: 20px;
+    width: 30px;
+    font-size: 16px;
+`
+
+const EditContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+const ReviewDetailLine= styled.div`
+    display: flex;
+    justify-content: space-between;
+`

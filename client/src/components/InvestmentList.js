@@ -131,7 +131,9 @@ class InvestmentList extends Component {
                                     <NewInvestment userId={this.props.match.params.id} getAllInvestments={this.getAllInvestments} />
                                 </NewInvestmentContainer>
                                 :
-                                <StyledButton onClick={this.toggleAddStockForm}>+ Add Investment</StyledButton>
+                                <NewInvestmentContainer>
+                                    <StyledButton onClick={this.toggleAddStockForm}>+ Add Investment</StyledButton>
+                                </NewInvestmentContainer>
                             }
                             <PieContainer>
                             <PieChart className="pie-chart"

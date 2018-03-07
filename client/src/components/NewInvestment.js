@@ -45,18 +45,20 @@ class NewInvestment extends Component {
             <div>
                 {this.state.redirect ?
                 <Redirect to={`/users/${this.props.userId}/investments`} /> :
+                
                 <NewForm onSubmit={this.addStockToPortfolio}>
-
+                    <NewContainer>
                     <div><label>Enter the Stock Ticker</label></div>
                     <div>
                         <input onChange={this.handleNewInvestmentChange}
                             name="ticker" type="text" value={this.state.newInvestment.ticker} required />
                     </div>
-                    <div><label>How many shares would you like?</label></div>
+                    <div><label>How many shares?</label></div>
                     <div>
                         <input onChange={this.handleNewInvestmentChange} name="quantity" type="number" 
                         value={this.state.newInvestment.quantity} required />
                     </div>
+                    </NewContainer>
                     <StyledButton>Add To Portfolio</StyledButton>
                 </NewForm>
                 } 
@@ -68,6 +70,16 @@ class NewInvestment extends Component {
 export default NewInvestment
 
 const NewForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+const NewContainer = styled.div`
+    padding: 10px;
+    margin: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;

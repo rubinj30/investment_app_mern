@@ -1,50 +1,62 @@
 const express = require('express')
 const User = require('../db/models/User')
 const Investment = require('../db/models/Investment')
-const alpha = require('alphavantage')({ key: `${process.env.TIME_SERIES}`});
+const alpha = require('alphavantage')({ key: `${process.env.TIME_SERIES}` });
 const router = express.Router({ mergeParams: true })
+const axios = require('axios')
 
 router.get('/', async (request, response) => {
     try {
         const user = await User.findById(request.params.userId)
-        const tickers = user.investments.map((investment) => {
+        const tickers = await user.investments.map((investment) => {
             return investment.ticker
         })
         
         const currentPrices = []
-        await alpha.data.batch(tickers).then(data => {
-            // console.log(data)
-            for (let i=0; i < tickers.length; i++) {
-                currentPrices.push(
-                    {stockTicker: data['Stock Quotes'][i]['1. symbol'],
-                    stockPrice: data['Stock Quotes'][i]['2. price']}
-                )
-            }
-        })
-
-        updatedStockInfo = []
+        const tickersString = tickers.join(",")
+        const data = await axios.get(`https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=${tickersString}&apikey=J2JY3QVFS2WGX91L`)
+        pricesArray = data.data['Stock Quotes']
+        
+        for (let i = 0; i < tickers.length; i++) {
+            currentPrices.push(
+                {
+                    stockTicker: pricesArray[i]['1. symbol'],
+                    stockPrice: pricesArray[i]['2. price']
+                }
+            )
+        }
+        
+        // console.log("CURRENT", currentPrices)
+        console.log("USER.INVESTMENTS", user.investments)
+        const updatedStockInfo = []
         let portfolioTotal = 0
         let portfolioCost = 0
         let profitOrLoss = 0
+        console.log(user.investments)
         user.investments.forEach((investment, index) => {
             currentPrices.map((currentPrice) => {
                 if (currentPrice.stockTicker === investment.ticker) {
-
+                    console.log("currentPrice.stockPrice ", currentPrice.stockPrice)
                     // sets current price of individual investment
                     investment.price = currentPrice.stockPrice
-
+                    console.log("investment.price ", investment.price)
                     // calculates total value of individual investment
+                    
                     investment.total = (investment.price * investment.quantity).toFixed(2)
-
+                    console.log("investment.total ", investment.price)
+                    console.log("investment.quantity ", investment.quantity)
                     // calculate individual stocks total profit
                     investment.profit = investment.total - (investment.stockPurchasePrice * investment.quantity)
+                    // console.log(typeof (investment.total))
 
-                    // adds that value to the portfolio total
+                    // adds that total value to the portfolio total
                     portfolioTotal += investment.total
+                    // console.log(investment.ticker)
+                    // console.log("investment.total", investment.total)
 
                     // multiplies original stock purchase price * quantity and adds to portfolio cost
                     portfolioCost += (investment.stockPurchasePrice * investment.quantity)
-                    
+
                     updatedStockInfo.push(investment)
                 }
             })
@@ -52,7 +64,7 @@ router.get('/', async (request, response) => {
 
         profitOrLoss = portfolioTotal - portfolioCost
         let profitLossColor = ''
-        profitOrLoss >= 0 ? profitLossColor = 'green' : profitLossColor = 'red;'
+        profitOrLoss >= 0 ? profitLossColor = 'green' : profitLossColor = '#F03434'
         response.json({
             updatedStockInfo,
             user,
@@ -70,14 +82,12 @@ router.get('/:investmentId', async (request, response) => {
     try {
         const user = await User.findById(request.params.userId)
         const investment = await user.investments.id(request.params.investmentId)
-
-        await alpha.data.batch(investment.ticker).then(data => {
-            investment.price = data['Stock Quotes'][0]['2. price']
-        })
+        const data = await axios.get(`https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=${investment.ticker}&apikey=J2JY3QVFS2WGX91L`)
+        investment.price = data.data['Stock Quotes'][0]['2. price']
 
         let profitLossColor = ''
         investment.price - investment.stockPurchasePrice >= 0 ? profitLossColor = 'green' : profitLossColor = 'red;'
-        
+
         response.json({
             user,
             investment,
@@ -96,7 +106,7 @@ router.post('/', async (request, response) => {
         investment.quantity = request.body.quantity
         investment.type = request.body.type
         await alpha.data.batch(investment.ticker).then(data => {
-            
+
             investment.stockPurchasePrice = data['Stock Quotes'][0]['2. price']
             console.log(investment)
         });
@@ -134,8 +144,8 @@ router.patch('/:investmentId', async (request, response) => {
     }
     catch (err) {
         console.log(err)
-        response.sendStatus(500) 
-
+        response.sendStatus(500)
     }
 })
+
 module.exports = router
