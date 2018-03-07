@@ -8,6 +8,7 @@ import accounting from 'accounting'
 import StockNews from './StockNews'
 import HeaderBar from './HeaderBar'
 import { FaArrowCircleLeft } from 'react-icons/lib/fa'
+import { Collapse } from 'react-collapse'
 
 class SingleInvestmentPage extends Component {
     state = {
@@ -254,19 +255,20 @@ class SingleInvestmentPage extends Component {
                             <div>
                                 <StyledButton onClick={this.toggleSellConfirmShowing}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
                             </div>
-                            {this.state.sellConfirmationShowing ?
-                                <ReviewContainer>
-                                    <SectionTitle>Review Details</SectionTitle>
-                                    <ReviewDetailLine><div>Current price:</div> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
-                                    <ReviewDetailLine><div>Number of shares: </div>{this.state.investment.quantity}</ReviewDetailLine>
-                                    <ReviewDetailLine><div>Original total value:</div> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
-                                    <ReviewDetailLine><div>Total current value: </div>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
-                                    <ReviewDetailLine>$ Gain/Loss: <GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
-                                    <ConfirmButton onClick={this.deleteStock}>Click to Confirm Sale</ConfirmButton>
+    
+                                <Collapse isOpened={this.state.sellConfirmationShowing}>
+                                    <ReviewContainer>
+                                        <SectionTitle>Review Details</SectionTitle>
+                                        <ReviewDetailLine><div>Current price:</div> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
+                                        <ReviewDetailLine><div>Number of shares: </div>{this.state.investment.quantity}</ReviewDetailLine>
+                                        <ReviewDetailLine><div>Original total value:</div> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
+                                        <ReviewDetailLine><div>Total current value: </div>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
+                                        <ReviewDetailLine>$ Gain/Loss: <GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
+                                        <ConfirmButton onClick={this.deleteStock}>Click to Confirm Sale</ConfirmButton>
 
-                                </ReviewContainer>
-                                : null
-                            }
+                                    </ReviewContainer>
+                                </Collapse>
+
 
                             {this.state.editFormShowing ?
                                 <EditContainer>
@@ -297,10 +299,10 @@ class SingleInvestmentPage extends Component {
                                         <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[0].value}</DetailValue>
                                     </Detail>
                                     <Detail>
-                                        <DetailKey>Gross Margin</DetailKey><DetailValue> {this.state.fundamentals[1].value }</DetailValue>
+                                        <DetailKey>Gross Margin</DetailKey><DetailValue> {this.state.fundamentals[1].value}</DetailValue>
                                     </Detail>
                                     <Detail>
-                                        <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[2].value }</DetailValue>
+                                        <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[2].value}</DetailValue>
                                     </Detail>
                                 </FundamentalsDetails>
                             </Fundamentals>
@@ -551,7 +553,7 @@ const EditContainer = styled.div`
     align-items: center;
 `
 
-const ReviewDetailLine= styled.div`
+const ReviewDetailLine = styled.div`
     display: flex;
     justify-content: space-between;
 `

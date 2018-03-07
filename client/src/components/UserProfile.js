@@ -74,7 +74,6 @@ class UserProfile extends Component {
 
 export default UserProfile
 
-
 const UserHeaderWrapper = styled.div`
     background-color: #45b9f2;
     display: flex;
@@ -111,7 +110,7 @@ const FolderDiv = styled.div`
 `
 
 const FolderText = styled.div`
-    font-size: 20px;r
+    font-size: 20px;
 `
 
 const HeaderContainer = styled.div`
