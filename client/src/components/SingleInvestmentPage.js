@@ -224,15 +224,15 @@ class SingleInvestmentPage extends Component {
                         </CompanyName>
                         <PriceDetail>
                             <PricingDetail>
-                                <PricingDetailDiv>
+                                <Detail>
                                     <CurrentPrice>Current Price: </CurrentPrice><DetailValue> {accounting.formatMoney(this.state.investment.price)}</DetailValue>
-                                </PricingDetailDiv>
-                                <PricingDetailDiv>
+                                </Detail>
+                                <Detail>
                                     <CurrentPrice>Purchase Price: </CurrentPrice><DetailValue> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</DetailValue>
-                                </PricingDetailDiv>
-                                <PricingDetailDiv>
+                                </Detail>
+                                <Detail>
                                     <CurrentPrice>% Gain/Loss: </CurrentPrice><GainLossDetailValue profitLossColor={this.state.profitLossColor}> {percentagGainLoss.toFixed(1)}%</GainLossDetailValue>
-                                </PricingDetailDiv>
+                                </Detail>
                             </PricingDetail>
                             {/* <Detail>
                                 <DetailKey>% Change Since Yesterday: </DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>
@@ -383,6 +383,13 @@ const PricingDetailDiv = styled.div`
 `
 
 const PricingDetail = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 300px;
+    padding: 10px;
 
 `
 
@@ -465,6 +472,7 @@ const LineContainer = styled.div`
 
 const PriceDetail = styled.div`
     padding-bottom: 10px;
+    
 `
 
 const HeaderWrapper = styled.div`
@@ -528,6 +536,7 @@ const ReviewContainer = styled.div`
     margin: 10px 0;
     border-radius: 5px;
     border: 1px solid black;
+    width: 300px;
 `
 
 const ReviewTitle = styled.div`
@@ -538,6 +547,8 @@ const EditDiv = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 10px;
+    border-radius: 5px;
+    border: 1px solid;
 `
 
 const EditInput = styled.input`

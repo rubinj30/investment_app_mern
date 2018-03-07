@@ -13,9 +13,10 @@ export const StyledButton = styled.button`
     border-radius: 5px;
     font-family: Arial;
     color: #ffffff;
-    font-size: 16px;
-    width: 240px;
+    font-size: 20px;
+    width: 300px;
     padding: 5px;
+    margin: 10px;
     text-decoration: none;
     &:hover {
     background: #3cb0fd;

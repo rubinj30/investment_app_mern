@@ -42,7 +42,7 @@ class LineGraph extends Component {
                 {/* <div>{investmentName} ({ticker})</div> */}
                 { this.state.dailyChartTimeFrame ? 
                 <ChartSubContainer>
-                    <div>Past Month</div>
+                    <TimeFrameLabel>Past Month</TimeFrameLabel>
                     <LineChart width={360} height={200} data={reversedLineData}
                         margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
                         <XAxis dataKey="name" />
@@ -59,7 +59,7 @@ class LineGraph extends Component {
                 </ChartSubContainer>
                 : 
                 <ChartSubContainer>
-                    <div>Past Year</div>
+                    <TimeFrameLabel>Past Year</TimeFrameLabel>
                     <LineChart width={350} height={200} data={reversedMonthlyData}
                         margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
                         <XAxis dataKey="name" />
@@ -120,4 +120,7 @@ const ChartSubContainer = styled.div`
 `
 const TimeFrameContainer = styled.div`
     display: flex;
+`
+const TimeFrameLabel = styled.div`
+    font-size: 20px;
 `
