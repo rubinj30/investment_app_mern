@@ -32,27 +32,37 @@ class UserProfile extends Component {
 
         return (
             <div>
+
+                <UserHeaderWrapper>
+                    <HeaderBar
+                        user={this.state.user}
+                        backLink={`/users/${this.state.user._id}/investments`}
+                    />
+                </UserHeaderWrapper>
                 {
                     this.state.pageReady ?
                         <div>
-                            <UserHeaderWrapper>
-                                <HeaderBar
-                                    user={this.state.user}
-                                    backLink={`/users/${this.state.user._id}/investments`}
-                                />
-                            </UserHeaderWrapper>
-                            <div>
-                                Username: {user.username}
-                            </div>
-                            <div>
-                                E-mail: {user.email}
-                            </div>
-                            <div>
-                                # of Stocks Owned: {user.investments.length}
-                            </div>
-                            <Link to={`/users/${user._id}/investments`}>
-                                Go to Investment Porftolio <FaFolderOpenO />
+                            <DetailsContainer>
+
+                                <ProfileDetail>
+                                    <div>Username: </div><div>{user.username}</div>
+                                </ProfileDetail>
+                                <ProfileDetail>
+                                    <div>E-mail: </div><div>{user.email}</div>
+                                </ProfileDetail>
+                                <ProfileDetail>
+                                    <div># Stocks Owned:</div><div>{user.investments.length}</div>
+                                </ProfileDetail>
+
+
+                            </DetailsContainer>
+
+                            <FolderDiv><Link to={`/users/${user._id}/investments`}>
+                                <FaFolderOpenO />
+                                <FolderText>Go to Stock Portfolio</FolderText>
+                                
                             </Link>
+                            </FolderDiv>
                         </div>
                         : null
                 }
@@ -67,4 +77,35 @@ export default UserProfile
 
 const UserHeaderWrapper = styled.div`
     background-color: #45b9f2;
+`
+const DetailsContainer = styled.div`
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin: 0 auto;
+    margin-top: 30px;
+    font-size: 20px;
+`
+
+const ProfileDetail = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 5px;
+
+`
+
+const FolderDiv = styled.div`
+    font-size: 75px;
+    text-align: center;
+    
+    a {
+        text-decoration: none;
+        color: black;
+    }
+`
+
+const FolderText = styled.div`
+    font-size: 20px;r
 `
