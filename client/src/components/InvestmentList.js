@@ -53,7 +53,7 @@ class InvestmentList extends Component {
     toggleAddStockForm = async () => {
         this.setState({ showNewForm: !this.state.showNewForm })
     }
-    //75 186 240
+
     render() {
 
         const pieData = this.state.investments.map((investment) => {

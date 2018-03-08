@@ -21,6 +21,7 @@ class HomePage extends Component {
 
         return (
             <div>
+                
 
                 {this.state.users.map(user => (
                     <div>
