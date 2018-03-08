@@ -82,7 +82,7 @@ class SingleInvestmentPage extends Component {
 
     fetchHourlyStockPrices = async () => {
         try {
-            const api_key = process.env.REACT_APP_TIME_SERIES
+            const api_key = process.env.TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.state.investment.ticker}&interval=60min&outputsize=full&apikey=${api_key}`
             const response = await axios.get(URL)
             console.log("HOURLY", response.data)
@@ -97,9 +97,10 @@ class SingleInvestmentPage extends Component {
 
     fetchDailyStockPrices = async () => {
         try {
-            const api_key = process.env.REACT_APP_TIME_SERIES
+            const api_key = process.env.TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
+            console.log(response.data)
             this.setState({
                 dailyStockPrices: response.data["Time Series (Daily)"],
                 dailyReady: !this.state.dailyReady
@@ -113,7 +114,7 @@ class SingleInvestmentPage extends Component {
     fetchMonthlyStockPrices = async () => {
         try {
             console.log("get monthly stock times")
-            const api_key = process.env.REACT_APP_TIME_SERIES
+            const api_key = process.env.TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
             this.setState({ monthlyStockPrices: response.data["Monthly Time Series"] })
@@ -163,9 +164,22 @@ class SingleInvestmentPage extends Component {
         event.preventDefault()
     }
 
-    updateNumberOfShares = async () => {
-        await axios.patch(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`, this.state.quantity )
+    updateNumberOfShares = async (event) => {
+        try {
+            console.log("QT", this.state.qty)
+            
+            const response = await axios.patch(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`,
+                {
+                    quantity: this.state.quantity
+                }
+            )
+            console.log(response)
+            this.fetchStockInfoFromApi()
 
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
     toggleDescriptionShowing = () => {
@@ -191,13 +205,13 @@ class SingleInvestmentPage extends Component {
         }
 
         const url = "http://" + this.state.investmentInfo.company_url
-        if (this.state.dailyReady) {
-            const yesterdayClosePrice = Object.values(dailyStockPrices)[0]['1. close']
-            // console.log("YESTERDAY", yesterdayClosePrice)
-            // console.log("Price", this.state.investment.price)
-            const priceChange = this.state.investment.price - parseInt(yesterdayClosePrice)
-            // console.log(priceChange)
-        }
+        // if (this.state.dailyReady) {
+        //     const yesterdayClosePrice = Object.values(dailyStockPrices)[0]['1. close']
+        //     // console.log("YESTERDAY", yesterdayClosePrice)
+        //     // console.log("Price", this.state.investment.price)
+        //     const priceChange = this.state.investment.price - parseInt(yesterdayClosePrice)
+        //     // console.log(priceChange)
+        // }
 
         const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
         const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
@@ -272,9 +286,9 @@ class SingleInvestmentPage extends Component {
                                 </ReviewContainer>
                             </Collapse>
                             <EditContainer>
-                                { this.state.editFormShowing ?
-                                <StyledButton onClick={this.toggleEditFormShowing}> Cancel Transaction </StyledButton>
-                                : <StyledButton onClick={this.toggleEditFormShowing}> Change # of {this.state.investment.ticker} Shares </StyledButton>
+                                {this.state.editFormShowing ?
+                                    <StyledButton onClick={this.toggleEditFormShowing}> Cancel Transaction </StyledButton>
+                                    : <StyledButton onClick={this.toggleEditFormShowing}> Change # of {this.state.investment.ticker} Shares </StyledButton>
                                 }
                                 <Collapse isOpened={this.state.editFormShowing}>
                                     <EditDiv>

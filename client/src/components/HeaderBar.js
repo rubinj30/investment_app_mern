@@ -5,9 +5,10 @@ import styled from 'styled-components'
 import { FaArrowCircleLeft, FaLineChart, FaArrowLeft } from 'react-icons/lib/fa'
 
 class HeaderBar extends Component {
-    render() {
-        return (
 
+    render() {
+        
+        return (
             <Header>
                 <UserDiv>
                     <Link to={`/users/${this.props.user._id}`}>
@@ -23,7 +24,7 @@ class HeaderBar extends Component {
                     <Blank></Blank>
                 </NameAndBackDiv>
             </Header>
-        );
+        )
     }
 }
 

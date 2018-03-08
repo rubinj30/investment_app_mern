@@ -36,7 +36,8 @@ class UserProfile extends Component {
                 <UserHeaderWrapper>
                     <HeaderBar
                         user={this.state.user}
-                        backLink={`/users/${this.state.user._id}/investments`}
+                        backLink={`/users`}
+                        // userProfileLink={`/users/${user._id}`}
                     />
                 </UserHeaderWrapper>
                 {

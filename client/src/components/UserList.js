@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import HeaderBar from './HeaderBar'
 
 class UserList extends Component {
-    
+
     state = {
         users: [],
         pageReady: false
@@ -23,8 +23,8 @@ class UserList extends Component {
     render() {
 
         return (
-                
-            <div>
+
+            <UserListPageWrapper>
 
                 {/* header bar is using "user._id" but there is no one specific user */}
                 {/* <HeaderContainerDiv>
@@ -33,18 +33,19 @@ class UserList extends Component {
                     />
                 </HeaderContainerDiv> */}
                 <div>
+                    <UserListTitle>Current Users:</UserListTitle>
                     {this.state.users.map(user => (
-                        <div>
+                        <UserNameList>
 
                             <Link key={user._id} to={`/users/${user._id}/`}>
                                 {user.username}
                             </Link>
 
-                        </div>
+                        </UserNameList>
                     ))}
 
                 </div>
-            </div>
+            </UserListPageWrapper>
         )
     }
 }
@@ -58,4 +59,30 @@ const HeaderContainerDiv = styled.div`
     background-color: #45b9f2;
     color: white;
     padding-bottom: 10px;
+`
+
+const UserListPageWrapper = styled.div`
+    background-color: #45b9f2;
+    color: white;
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+`
+
+const UserNameList = styled.div`
+    padding: 10px;
+    font-size: 20px;
+    a {
+        color: white;
+        text-decoration: underline;
+    }
+`
+
+const UserListTitle = styled.div`
+    color: white;
+    font-size: 25px;
+    padding: 10px;
 `
