@@ -79,7 +79,7 @@ class InvestmentList extends Component {
                         <Table>
 
                             <Column1>
-                                <ColumnTitle>ticker</ColumnTitle>
+                                <ColumnTitle1>stock</ColumnTitle1>
 
                                 {this.state.investments.map(investment => (
                                     <TickerContainer key={investment._id}>
@@ -187,14 +187,26 @@ const Column1 = styled.div`
     background-color: #45b9f2;
     padding-left: 8px;
     padding-top: 10px;
-`
+
+    @media (min-width: 400px) {
+        width: 100%;
+    }
+
+    @media (min-width: 700px) {
+        font-size: 20px;
+    }
+  `
 
 const Column2 = styled.div`
     background-color: #238dce;
     text-align: center;
-    padding: 0 7px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 7px;
+    @media (min-width: 400px) {
+        width: 100%;
+    }
+    @media (min-width: 700px) {
+        font-size: 20px;
+    }
     
 `
 
@@ -208,6 +220,9 @@ const ColumnOdd = styled.div`
     flex-direction: column;
     padding-top: 10px;
     padding-bottom: 10px;
+    @media (min-width: 700px) {
+        font-size: 20px;
+    }
 `
 
 const ColumnEven = styled.div`
@@ -216,18 +231,37 @@ const ColumnEven = styled.div`
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
+    @media (min-width: 700px) {
+        font-size: 20px;
+    }
 `
 
 const ColumnTitle = styled.div`
     padding-bottom: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
+    @media (min-width: 700px) {
+        font-size: 25px;
+    }
+`
+
+const ColumnTitle1 = styled.div`
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    @media (min-width: 700px) {
+        font-size: 25px;
+    }
+    @media (min-width: 400px) {
+        padding-left: 3vw;
+    }
 `
 
 const Table = styled.div`
     display: flex;
     justify-content: space-between;
     color: white;
+    
 `
 
 const Ticker = styled.div`
@@ -245,6 +279,11 @@ const TickerContainer = styled.div`
 
 const TickerName = styled.div`
     padding-right: 5px;
+    
+    @media (min-width: 400px) {
+        padding-left: 3vw;
+    }
+    
 `
 
 // const ProfitLoss = styled.span`
