@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 import HeaderBar from './HeaderBar'
+import FullPageBackground from './styled-components/FullPageBackground'
 
 class UserList extends Component {
 
@@ -24,7 +25,7 @@ class UserList extends Component {
 
         return (
 
-            <UserListPageWrapper>
+            <FullPageBackground>
 
                 {/* header bar is using "user._id" but there is no one specific user */}
                 {/* <HeaderContainerDiv>
@@ -45,13 +46,11 @@ class UserList extends Component {
                     ))}
 
                 </div>
-            </UserListPageWrapper>
+            </FullPageBackground>
         )
     }
 }
 export default UserList
-
-
 
 const HeaderContainerDiv = styled.div`
     display: flex;
@@ -61,16 +60,16 @@ const HeaderContainerDiv = styled.div`
     padding-bottom: 10px;
 `
 
-const UserListPageWrapper = styled.div`
-    background-color: #45b9f2;
-    color: white;
-    height: 100vh; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-`
+// const FullBackground = styled.div`
+//     background-color: #45b9f2;
+//     color: white;
+//     height: 100vh; 
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     text-decoration: none;
+// `
 
 const UserNameList = styled.div`
     padding: 10px;

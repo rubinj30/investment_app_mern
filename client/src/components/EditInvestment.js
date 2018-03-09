@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class componentName extends Component {
+class EditInvestment extends Component {
     render() {
         
         state = {
@@ -16,4 +16,4 @@ class componentName extends Component {
     }
 }
 
-export default componentName;
+export default EditInvestment;

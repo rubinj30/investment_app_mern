@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import { FaUser } from 'react-icons/lib/fa'
 import styled from 'styled-components'
-import { FaArrowCircleLeft, FaLineChart, FaArrowLeft } from 'react-icons/lib/fa'
+import { FaArrowCircleLeft, FaLineChart, FaArrowLeft, FaUser } from 'react-icons/lib/fa'
+import NameAndBackDiv from './styled-components/NameAndBackDiv'
 
 class HeaderBar extends Component {
 
@@ -86,18 +86,18 @@ const AppText = styled.div`
     padding-right: 6px;
 `
 
-const NameAndBackDiv = styled.div`
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
-    text-decoration: none;
-    color: white;
-    a {
-        text-decoration: none;
-        color: white;
-    }
+// const NameAndBackDiv = styled.div`
+//     display:flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     text-decoration: none;
+//     color: white;
+//     a {
+//         text-decoration: none;
+//         color: white;
+//     }
     
-`
+// `
 
 const Blank = styled.div`
     width: 35px;
