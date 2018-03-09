@@ -27,8 +27,6 @@ router.get('/', async (request, response) => {
             )
         }
         
-        // console.log("CURRENT", currentPrices)
-        console.log("USER.INVESTMENTS", user.investments)
         const updatedStockInfo = []
         let portfolioTotal = 0
         let portfolioCost = 0
@@ -37,23 +35,18 @@ router.get('/', async (request, response) => {
         user.investments.forEach((investment, index) => {
             currentPrices.map((currentPrice) => {
                 if (currentPrice.stockTicker === investment.ticker) {
-                    console.log("currentPrice.stockPrice ", currentPrice.stockPrice)
+                    
                     // sets current price of individual investment
                     investment.price = currentPrice.stockPrice
-                    console.log("investment.price ", investment.price)
                     // calculates total value of individual investment
                     
                     investment.total = (investment.price * investment.quantity).toFixed(2)
-                    console.log("investment.total ", investment.price)
-                    console.log("investment.quantity ", investment.quantity)
+
                     // calculate individual stocks total profit
                     investment.profit = investment.total - (investment.stockPurchasePrice * investment.quantity)
-                    // console.log(typeof (investment.total))
 
                     // adds that total value to the portfolio total
                     portfolioTotal += investment.total
-                    // console.log(investment.ticker)
-                    // console.log("investment.total", investment.total)
 
                     // multiplies original stock purchase price * quantity and adds to portfolio cost
                     portfolioCost += (investment.stockPurchasePrice * investment.quantity)

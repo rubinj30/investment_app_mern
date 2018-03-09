@@ -29,7 +29,10 @@ class SingleInvestmentPage extends Component {
         sellConfirmationShowing: false,
         editFormShowing: false,
         profitLossColor: '',
-        quantity: ''
+        quantity: '',
+        originalQuantity: '',
+        buyOrSell: ''
+        
     }
 
     componentWillMount = async () => {
@@ -53,7 +56,8 @@ class SingleInvestmentPage extends Component {
                 investment: response.data.investment,
                 profitLossColor: response.data.profitLossColor,
                 investmentReady: !this.state.investmentReady,
-                quantity: response.data.investment.quantity
+                quantity: response.data.investment.quantity,
+                originalQuantity: response.data.investment.quantity
             })
         }
         catch (err) {
@@ -100,7 +104,6 @@ class SingleInvestmentPage extends Component {
             const api_key = process.env.TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
-            console.log(response.data)
             this.setState({
                 dailyStockPrices: response.data["Time Series (Daily)"],
                 dailyReady: !this.state.dailyReady
@@ -113,7 +116,6 @@ class SingleInvestmentPage extends Component {
 
     fetchMonthlyStockPrices = async () => {
         try {
-            console.log("get monthly stock times")
             const api_key = process.env.TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
@@ -160,20 +162,26 @@ class SingleInvestmentPage extends Component {
 
     handleEditChange = async (event) => {
 
-        this.setState({ [event.target.name]: event.target.value })
+        this.setState({ 
+            [event.target.name]: event.target.value
+        })
         event.preventDefault()
     }
 
     updateNumberOfShares = async (event) => {
         try {
-            console.log("QT", this.state.qty)
-            
+            if (this.state.buyOrSell === 'sell') {
+                console.log("SELLING", this.state.quantity)
+                
+            }
+
+
             const response = await axios.patch(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`,
                 {
                     quantity: this.state.quantity
                 }
             )
-            console.log(response)
+            // console.log(response)
             this.fetchStockInfoFromApi()
 
         }
@@ -205,20 +213,18 @@ class SingleInvestmentPage extends Component {
         }
 
         const url = "http://" + this.state.investmentInfo.company_url
-        // if (this.state.dailyReady) {
-        //     const yesterdayClosePrice = Object.values(dailyStockPrices)[0]['1. close']
-        //     // console.log("YESTERDAY", yesterdayClosePrice)
-        //     // console.log("Price", this.state.investment.price)
-        //     const priceChange = this.state.investment.price - parseInt(yesterdayClosePrice)
-        //     // console.log(priceChange)
-        // }
+        if (this.state.dailyReady) {
+            const yesterdayClosePrice = Object.values(dailyStockPrices)[0]['1. close']
+            // console.log("YESTERDAY", yesterdayClosePrice)
+            // console.log("Price", this.state.investment.price)
+            const priceChange = this.state.investment.price - parseInt(yesterdayClosePrice)
+            // console.log(priceChange)
+        }
 
         const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
         const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
         const gainLoss = totalCurrentValue - totalPurchasePrice
         const percentagGainLoss = (gainLoss / totalPurchasePrice) * 100
-
-        console.log("P/L color color color", typeof (this.state.profitLossColor))
 
         return (
 
@@ -294,6 +300,10 @@ class SingleInvestmentPage extends Component {
                                     <EditDiv>
                                         <div>How many shares would you like to own?</div>
                                         <EditInput onChange={this.handleEditChange} name="quantity" value={this.state.quantity} />
+                                        <select name="buyOrSell" onChange={this.handleEditChange}>
+                                            <option value="buy">Buy</option>
+                                            <option value="sell">Sell</option>
+                                        </select>
                                         <ConfirmButton onClick={this.updateNumberOfShares}>Click to Confirm Update</ConfirmButton>
                                     </EditDiv>
                                 </Collapse>
