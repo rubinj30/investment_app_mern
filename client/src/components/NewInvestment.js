@@ -23,7 +23,11 @@ class NewInvestment extends Component {
     }
 
     addStockToPortfolio = async (event) => {
-        event.preventDefault()
+        try {
+        event.preventDefault()        
+        const tickers = this.props.investments.map((investment) => {
+            return investment.ticker
+        })
         
         const payload = {
             ticker: this.state.newInvestment.ticker,
@@ -34,9 +38,12 @@ class NewInvestment extends Component {
         console.log("SUBMITTING FOR ", payload)
         await axios.post(`/api/users/${this.props.userId}/investments`, payload)
         this.props.getAllInvestments()
-        // this.setState({ 
-        //     redirect: !this.state.redirect
-        // })
+        
+        }
+        catch (err) {
+                console.log(err)
+    }
+
         
     }
 

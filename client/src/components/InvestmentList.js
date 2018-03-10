@@ -12,8 +12,6 @@ import HeaderBar from './HeaderBar'
 var randomColor = require('randomcolor')
 var Spinner = require('react-spinkit')
 
-
-
 class InvestmentList extends Component {
     state = {
         user: {},
@@ -63,8 +61,6 @@ class InvestmentList extends Component {
             return { key: investment.ticker, value: investment.total, color: `rgb(${randomR}, ${randomG}, ${randomB})` }
         })
 
-        console.log(pieData)
-
         return (
             <div>
                 {this.state.pageReady ?
@@ -111,6 +107,19 @@ class InvestmentList extends Component {
                                     return <Holder key={investment._id}>{investment.total.toFixed(2)}</Holder>
                                 })}
                             </ColumnEven>
+                            {/* <HiddenMobileColumnOdd>
+                                <ColumnTitle>total ($)</ColumnTitle>
+                                {this.state.investments.map(investment => {
+                                    return <Holder key={investment._id}>{investment.stockPurchasePrice.toFixed(2)}</Holder>
+                                })}
+                            </HiddenMobileColumnOdd>
+
+                            <HiddenMobileColumnOdd>
+                                <ColumnTitle>total ($)</ColumnTitle>
+                                {this.state.investments.map(investment => {
+                                    return <Holder key={investment._id}>{investment.stockPurchasePrice.toFixed(2)}</Holder>
+                                })}
+                            </HiddenMobileColumnOdd> */}
                             <ColumnOdd>
                                 <ColumnTitle>profit ($)</ColumnTitle>
                                 {this.state.investments.map(investment => {
@@ -133,7 +142,11 @@ class InvestmentList extends Component {
                                     : <StyledButton onClick={this.toggleAddStockForm}>Add New Stock</StyledButton>
                                 }
                                 <Collapse isOpened={this.state.showNewForm}>
-                                    <NewInvestment userId={this.props.match.params.id} getAllInvestments={this.getAllInvestments} />
+                                    <NewInvestment 
+                                        userId={this.props.match.params.id} 
+                                        getAllInvestments={this.getAllInvestments} 
+                                        investments={this.state.investments}
+                                    />
                                 </Collapse>
                             </NewInvestmentContainer>
 
@@ -339,4 +352,8 @@ const HeaderPlacement = styled.div`
     background-color: #45b9f2;
     color: white;
     padding-bottom: 10px;
+`
+
+const HiddenMobileColumnOdd = styled.div`
+
 `
