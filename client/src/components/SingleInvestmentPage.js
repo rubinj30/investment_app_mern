@@ -188,8 +188,10 @@ class SingleInvestmentPage extends Component {
                     quantity: newQuantity
                 }
             )
-            // console.log(response)
-            this.fetchStockInfoFromApi()
+            this.setState({
+                editFormShowing: false,
+                quantity: newQuantity
+            })
 
         }
         catch (err) {
@@ -232,7 +234,7 @@ class SingleInvestmentPage extends Component {
         const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
         const gainLoss = totalCurrentValue - totalPurchasePrice
         const percentagGainLoss = (gainLoss / totalPurchasePrice) * 100
-
+        console.log("IODJFPOIDJFPOIDJFOPIJSDF")
         return (
 
             <InvestmentContainer>
@@ -256,6 +258,9 @@ class SingleInvestmentPage extends Component {
                                 </Detail>
                                 <Detail>
                                     <CurrentPrice>Purchase Price: </CurrentPrice><DetailValue> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</DetailValue>
+                                </Detail>
+                                <Detail>
+                                    <CurrentPrice>Number of Shares: </CurrentPrice><DetailValue> {this.state.quantity}</DetailValue>
                                 </Detail>
                                 <Detail>
                                     <CurrentPrice>% Gain/Loss: </CurrentPrice><GainLossDetailValue profitLossColor={this.state.profitLossColor}> {percentagGainLoss.toFixed(1)}%</GainLossDetailValue>
@@ -291,6 +296,7 @@ class SingleInvestmentPage extends Component {
                                     <SectionTitle>Review Details</SectionTitle>
                                     <ReviewDetailLine><div>Current price:</div> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
                                     <ReviewDetailLine><div>Number of shares: </div>{this.state.investment.quantity}</ReviewDetailLine>
+                                    <ReviewDetailLine><div>Original purchase price:</div> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</ReviewDetailLine>
                                     <ReviewDetailLine><div>Original total value:</div> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
                                     <ReviewDetailLine><div>Total current value: </div>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
                                     <ReviewDetailLine>$ Gain/Loss: <GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
@@ -311,13 +317,14 @@ class SingleInvestmentPage extends Component {
                                             <SectionTitle>Review Details</SectionTitle>
                                             <ReviewDetailLine><div>Current price:</div> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
                                             <ReviewDetailLine><div>Number of shares: </div>{this.state.investment.quantity}</ReviewDetailLine>
+                                            <ReviewDetailLine><div>Original purchase price:</div> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</ReviewDetailLine>
                                             <ReviewDetailLine><div>Original total value:</div> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
                                             <ReviewDetailLine><div>Total current value: </div>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
                                             <ReviewDetailLine>$ Gain/Loss: <GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
 
                                         </ReviewContainer>
                                         <div>Please select BUY or SELL and indicate the amount of shares you would like to trade:</div>
-                                        <EditInput onChange={this.handleEditChange} name="quantity" value={this.state.quantity} />
+                                        <EditInput onChange={this.handleEditChange} name="quantity" />
                                         <BuySellSelect name="buyOrSell" onChange={this.handleEditChange}>
                                             <option value="buy">BUY</option>
                                             <option value="sell">SELL</option>
