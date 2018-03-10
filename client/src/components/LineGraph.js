@@ -35,7 +35,7 @@ class LineGraph extends Component {
             monthlyLineData.push({name: '', price: parseInt(monthlyStockPrices[property1]['4. close']), amt: 5})
         }
 
-        const reversedMonthlyData = monthlyLineData.slice(1, 12).reverse()
+        const reversedMonthlyData = monthlyLineData.slice(1, 36).reverse()
 
         return (
             <LineChartContainer>
@@ -53,12 +53,12 @@ class LineGraph extends Component {
                     </LineChart>
                     <TimeFrameContainer>
                         <SelectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Month</SelectedTimeFrame>
-                        <UnselectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Year</UnselectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleChartTimeFrame}>3-Year</UnselectedTimeFrame>
                     </TimeFrameContainer>
                 </ChartSubContainer>
                 : 
                 <ChartSubContainer>
-                    <TimeFrameLabel>Past Year</TimeFrameLabel>
+                    <TimeFrameLabel>Past 3 Years</TimeFrameLabel>
                     <LineChart width={360} height={200} data={reversedMonthlyData}
                         margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
                         <XAxis dataKey="name" />
@@ -70,7 +70,7 @@ class LineGraph extends Component {
                     </LineChart>
                     <TimeFrameContainer>
                         <UnselectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Month</UnselectedTimeFrame>
-                        <SelectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Year</SelectedTimeFrame>
+                        <SelectedTimeFrame onClick={this.toggleChartTimeFrame}>3-Year</SelectedTimeFrame>
                     </TimeFrameContainer>
                 </ChartSubContainer>
                 } 

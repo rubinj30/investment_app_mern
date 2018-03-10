@@ -301,7 +301,7 @@ class SingleInvestmentPage extends Component {
                             <EditContainer>
                                 {this.state.editFormShowing ?
                                     <StyledButton onClick={this.toggleEditFormShowing}> Cancel Transaction </StyledButton>
-                                    : <StyledButton onClick={this.toggleEditFormShowing}> Change # of {this.state.investment.ticker} Shares </StyledButton>
+                                    : <StyledButton onClick={this.toggleEditFormShowing}> Buy/Sell {this.state.investment.ticker} Shares </StyledButton>
                                 }
                                 <Collapse isOpened={this.state.editFormShowing}>
                                     <EditDiv>
