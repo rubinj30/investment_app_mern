@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import { NewsItem, NewsTitle, NewsContainer, NewsSectionTitle } from './styled-components/News'
 import styled from 'styled-components'
 var Spinner = require('react-spinkit');
+
 
 class StockNews extends Component {
 
@@ -36,33 +38,33 @@ class StockNews extends Component {
 export default StockNews;
 
 
-const NewsItem = styled.div`
-    width: 75vw;
-    padding: 10px;
-`
+// const NewsItem = styled.div`
+//     width: 75vw;
+//     padding: 10px;
+// `
 
-const NewsTitle = styled.div`
-    padding: 5px;
-    a {
-        text-decoration: none;
-        color: #238dce;
-    }
-`
+// const NewsTitle = styled.div`
+//     padding: 5px;
+//     a {
+//         text-decoration: none;
+//         color: #238dce;
+//     }
+// `
 
-const NewsContainer = styled.div`
-    padding-top: 30px;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 40px;
-`
+// const NewsContainer = styled.div`
+//     padding-top: 30px;
+//     display:flex;
+//     flex-direction: column;
+//     align-items: center;
+//     padding-bottom: 40px;
+// `
 
-const NewsSectionTitle = styled.div`
-    max-width: 300px;
-    font-size: 20px;
-    padding-bottom: 20px;
-    text-align: center;
-`
+// const NewsSectionTitle = styled.div`
+//     max-width: 300px;
+//     font-size: 20px;
+//     padding-bottom: 20px;
+//     text-align: center;
+// `
 
 const SpinnerContainer = styled.div`
     display: flex;

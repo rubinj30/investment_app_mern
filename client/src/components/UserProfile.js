@@ -4,7 +4,7 @@ import { FaFolderOpenO } from 'react-icons/lib/fa'
 import HeaderBar from './HeaderBar'
 import styled from 'styled-components'
 import axios from 'axios'
-
+import { NewsItem, NewsTitle, NewsContainer, NewsSectionTitle } from './styled-components/News'
 
 class UserProfile extends Component {
     state = {
@@ -45,14 +45,14 @@ class UserProfile extends Component {
     render() {
         const user = this.state.user
         const articleList = this.state.articles.map((article, index) => {
-            return <div key={index}>
-                <div color="red">{article.title}</div>
+            return <NewsItem key={index}>
+                <NewsTitle><Link to={`${article.url}`}>{article.title}</Link></NewsTitle>
                 <div>{article.description}</div>
                 <a href={article.url} target='_blank'>
                     <img width="100" src={article.urlToImage} alt="" />
                 </a>
 
-            </div>
+            </NewsItem>
         })
         return (
             <div>
@@ -91,7 +91,11 @@ class UserProfile extends Component {
                         </div>
                         : null
                 }
-                {articleList}
+                <hr width="80%"/>
+                <NewsContainer>
+                    <NewsSectionTitle>In the News</NewsSectionTitle>
+                    {articleList}
+                </NewsContainer>
 
             </div>
         )
@@ -132,11 +136,17 @@ const FolderDiv = styled.div`
     a {
         text-decoration: none;
         color: black;
+        &:hover {
+            color: #45b9f2;
+        }
     }
 `
 
 const FolderText = styled.div`
     font-size: 20px;
+    &:hover {
+        color: #45b9f2;
+    }
 `
 
 const HeaderContainer = styled.div`
