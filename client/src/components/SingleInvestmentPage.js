@@ -31,8 +31,9 @@ class SingleInvestmentPage extends Component {
         profitLossColor: '',
         quantity: '',
         originalQuantity: '',
-        buyOrSell: ''
-        
+        buyOrSell: '',
+        newQuantity: ''
+
     }
 
     componentWillMount = async () => {
@@ -162,7 +163,7 @@ class SingleInvestmentPage extends Component {
 
     handleEditChange = async (event) => {
 
-        this.setState({ 
+        this.setState({
             [event.target.name]: event.target.value
         })
         event.preventDefault()
@@ -170,15 +171,21 @@ class SingleInvestmentPage extends Component {
 
     updateNumberOfShares = async (event) => {
         try {
+            let newQuantity = ''
+            const originalQuantity = Number(this.state.originalQuantity)
+            const quantity = Number(this.state.quantity)
             if (this.state.buyOrSell === 'sell') {
                 console.log("SELLING", this.state.quantity)
-                
+                newQuantity = (originalQuantity - quantity).toString()
+                console.log("TOTAL", newQuantity)
+            } else {
+                console.log("BUYing", this.state.quantity)
+                newQuantity = (originalQuantity + quantity).toString()
+                console.log("TOTAL", newQuantity)
             }
-
-
             const response = await axios.patch(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`,
                 {
-                    quantity: this.state.quantity
+                    quantity: newQuantity
                 }
             )
             // console.log(response)
@@ -298,12 +305,23 @@ class SingleInvestmentPage extends Component {
                                 }
                                 <Collapse isOpened={this.state.editFormShowing}>
                                     <EditDiv>
-                                        <div>How many shares would you like to own?</div>
+                                        <SectionTitle>Trade Shares</SectionTitle>
+
+                                        <ReviewContainer>
+                                            <SectionTitle>Review Details</SectionTitle>
+                                            <ReviewDetailLine><div>Current price:</div> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
+                                            <ReviewDetailLine><div>Number of shares: </div>{this.state.investment.quantity}</ReviewDetailLine>
+                                            <ReviewDetailLine><div>Original total value:</div> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
+                                            <ReviewDetailLine><div>Total current value: </div>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
+                                            <ReviewDetailLine>$ Gain/Loss: <GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
+
+                                        </ReviewContainer>
+                                        <div>Please select BUY or SELL and indicate the amount of shares you would like to trade:</div>
                                         <EditInput onChange={this.handleEditChange} name="quantity" value={this.state.quantity} />
-                                        <select name="buyOrSell" onChange={this.handleEditChange}>
-                                            <option value="buy">Buy</option>
-                                            <option value="sell">Sell</option>
-                                        </select>
+                                        <BuySellSelect name="buyOrSell" onChange={this.handleEditChange}>
+                                            <option value="buy">BUY</option>
+                                            <option value="sell">SELL</option>
+                                        </BuySellSelect>
                                         <ConfirmButton onClick={this.updateNumberOfShares}>Click to Confirm Update</ConfirmButton>
                                     </EditDiv>
                                 </Collapse>
@@ -586,9 +604,17 @@ const EditContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 300px;
 `
 
 const ReviewDetailLine = styled.div`
     display: flex;
     justify-content: space-between;
+`
+
+const BuySellSelect = styled.select`
+    font-size: 16px;
+    padding: 5px;
+    margin: 3px;
+
 `
