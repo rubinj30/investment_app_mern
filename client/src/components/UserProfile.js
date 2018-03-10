@@ -1,23 +1,24 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 import { FaFolderOpenO } from 'react-icons/lib/fa'
 import HeaderBar from './HeaderBar'
 import styled from 'styled-components'
+import axios from 'axios'
 
 
 class UserProfile extends Component {
     state = {
         user: {},
-        pageReady: false
+        pageReady: false,
+        articles: []
     }
 
     componentWillMount = async () => {
         this.getUserInformation()
+        this.getFinancialNews()
     }
 
     getUserInformation = async () => {
-
         const response = await axios.get(`/api/users/${this.props.match.params.id}/`)
         console.log(response.data.user)
         this.setState({
@@ -26,10 +27,33 @@ class UserProfile extends Component {
         })
     }
 
+    getFinancialNews = async () => {
+        try {
+            const URL = 'https://newsapi.org/v2/top-headlines?sources=the-economist&apiKey=5194b3242e02413a976154e8596866fb'
+            const response = await axios.get(URL)
+            const articles = response.data.articles.map((article) => {
+                return article
+            })
+            this.setState({ articles: articles })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
 
     render() {
         const user = this.state.user
+        const articleList = this.state.articles.map((article, index) => {
+            return <div key={index}>
+                <div color="red">{article.title}</div>
+                <div>{article.description}</div>
+                <a href={article.url} target='_blank'>
+                    <img width="100" src={article.urlToImage} alt="" />
+                </a>
 
+            </div>
+        })
         return (
             <div>
 
@@ -37,7 +61,7 @@ class UserProfile extends Component {
                     <HeaderBar
                         user={this.state.user}
                         backLink={`/users`}
-                        // userProfileLink={`/users/${user._id}`}
+                    // userProfileLink={`/users/${user._id}`}
                     />
                 </UserHeaderWrapper>
                 {
@@ -61,12 +85,13 @@ class UserProfile extends Component {
                             <FolderDiv><Link to={`/users/${user._id}/investments`}>
                                 <FaFolderOpenO />
                                 <FolderText>Go to Stock Portfolio</FolderText>
-                                
+
                             </Link>
                             </FolderDiv>
                         </div>
                         : null
                 }
+                {articleList}
 
             </div>
         )
