@@ -35,7 +35,7 @@ class LineGraph extends Component {
             monthlyLineData.push({name: '', price: parseInt(monthlyStockPrices[property1]['4. close']), amt: 5})
         }
 
-        const reversedMonthlyData = monthlyLineData.slice(1, 52).reverse()
+        const reversedMonthlyData = monthlyLineData.slice(1, 12).reverse()
 
         return (
             <LineChartContainer>

@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 import StyledButton from './styled-components/StyledButton'
+const R = require('ramda');
 
 class NewInvestment extends Component {
     state = {
@@ -16,59 +17,58 @@ class NewInvestment extends Component {
         const attributeName = event.target.name
         const attributeValue = event.target.value
         const newInvestment = { ...this.state.newInvestment }
-
         newInvestment[attributeName] = attributeValue
-
         this.setState({ newInvestment })
     }
 
     addStockToPortfolio = async (event) => {
         try {
-        event.preventDefault()        
-        const tickers = this.props.investments.map((investment) => {
-            return investment.ticker
-        })
-        
-        const payload = {
-            ticker: this.state.newInvestment.ticker,
-            quantity: parseInt(this.state.newInvestment.quantity),
-            type: "stock"
-        }
+            event.preventDefault()
+            const tickers = this.props.investments.map((investment) => {
+                return investment.ticker
+            })
 
-        console.log("SUBMITTING FOR ", payload)
-        await axios.post(`/api/users/${this.props.userId}/investments`, payload)
-        this.props.getAllInvestments()
-        
+            if (R.contains(this.state.newInvestment.ticker, tickers)) {
+                alert("You already own this stock. Go to the stock page to purchase more shares.")
+                this.props.getAllInvestments()
+            } else {
+                const payload = {
+                    ticker: this.state.newInvestment.ticker,
+                    quantity: parseInt(this.state.newInvestment.quantity),
+                    type: "stock"
+                }
+                await axios.post(`/api/users/${this.props.userId}/investments`, payload)
+                this.props.getAllInvestments()
+            }
         }
         catch (err) {
-                console.log(err)
-    }
+            console.log(err)
+        }
 
-        
     }
 
     render() {
         return (
             <div>
                 {this.state.redirect ?
-                <Redirect to={`/users/${this.props.userId}/investments`} /> :
-                
-                <NewForm onSubmit={this.addStockToPortfolio}>
-                    <NewContainer>
-                    <div><label>Enter the Stock Ticker</label></div>
-                    <div>
-                        <input onChange={this.handleNewInvestmentChange}
-                            name="ticker" type="text" value={this.state.newInvestment.ticker} required />
-                    </div>
-                    <div><label>How many shares?</label></div>
-                    <div>
-                        <input onChange={this.handleNewInvestmentChange} name="quantity" type="number" 
-                        value={this.state.newInvestment.quantity} required />
-                    </div>
-                    </NewContainer>
-                    <StyledButton>Add To Portfolio</StyledButton>
-                </NewForm>
-                } 
+                    <Redirect to={`/users/${this.props.userId}/investments`} /> :
+
+                    <NewForm onSubmit={this.addStockToPortfolio}>
+                        <NewContainer>
+                            <div><label>Enter the Stock Ticker</label></div>
+                            <div>
+                                <input onChange={this.handleNewInvestmentChange}
+                                    name="ticker" type="text" value={this.state.newInvestment.ticker} required />
+                            </div>
+                            <div><label>How many shares?</label></div>
+                            <div>
+                                <input onChange={this.handleNewInvestmentChange} name="quantity" type="number"
+                                    value={this.state.newInvestment.quantity} required />
+                            </div>
+                        </NewContainer>
+                        <StyledButton>Add To Portfolio</StyledButton>
+                    </NewForm>
+                }
             </div>
         )
     }

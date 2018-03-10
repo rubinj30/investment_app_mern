@@ -90,7 +90,6 @@ class SingleInvestmentPage extends Component {
             const api_key = process.env.TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.state.investment.ticker}&interval=60min&outputsize=full&apikey=${api_key}`
             const response = await axios.get(URL)
-            console.log("HOURLY", response.data)
             this.setState({
                 hourlyStockPrices: response.data["Time Series (60min)"]
             })
@@ -134,7 +133,6 @@ class SingleInvestmentPage extends Component {
                     "X-Authorization-Public-Key": process.env.REACT_APP_STOCK_INFO
                 }
             })
-        console.log(response.data.data)
         this.setState({
             fundamentals: response.data.data,
             fundamentalsReady: true
@@ -175,13 +173,9 @@ class SingleInvestmentPage extends Component {
             const originalQuantity = Number(this.state.originalQuantity)
             const quantity = Number(this.state.quantity)
             if (this.state.buyOrSell === 'sell') {
-                console.log("SELLING", this.state.quantity)
                 newQuantity = (originalQuantity - quantity).toString()
-                console.log("TOTAL", newQuantity)
             } else {
-                console.log("BUYing", this.state.quantity)
                 newQuantity = (originalQuantity + quantity).toString()
-                console.log("TOTAL", newQuantity)
             }
             const response = await axios.patch(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`,
                 {
@@ -234,7 +228,7 @@ class SingleInvestmentPage extends Component {
         const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
         const gainLoss = totalCurrentValue - totalPurchasePrice
         const percentagGainLoss = (gainLoss / totalPurchasePrice) * 100
-        console.log("IODJFPOIDJFPOIDJFOPIJSDF")
+        
         return (
 
             <InvestmentContainer>
