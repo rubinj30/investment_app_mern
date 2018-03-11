@@ -18,7 +18,7 @@ class UserNews extends Component {
     getFinancialNews = async () => {
         try {
             const api_key = '5194b3242e02413a976154e8596866fb'
-            const URL = `https://newsapi.org/v2/top-headlines?sources=the-economist&apiKey=${api_key}`
+            const URL = `https://newsapi.org/v2/top-headlines?sources=bloomberg&apiKey=${api_key}`
             const response = await axios.get(URL)
             const articles = response.data.articles.map((article) => {
                 return article

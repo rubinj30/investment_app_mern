@@ -9,6 +9,8 @@ import StockNews from './StockNews'
 import HeaderBar from './HeaderBar'
 import { FaArrowCircleLeft } from 'react-icons/lib/fa'
 import { Collapse } from 'react-collapse'
+import swal from 'sweetalert';
+
 
 class SingleInvestmentPage extends Component {
     state = {
@@ -154,7 +156,13 @@ class SingleInvestmentPage extends Component {
     }
 
     deleteStock = async () => {
-        await alert(`Sale completed`)
+        const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
+        const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
+        const gainLoss = totalCurrentValue - totalPurchasePrice
+
+        swal(`You sold ${this.state.investment.quantity} shares of ${this.state.investment.ticker} at $${this.state.investment.price} \
+        for a total of $${totalCurrentValue.toFixed(2)}. \n\n
+        You ${gainLoss >= 0 ? 'made' : 'lost'} $${gainLoss.toFixed(2)} on the sale${gainLoss >= 0 ? '!!' : '  ¯\\_(ツ)_/¯'}`)
         await axios.delete(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`)
         this.setState({ redirect: !this.state.redirect })
     }
