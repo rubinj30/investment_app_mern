@@ -18,7 +18,6 @@ class UserProfile extends Component {
 
     getUserInformation = async () => {
         const response = await axios.get(`/api/users/${this.props.match.params.id}/`)
-        // console.log(response.data.user)
         this.setState({
             user: response.data,
             pageReady: true

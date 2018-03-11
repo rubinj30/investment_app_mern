@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 import axios from 'axios'
 import styled from 'styled-components'
-import { NewsItem, UserNewsItem, NewsTitle, NewsContainer, NewsSectionTitle, DateSpan } from './styled-components/News'
+import { NewsItem, UserNewsItem, NewsTitle, NewsContainer, NewsSectionTitle, DateSpan, NewsSectionTitlePlacement } from './styled-components/News'
 
 class UserNews extends Component {
 
@@ -34,7 +34,9 @@ class UserNews extends Component {
         const user = this.state.user
         return (
             <div>
-                <NewsSectionTitle>IN THE NEWS...</NewsSectionTitle>
+                <NewsSectionTitlePlacement>
+                    <NewsSectionTitle>IN THE NEWS...</NewsSectionTitle>
+                </NewsSectionTitlePlacement>
                 <UserNewsList>
 
 
@@ -63,9 +65,11 @@ export default UserNews;
 
 const UserNewsList = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+
 `
 
 const NewsImageHolder = styled.div`
@@ -79,3 +83,4 @@ const NewsImageHolder = styled.div`
 const NewsImage = styled.img`
     width: 100%;
 `
+
