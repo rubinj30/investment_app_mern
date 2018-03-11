@@ -315,7 +315,7 @@ class SingleInvestmentPage extends Component {
                                     <EditDiv>
                                         <SectionTitle>Trade Shares</SectionTitle>
 
-                                        <ReviewContainer>
+                                        <ReviewEditContainer>
                                             <SectionTitle>Review Details</SectionTitle>
                                             <ReviewDetailLine><div>Current price:</div> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
                                             <ReviewDetailLine><div>Number of shares: </div>{this.state.investment.quantity}</ReviewDetailLine>
@@ -324,7 +324,7 @@ class SingleInvestmentPage extends Component {
                                             <ReviewDetailLine><div>Total current value: </div>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
                                             <ReviewDetailLine>$ Gain/Loss: <GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
 
-                                        </ReviewContainer>
+                                        </ReviewEditContainer>
                                         <div>Please select BUY or SELL and indicate the amount of shares you would like to trade:</div>
                                         <EditInput onChange={this.handleEditChange} name="quantity" />
                                         <BuySellSelect name="buyOrSell" onChange={this.handleEditChange}>
@@ -588,6 +588,14 @@ const ReviewContainer = styled.div`
     border-radius: 5px;
     border: 1px solid black;
     width: 300px;
+`
+
+const ReviewEditContainer = styled.div`
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 250px;
 `
 
 const ReviewTitle = styled.div`

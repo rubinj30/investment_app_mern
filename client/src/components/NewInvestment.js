@@ -67,12 +67,12 @@ class NewInvestment extends Component {
                         <NewContainer>
                             <div><label>Enter the Stock Ticker</label></div>
                             <div>
-                                <input onChange={this.handleNewInvestmentChange}
+                                <BuyInput onChange={this.handleNewInvestmentChange}
                                     name="ticker" type="text" value={this.state.newInvestment.ticker} required />
                             </div>
                             <div><label>How many shares?</label></div>
                             <div>
-                                <input onChange={this.handleNewInvestmentChange} name="quantity" type="number"
+                                <BuyInput onChange={this.handleNewInvestmentChange} name="quantity" type="number"
                                     value={this.state.newInvestment.quantity} required />
                             </div>
                         </NewContainer>
@@ -100,4 +100,12 @@ const NewContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+`
+
+const BuyInput = styled.input`
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 80px;
+    height: 20px;
+    font-size: 18px;
 `

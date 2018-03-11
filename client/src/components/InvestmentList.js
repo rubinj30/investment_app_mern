@@ -152,7 +152,7 @@ class InvestmentList extends Component {
 
                             <PieContainer>
                                 <PieChart className="pie-chart"
-                                    size={250}
+                                    size={300}
                                     labels
                                     data={pieData}
                                     styles={{

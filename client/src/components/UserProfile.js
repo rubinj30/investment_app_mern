@@ -40,18 +40,9 @@ class UserProfile extends Component {
                     this.state.pageReady ?
                         <div>
                             <DetailsContainer>
-
                                 <ProfileDetail>
-                                    <div>Username: </div><div>{user.username}</div>
+                                    <div>Number of Stocks Owned:</div><div>{user.investments.length}</div>
                                 </ProfileDetail>
-                                <ProfileDetail>
-                                    <div>E-mail: </div><div>{user.email}</div>
-                                </ProfileDetail>
-                                <ProfileDetail>
-                                    <div># Stocks Owned:</div><div>{user.investments.length}</div>
-                                </ProfileDetail>
-
-
                             </DetailsContainer>
 
                             <FolderDiv><Link to={`/users/${user._id}/investments`}>
@@ -60,10 +51,19 @@ class UserProfile extends Component {
 
                             </Link>
                             </FolderDiv>
+                            <TransactionsList>
+                                {/* {
+                                    this.state.user.transactions((transaction, index) => {
+                                        return <div key={index}>test</div>
+                                    })
+                                } */}
+
+
+                            </TransactionsList>
                         </div>
                         : null
                 }
-                <NewsHR width="80%"/>
+                <NewsHR width="80%" />
                 <UserNews />
             </div>
         )
@@ -127,4 +127,8 @@ const HeaderContainer = styled.div`
 
 const NewsHR = styled.hr`
     margin-bottom: 20px;
+`
+
+const TransactionsList = styled.div`
+
 `

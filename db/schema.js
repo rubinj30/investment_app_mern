@@ -26,7 +26,8 @@ const UserSchema = new Schema(
         username: String,
         email: String,
         age: String,
-        investments: [InvestmentSchema]
+        investments: [InvestmentSchema],
+        transactions: []
     },
     {
         timestamps: {},
