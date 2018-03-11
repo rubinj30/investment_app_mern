@@ -22,7 +22,7 @@ User.remove({}).then(() => {
         quantity: 4,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 800
+        stockPurchasePrice: 1212.43
     })
     const fb = new Investment({
         ticker: 'FB' ,
@@ -30,7 +30,7 @@ User.remove({}).then(() => {
         quantity: 23,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 97.24
+        stockPurchasePrice: 194.24
     })
     const hd = new Investment({
         ticker: 'HD' ,
@@ -46,7 +46,7 @@ User.remove({}).then(() => {
         quantity: 14,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 310.12
+        stockPurchasePrice: 360.12
     })
     const dal = new Investment({
         ticker: 'DAL',

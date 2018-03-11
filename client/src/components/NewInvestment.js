@@ -3,7 +3,10 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 import StyledButton from './styled-components/StyledButton'
-const R = require('ramda');
+import swal from 'sweetalert';
+import accounting from 'accounting'
+
+const R = require('ramda')
 
 class NewInvestment extends Component {
     state = {
@@ -29,22 +32,29 @@ class NewInvestment extends Component {
             })
 
             if (R.contains(this.state.newInvestment.ticker, tickers)) {
-                alert("You already own this stock. Go to the stock page to purchase more shares.")
+                swal("You already own this stock. Go to the stock page to purchase more shares.")
                 this.props.getAllInvestments()
             } else {
+                const data = await axios.get(`https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=${this.state.newInvestment.ticker}&apikey=J2JY3QVFS2WGX91L`)
+                const currentPrice = parseInt(data.data['Stock Quotes'][0]['2. price']).toFixed(2)
+                const ticker = this.state.newInvestment.ticker.toUpperCase()
+                const quantity = this.state.newInvestment.quantity
+
+                swal(`You purchased ${quantity} shares of ${ticker} at $ ${currentPrice} per share \n
+                The total current value of these shares is $ ${(currentPrice * parseInt(quantity)).toFixed(2)}.`)
                 const payload = {
-                    ticker: this.state.newInvestment.ticker,
-                    quantity: parseInt(this.state.newInvestment.quantity),
+                    ticker: ticker,
+                    quantity: parseInt(quantity),
                     type: "stock"
                 }
+                
                 await axios.post(`/api/users/${this.props.userId}/investments`, payload)
-                this.props.getAllInvestments()
+                this.props.getAllInvestments() 
             }
         }
         catch (err) {
             console.log(err)
         }
-
     }
 
     render() {

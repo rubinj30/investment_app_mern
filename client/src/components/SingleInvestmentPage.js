@@ -9,7 +9,7 @@ import StockNews from './StockNews'
 import HeaderBar from './HeaderBar'
 import { FaArrowCircleLeft } from 'react-icons/lib/fa'
 import { Collapse } from 'react-collapse'
-import swal from 'sweetalert';
+import swal from 'sweetalert'
 
 
 class SingleInvestmentPage extends Component {
@@ -162,7 +162,7 @@ class SingleInvestmentPage extends Component {
 
         swal(`You sold ${this.state.investment.quantity} shares of ${this.state.investment.ticker} at $${this.state.investment.price} \
         for a total of $${totalCurrentValue.toFixed(2)}. \n\n
-        You ${gainLoss >= 0 ? 'made' : 'lost'} $${gainLoss.toFixed(2)} on the sale${gainLoss >= 0 ? '!!' : '  ¯\\_(ツ)_/¯'}`)
+        You ${gainLoss >= 0 ? 'made' : 'lost'} $${gainLoss.toFixed(2)} on the investment${gainLoss >= 0 ? '!! \n ¯\\ (•◡•) /¯' : ' \n ¯\\_(ツ)_/¯'}`)
         await axios.delete(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`)
         this.setState({ redirect: !this.state.redirect })
     }

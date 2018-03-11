@@ -44,12 +44,12 @@ class UserNews extends Component {
                         this.state.articles.map((article, index) => {
                             return <UserNewsItem key={index}>
                                 <NewsImageHolder>
-                                    <a href={article.url} target='_blank'>
+                                    <a target='_blank' href={article.url} >
                                         <NewsImage width="100" src={article.urlToImage} alt="" />
                                     </a>
                                 </NewsImageHolder>
                                 <div>
-                                    <NewsTitle><Link to={`${article.url}`}> {article.title}</Link></NewsTitle>
+                                    <NewsTitle><a target='_blank' href={`${article.url}`}> {article.title}</a></NewsTitle>
                                     <div>{article.description} <DateSpan>  ({moment(article.publishedAt).format("MMM Do YY")})</DateSpan> </div>
                                 </div>
                             </UserNewsItem>
