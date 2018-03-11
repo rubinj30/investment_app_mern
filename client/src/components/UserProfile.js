@@ -4,56 +4,29 @@ import { FaFolderOpenO } from 'react-icons/lib/fa'
 import HeaderBar from './HeaderBar'
 import styled from 'styled-components'
 import axios from 'axios'
-import { NewsItem, NewsTitle, NewsContainer, NewsSectionTitle } from './styled-components/News'
+import UserNews from './UserNews'
 
 class UserProfile extends Component {
     state = {
         user: {},
-        pageReady: false,
-        articles: []
+        pageReady: false
     }
 
     componentWillMount = async () => {
         this.getUserInformation()
-        this.getFinancialNews()
     }
 
     getUserInformation = async () => {
         const response = await axios.get(`/api/users/${this.props.match.params.id}/`)
-        console.log(response.data.user)
+        // console.log(response.data.user)
         this.setState({
             user: response.data,
             pageReady: true
         })
     }
 
-    getFinancialNews = async () => {
-        try {
-            const URL = 'https://newsapi.org/v2/top-headlines?sources=the-economist&apiKey=5194b3242e02413a976154e8596866fb'
-            const response = await axios.get(URL)
-            const articles = response.data.articles.map((article) => {
-                return article
-            })
-            this.setState({ articles: articles })
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }
-
-
     render() {
         const user = this.state.user
-        const articleList = this.state.articles.map((article, index) => {
-            return <NewsItem key={index}>
-                <NewsTitle><Link to={`${article.url}`}>{article.title}</Link></NewsTitle>
-                <div>{article.description}</div>
-                <a href={article.url} target='_blank'>
-                    <img width="100" src={article.urlToImage} alt="" />
-                </a>
-
-            </NewsItem>
-        })
         return (
             <div>
 
@@ -91,12 +64,8 @@ class UserProfile extends Component {
                         </div>
                         : null
                 }
-                <hr width="80%"/>
-                <NewsContainer>
-                    <NewsSectionTitle>In the News</NewsSectionTitle>
-                    {articleList}
-                </NewsContainer>
-
+                <NewsHR width="80%"/>
+                <UserNews />
             </div>
         )
     }
@@ -130,9 +99,9 @@ const ProfileDetail = styled.div`
 `
 
 const FolderDiv = styled.div`
-    font-size: 75px;
+    font-size: 90px;
     text-align: center;
-    
+    padding-bottom: 40px;
     a {
         text-decoration: none;
         color: black;
@@ -155,4 +124,8 @@ const HeaderContainer = styled.div`
     background-color: #45b9f2;
     color: white;
     padding-bottom: 10px;
+`
+
+const NewsHR = styled.hr`
+    margin-bottom: 20px;
 `
