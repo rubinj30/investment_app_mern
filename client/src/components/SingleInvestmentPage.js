@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import StyledButton from './styled-components/StyledButton'
 import styled from 'styled-components'
 import LineGraph from './LineGraph'
@@ -10,7 +10,6 @@ import HeaderBar from './HeaderBar'
 import { FaArrowCircleLeft } from 'react-icons/lib/fa'
 import { Collapse } from 'react-collapse'
 import swal from 'sweetalert'
-
 
 class SingleInvestmentPage extends Component {
     state = {
@@ -35,7 +34,6 @@ class SingleInvestmentPage extends Component {
         originalQuantity: '',
         buyOrSell: '',
         newQuantity: ''
-
     }
 
     componentWillMount = async () => {
@@ -50,7 +48,6 @@ class SingleInvestmentPage extends Component {
 
     getInvestment = async () => {
         try {
-
             const userId = this.props.match.params.userId
             const investmentId = this.props.match.params.id
             const response = await axios.get(`/api/users/${userId}/investments/${this.props.match.params.investmentId}`)
@@ -156,15 +153,39 @@ class SingleInvestmentPage extends Component {
     }
 
     deleteStock = async () => {
-        const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
-        const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
-        const gainLoss = totalCurrentValue - totalPurchasePrice
+        try{
+            const userId = this.props.match.params.userId
+            const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
+            const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
+            const gainLoss = totalCurrentValue - totalPurchasePrice
 
-        swal(`You sold ${this.state.investment.quantity} shares of ${this.state.investment.ticker} at $${this.state.investment.price} \
-        for a total of $${totalCurrentValue.toFixed(2)}. \n\n
-        You ${gainLoss >= 0 ? 'made' : 'lost'} $${gainLoss.toFixed(2)} on the investment${gainLoss >= 0 ? '!! \n ¯\\ (•◡•) /¯' : ' \n ¯\\_(ツ)_/¯'}`)
-        await axios.delete(`/api/users/${this.props.match.params.userId}/investments/${this.props.match.params.investmentId}`)
-        this.setState({ redirect: !this.state.redirect })
+            const transaction = {
+                ticker: this.state.investment.ticker,
+                company_name: this.state.investmentInfo.name,
+                totalSellValue: totalCurrentValue,
+                sharePurchasePrice: this.state.investment.stockPurchasePrice,
+                shareSellPrice: this.state.investment.price,
+                quantity: this.state.investment.quantity,
+                totalPurchasePrice: totalPurchasePrice,
+                gainLoss: gainLoss,
+                profitLossColor: this.state.profitLossColor,
+                saleDate: new Date()
+            }
+            
+            const transactions = [...this.state.user.transactions]
+            transactions.push(transaction)
+            const user = {...this.state.user}
+            user.transactions = transactions
+
+            await axios.patch(`/api/users/${userId}`, user)
+            swal(`You sold ${this.state.investment.quantity} shares of ${this.state.investment.ticker} at $${this.state.investment.price} \
+            for a total of $${totalCurrentValue.toFixed(2)}. \n\n
+            You ${gainLoss >= 0 ? 'made' : 'lost'} $${gainLoss.toFixed(2)} on the investment${gainLoss >= 0 ? '!! \n\n ¯\\ (•◡•) /¯' : ' \n\n ¯\\_(ツ)_/¯'}`)
+            await axios.delete(`/api/users/${userId}/investments/${this.props.match.params.investmentId}`)
+            this.setState({ redirect: !this.state.redirect })
+        } catch(err) {
+            console.log(err)
+        }
     }
 
     handleEditChange = async (event) => {
@@ -325,12 +346,21 @@ class SingleInvestmentPage extends Component {
                                             <ReviewDetailLine>$ Gain/Loss: <GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
 
                                         </ReviewEditContainer>
-                                        <div>Please select BUY or SELL and indicate the amount of shares you would like to trade:</div>
-                                        <EditInput onChange={this.handleEditChange} name="quantity" />
+                                        {/* <EditInstructions>Please select BUY or SELL and indicate the amount of shares you would like to trade:</EditInstructions> */}
+                                        
+                                        <DropdownMenu>
+                                        <div>Transaction Type: </div>
                                         <BuySellSelect name="buyOrSell" onChange={this.handleEditChange}>
                                             <option value="buy">BUY</option>
                                             <option value="sell">SELL</option>
                                         </BuySellSelect>
+                                        </DropdownMenu>
+
+                                        <DropdownMenu>
+                                            <div>Quantity: </div>
+                                                <EditInput onChange={this.handleEditChange} name="quantity" />
+                                        </DropdownMenu>
+
                                         <ConfirmButton onClick={this.updateNumberOfShares}>Click to Confirm Update</ConfirmButton>
                                     </EditDiv>
                                 </Collapse>
@@ -341,8 +371,6 @@ class SingleInvestmentPage extends Component {
 
                         {this.state.fundamentalsReady ?
                             <Fundamentals>
-
-
                                 <FundamentalsDetails>
                                     <SectionTitle>Key Metrics</SectionTitle>
 
@@ -501,7 +529,6 @@ const Fundamentals = styled.div`
     flex-direction: column;
     align-items: center;
     width: 250px;
-
 `
 
 const SectionTitle = styled.div`
@@ -612,6 +639,7 @@ const EditDiv = styled.div`
 
 const EditInput = styled.input`
     border-radius: 5px;
+    border: 1px solid black;
     height: 20px;
     width: 30px;
     font-size: 16px;
@@ -633,5 +661,16 @@ const BuySellSelect = styled.select`
     font-size: 16px;
     padding: 5px;
     margin: 3px;
+    border: 1px solid black;
+`
+
+const EditInstructions = styled.div`
+    display: flex;
+    justify-content: center;
+`
+
+const DropdownMenu = styled.div`
+    display: flex;
+    align-items: flex-end;
 
 `

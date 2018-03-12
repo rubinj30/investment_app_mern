@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react'
 import { NewsItem, NewsTitle, NewsContainer, NewsSectionTitle, UserNewsItem, DateSpan, NewsSectionTitlePlacement} from './styled-components/News'
 import styled from 'styled-components'
 import moment from 'moment'
@@ -24,7 +23,7 @@ class StockNews extends Component {
                         this.props.news.slice(1, 10).map((item, index) => {
                             return <UserNewsItem key={index}>
                                 <NewsTitle><a target='_blank' href={`${item.url}`} key={index}>{item.title}</a></NewsTitle>
-                                <div>{item.summary} <Link to={`${item.url}`} key={index}>See more...</Link><DateSpan>  ({moment(item.publication_date).format("MMM Do YY")})</DateSpan></div>
+                                <div>{item.summary} <a href={`${item.url}`} key={index}>See more...</a><DateSpan>  ({moment(item.publication_date).format("MMM Do YY")})</DateSpan></div>
                             </UserNewsItem>
                         })
                         :

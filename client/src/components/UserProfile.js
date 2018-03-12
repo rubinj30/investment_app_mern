@@ -5,6 +5,7 @@ import HeaderBar from './HeaderBar'
 import styled from 'styled-components'
 import axios from 'axios'
 import UserNews from './UserNews'
+import RecentTransactions from './RecentTransactions'
 
 class UserProfile extends Component {
     state = {
@@ -47,18 +48,14 @@ class UserProfile extends Component {
 
                             <FolderDiv><Link to={`/users/${user._id}/investments`}>
                                 <FaFolderOpenO />
-                                <FolderText>Go to Stock Portfolio</FolderText>
+                                <FolderText>See Investment Portfolio</FolderText>
 
                             </Link>
                             </FolderDiv>
                             <TransactionsList>
-                                {/* {
-                                    this.state.user.transactions((transaction, index) => {
-                                        return <div key={index}>test</div>
-                                    })
-                                } */}
-
-
+                                <RecentTransactions
+                                    user={this.state.user}
+                                />
                             </TransactionsList>
                         </div>
                         : null
@@ -112,8 +109,10 @@ const FolderDiv = styled.div`
 
 const FolderText = styled.div`
     font-size: 20px;
+    color: #45b9f2;
     &:hover {
         color: #45b9f2;
+        text-decoration: underline;
     }
 `
 
@@ -130,5 +129,6 @@ const NewsHR = styled.hr`
 `
 
 const TransactionsList = styled.div`
-
+    display: flex;
+    justify-content: center;
 `

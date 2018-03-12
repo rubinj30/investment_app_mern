@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import moment from 'moment'
 import axios from 'axios'
 import styled from 'styled-components'
@@ -35,7 +34,7 @@ class UserNews extends Component {
         return (
             <div>
                 <NewsSectionTitlePlacement>
-                    <NewsSectionTitle>IN THE NEWS...</NewsSectionTitle>
+                    <NewsSectionTitle>Today's Financial News</NewsSectionTitle>
                 </NewsSectionTitlePlacement>
                 <UserNewsList>
 
