@@ -75,7 +75,7 @@ class InvestmentList extends Component {
                         <Table>
 
                             <Column1>
-                                <ColumnTitle1>stock</ColumnTitle1>
+                                <ColumnTitle1>Stock</ColumnTitle1>
 
                                 {this.state.investments.map(investment => (
                                     <TickerContainer key={investment._id}>
@@ -90,7 +90,7 @@ class InvestmentList extends Component {
                             </Column1>
 
                             <Column2>
-                                <ColumnTitle>#</ColumnTitle>
+                                <ColumnTitle>qty</ColumnTitle>
                                 {this.state.investments.map(investment => {
                                     return <Holder key={investment._id}>{investment.quantity}</Holder>
                                 })}
@@ -333,6 +333,7 @@ const NewInvestmentContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 220px;
 `
 
 const FolderIconSpan = styled.div`

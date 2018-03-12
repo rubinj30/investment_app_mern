@@ -63,7 +63,7 @@ User.remove({}).then(() => {
         quantity: 100,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 38.00
+        stockPurchasePrice: 39.59
     })
 
     user1.investments.push(amzn, fb, hd,  tsla, dal, twlo)

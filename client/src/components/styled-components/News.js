@@ -25,7 +25,7 @@ export const NewsContainer = styled.div`
 `
 
 export const NewsSectionTitle = styled.div`
-    max-width: 300px;
+    max-width: 350px;
     font-size: 25px;
     /* padding-bottom: 20px; */
     text-align: center;
@@ -39,7 +39,7 @@ export const DateSpan = styled.span`
 export const UserNewsItem = styled.div`
     /* width: 75vw; */
     padding: 15px;
-    margin: 25px;
+    margin: 15px 25px;
     display: flex;
     max-width: 350px;
     height: 100%;
@@ -50,7 +50,7 @@ export const UserNewsItem = styled.div`
     box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
     border-radius: 5px;
     @media (min-width: 400) {
-        margin: 25px 40px;
+        margin: 25px 30px;
     }
 `
 
