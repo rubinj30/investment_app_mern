@@ -87,6 +87,7 @@ class InvestmentList extends Component {
                                         </Link>
                                     </TickerContainer>
                                 ))}
+                                
                             </Column1>
 
                             <Column2>
@@ -210,7 +211,7 @@ const Column1 = styled.div`
     @media (min-width: 700px) {
         font-size: 20px;
     }
-  `
+`
 
 const Column2 = styled.div`
     background-color: #238dce;

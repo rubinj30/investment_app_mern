@@ -10,6 +10,8 @@ import HeaderBar from './HeaderBar'
 import { FaArrowCircleLeft } from 'react-icons/lib/fa'
 import { Collapse } from 'react-collapse'
 import swal from 'sweetalert'
+import StockDetailsSection from './StockDetailsSection'
+import { DetailValue, SectionTitle, Detail, StockDetails, DetailKey, Website } from './styled-components/Details'
 
 class SingleInvestmentPage extends Component {
     state = {
@@ -392,29 +394,10 @@ class SingleInvestmentPage extends Component {
                         <DescriptionAndFundamentals>
 
 
-                            <StockDetails>
-                                <SectionTitle>Company Details</SectionTitle>
-                                <Detail>
-                                    <DetailKey>CEO:</DetailKey><DetailValue> {this.state.investmentInfo.ceo}</DetailValue>
-                                </Detail>
-                                <Detail>
-                                    <DetailKey># of Employees:</DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>
-                                </Detail>
-                                <Detail>
-                                    <DetailKey>HQs Located in:</DetailKey><DetailValue> {this.state.investmentInfo.hq_state}</DetailValue>
-                                </Detail>
-                                <Detail>
-                                    <DetailKey>Industry:</DetailKey><DetailValue> {this.state.investmentInfo.industry_category}</DetailValue>
-                                </Detail>
-                                <Detail>
-                                    <DetailKey>Exchange:</DetailKey><DetailValue> {this.state.investmentInfo.stock_exchange}</DetailValue>
-                                </Detail>
-
-                                <Website>
-                                    <DetailValue><a href={url} target="_blank">Go to the {this.state.investmentInfo.name} website</a></DetailValue>
-                                </Website>
-
-                            </StockDetails>
+                            <StockDetailsSection
+                                investmentInfo={this.state.investmentInfo}
+                            
+                            />
 
                             <div>
                                 {this.state.descriptionShowing ?
@@ -452,10 +435,6 @@ const Company = styled.div`
     align-items: center;
 `
 
-const Detail = styled.div`
-    display:flex;
-    justify-content: space-between;
-`
 const PricingDetailDiv = styled.div`
     display: flex;
     font-size: 14px;
@@ -472,19 +451,6 @@ const PricingDetail = styled.div`
 
 `
 
-const Website = styled.div`
-    padding-top: 10px;
-    padding-bottom: 10px;
-`
-
-const DetailKey = styled.div`
-    /* display: flex; */
-`
-
-const DetailValue = styled.div`
-    text-align: right;
-`
-
 const GainLossDetailValue = styled.div`
     background-color: ${props => props.profitLossColor};
     padding: 2px;
@@ -497,16 +463,6 @@ const DetailValueSpan = styled.span`
 
 `
 
-const StockDetails = styled.div`
-    width: 300px;
-    margin: 30px 0;
-    padding: 40px;
-    /* background-color: #947CB0; */
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 8px;
-    /* color: white; */
-`
 const FundamentalsDetails = styled.div`
     display: flex;
     flex-direction: column;
@@ -529,11 +485,6 @@ const Fundamentals = styled.div`
     flex-direction: column;
     align-items: center;
     width: 250px;
-`
-
-const SectionTitle = styled.div`
-    font-size: 20px;
-    padding-bottom: 10px;
 `
 
 const BelowFundamentalsButtons = styled.div`
