@@ -129,6 +129,7 @@ class InvestmentList extends Component {
                         </Table>
 
                         <BottomPageContainer>
+                            <SummaryAndAddContainer>
                             <PortfolioSummary
                                 profitLossColor={this.state.profitLossColor}
                                 portfolioTotal={this.state.portfolioTotal}
@@ -149,6 +150,7 @@ class InvestmentList extends Component {
                                     />
                                 </Collapse>
                             </NewInvestmentContainer>
+                            </SummaryAndAddContainer>
 
                             <PieContainer>
                                 <PieChart className="pie-chart"
@@ -328,7 +330,24 @@ const BottomPageContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media (min-width: 500px) {
+        flex-direction: row;
+        justify-content: center;
+    }
+
 `
+
+const SummaryAndAddContainer = styled.div`
+        @media (min-width: 500px) {
+            display: flex
+            flex-direction: column;
+            align-items: center;
+            margin-right: 20px;
+    }
+    
+    
+`
+
 const NewInvestmentContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -345,6 +364,9 @@ const SummaryTitle = styled.div`
 
 const PieContainer = styled.div`
     margin-top: 30px;
+    @media (min-width: 500px) {
+        margin-left: 20px;
+    }
 `
 
 const HeaderPlacement = styled.div`

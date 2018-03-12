@@ -39,25 +39,24 @@ class UserProfile extends Component {
                 </UserHeaderWrapper>
                 {
                     this.state.pageReady ?
-                        <div>
-                            <DetailsContainer>
-                                <ProfileDetail>
-                                    <div>Number of Stocks Owned:</div><div>{user.investments.length}</div>
-                                </ProfileDetail>
-                            </DetailsContainer>
+                        <FolderContainer>
+
 
                             <FolderDiv><Link to={`/users/${user._id}/investments`}>
                                 <FaFolderOpenO />
                                 <FolderText>See Stocks Portfolio</FolderText>
-
                             </Link>
+                            <ProfileDetail>
+                                <div padding-right='10px'>Number of Stocks Owned:</div><div>{user.investments.length}</div>
+                            </ProfileDetail>
                             </FolderDiv>
+
                             <TransactionsList>
                                 <RecentTransactions
                                     user={this.state.user}
                                 />
                             </TransactionsList>
-                        </div>
+                        </FolderContainer>
                         : null
                 }
                 <NewsHR width="80%" />
@@ -91,7 +90,8 @@ const ProfileDetail = styled.div`
     justify-content: space-between;
     padding-top: 10px;
     padding-bottom: 5px;
-
+    font-size: 14px;
+    width: 200px;
 `
 
 const FolderDiv = styled.div`
@@ -131,4 +131,10 @@ const NewsHR = styled.hr`
 const TransactionsList = styled.div`
     display: flex;
     justify-content: center;
+`
+
+const FolderContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `

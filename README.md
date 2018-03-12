@@ -1,5 +1,5 @@
 # Stock Tracker
-This is an app for tracking the performance of your investments in an user-friendly interface. On top of tracking current prices, purchase prices, and number of shares for each investments, it also pulls in key financial ratios, company information, and relevant news. 
+This is an app for tracking the performance of your investments in an user-friendly interface. On top of tracking current prices, purchase prices, past transactions, and number of shares for each investments, it also pulls in key financial ratios, company information, and relevant news. 
 
 ## Link to site
 https://stock-up-app.herokuapp.com
@@ -33,10 +33,13 @@ Planning and Project Management
 ## API's
 I spent a lot of time researching and testing different API's. Some that I found even inspired some of my favorite features on the site that I was not sure if I was going to be able to complete. For instance, when I found the Alpha Vantage free API for time series stock prices, I knew I had to try to leverage this to make a line graph. Once I got it working for daily prices, I knew I wanted to give the option to quickly toggle between multiple timeframes.  
 
+#### NewsApi.org
+- Financial News from Bloomberg
+
 #### Intrinio
 - Financial Ratios
-- News
-- Company Information
+- News on Specific Company
+- Detailed Company Information
 
 #### Alpha Vantage
 - Hourly close prices
@@ -47,6 +50,7 @@ I spent a lot of time researching and testing different API's. Some that I found
 ## Remaining goals:
 - Add cryptocurrencies
 - Add gain/loss color indicator for each stock like I have for the total portfolio on the index page
-- Add a homepage with a general newsfeed, maybe based on specific user's interests
 - Authentication
+- Have transaction list show all transaction types, not just sales
 - Watch lists for stocks that you want to keep an eye on but not yet purchase
+- When you search for stock tickers it populates search results for suggested stocks
