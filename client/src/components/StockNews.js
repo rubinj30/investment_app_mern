@@ -23,7 +23,7 @@ class StockNews extends Component {
                         this.props.news.slice(1, 10).map((item, index) => {
                             return <UserNewsItem key={index}>
                                 <NewsTitle><a target='_blank' href={`${item.url}`} key={index}>{item.title}</a></NewsTitle>
-                                <div>{item.summary} <a href={`${item.url}`} key={index}>See more...</a><DateSpan>  ({moment(item.publication_date).format("MMM Do YY")})</DateSpan></div>
+                                <div>{item.summary.substring(0, 150)} <a href={`${item.url}`} key={index}>See more...</a><DateSpan>  ({moment(item.publication_date).format("MMM Do YY")})</DateSpan></div>
                             </UserNewsItem>
                         })
                         :

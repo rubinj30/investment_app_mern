@@ -20,7 +20,7 @@ class HeaderBar extends Component {
                 </UserDiv>
                 <NameAndBackDiv>
                     <ArrowSize><Link to={`${this.props.backLink}`}><FaArrowLeft /></Link></ArrowSize>
-                    <AppTitle><AppText>StockUp</AppText><FaLineChart /></AppTitle>
+                    <Link to={`/users`}><AppTitle><AppText>StockUp</AppText><FaLineChart /></AppTitle></Link>
                     <Blank></Blank>
                 </NameAndBackDiv>
             </Header>

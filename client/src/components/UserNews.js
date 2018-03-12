@@ -49,7 +49,9 @@ class UserNews extends Component {
                                 </NewsImageHolder>
                                 <div>
                                     <NewsTitle><a target='_blank' href={`${article.url}`}> {article.title}</a></NewsTitle>
-                                    <div>{article.description} <DateSpan>  ({moment(article.publishedAt).format("MMM Do YY")})</DateSpan> </div>
+                                    <div>{article.description.substring(0, 150)}...
+                                    <a target='_blank' href={`${article.url}`}> see more</a>
+                                        <DateSpan>  ({moment(article.publishedAt).format("MMM Do YY")})</DateSpan> </div>
                                 </div>
                             </UserNewsItem>
                         })
