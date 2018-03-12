@@ -40,7 +40,7 @@ class LineGraph extends Component {
                 { this.state.dailyChartTimeFrame ? 
                 <ChartSubContainer>
                     <TimeFrameLabel>Past Month</TimeFrameLabel>
-                    <LineChart width={380} height={200} data={reversedLineData}
+                    <LineChart width={350} height={200} data={reversedLineData}
                         margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
                         <XAxis dataKey="name" />
                         <YAxis />
@@ -57,7 +57,7 @@ class LineGraph extends Component {
                 : 
                 <ChartSubContainer>
                     <TimeFrameLabel>Past 3 Years</TimeFrameLabel>
-                    <LineChart width={380} height={200} data={reversedMonthlyData}
+                    <LineChart width={350} height={200} data={reversedMonthlyData}
                         margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
                         <XAxis dataKey="name" />
                         <YAxis />

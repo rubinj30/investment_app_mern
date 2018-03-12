@@ -48,7 +48,7 @@ class UserProfile extends Component {
 
                             <FolderDiv><Link to={`/users/${user._id}/investments`}>
                                 <FaFolderOpenO />
-                                <FolderText>See Investment Portfolio</FolderText>
+                                <FolderText>See Stocks Portfolio</FolderText>
 
                             </Link>
                             </FolderDiv>
@@ -108,7 +108,7 @@ const FolderDiv = styled.div`
 `
 
 const FolderText = styled.div`
-    font-size: 20px;
+    font-size: 25px;
     color: #45b9f2;
     &:hover {
         color: #45b9f2;
