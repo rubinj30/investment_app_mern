@@ -182,14 +182,6 @@ class InvestmentList extends Component {
 
 export default InvestmentList
 
-
-// const Column = styled.div`
-//     /* border-right: 1px black solid; */
-//     text-align: center;
-//     background-color: #135f7c;
-//     padding: center;
-// `
-
 const Holder = styled.div`
     padding: 5px 0;
 `
@@ -298,11 +290,6 @@ const TickerName = styled.div`
     
 `
 
-// const ProfitLoss = styled.span`
-//     color: p;
-// `
-
-
 const BottomPageContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -321,15 +308,13 @@ const SummaryAndAddContainer = styled.div`
             align-items: center;
             margin-right: 20px;
     }
-    
-    
 `
 
 const NewInvestmentContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 220px;
+
 `
 
 const FolderIconSpan = styled.div`

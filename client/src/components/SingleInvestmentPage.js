@@ -7,12 +7,12 @@ import LineGraph from './LineGraph'
 import accounting from 'accounting'
 import StockNews from './StockNews'
 import HeaderBar from './HeaderBar'
-import { FaArrowCircleLeft } from 'react-icons/lib/fa'
+// import { FaArrowCircleLeft } from 'react-icons/lib/fa'
 import { Collapse } from 'react-collapse'
 import swal from 'sweetalert'
 import StockDetailsSection from './StockDetailsSection'
-import { DetailValue, SectionTitle, Detail, StockDetails, DetailKey, Website } from './styled-components/Details'
-import EditInvestment from './EditInvestment';
+import { DetailValue, SectionTitle, Detail, DetailKey} from './styled-components/Details'
+// import EditInvestment from './EditInvestment';
 
 class SingleInvestmentPage extends Component {
     state = {
@@ -107,8 +107,8 @@ class SingleInvestmentPage extends Component {
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
             this.setState({
-                dailyStockPrices: response.data["Time Series (Daily)"],
-                dailyReady: !this.state.dailyReady
+                dailyStockPrices: response.data["Time Series (Daily)"]
+                // dailyReady: !this.state.dailyReady
             })
         }
         catch (err) {
@@ -156,7 +156,7 @@ class SingleInvestmentPage extends Component {
     }
 
     deleteStock = async () => {
-        try{
+        try {
             const userId = this.props.match.params.userId
             const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
             const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
@@ -174,10 +174,10 @@ class SingleInvestmentPage extends Component {
                 profitLossColor: this.state.profitLossColor,
                 saleDate: new Date()
             }
-            
+
             const transactions = [...this.state.user.transactions]
             transactions.push(transaction)
-            const user = {...this.state.user}
+            const user = { ...this.state.user }
             user.transactions = transactions
 
             await axios.patch(`/api/users/${userId}`, user)
@@ -186,7 +186,7 @@ class SingleInvestmentPage extends Component {
             You ${gainLoss >= 0 ? 'made' : 'lost'} $${gainLoss.toFixed(2)} on the investment${gainLoss >= 0 ? '!! \n\n ¯\\ (•◡•) /¯' : ' \n\n ¯\\_(ツ)_/¯'}`)
             await axios.delete(`/api/users/${userId}/investments/${this.props.match.params.investmentId}`)
             this.setState({ redirect: !this.state.redirect })
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -246,21 +246,19 @@ class SingleInvestmentPage extends Component {
         for (var property1 in dailyStockPrices) {
             stockArray.push(dailyStockPrices[property1])
         }
-
-        const url = "http://" + this.state.investmentInfo.company_url
+        
         if (this.state.dailyReady) {
-            const yesterdayClosePrice = Object.values(dailyStockPrices)[0]['1. close']
-            // console.log("YESTERDAY", yesterdayClosePrice)
-            // console.log("Price", this.state.investment.price)
-            const priceChange = this.state.investment.price - parseInt(yesterdayClosePrice)
-            // console.log(priceChange)
+            const yesterdayClosePrice = stockArray
+            console.log("YESTERDAY", yesterdayClosePrice.reversed())
+
         }
+        
 
         const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
         const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
         const gainLoss = totalCurrentValue - totalPurchasePrice
         const percentagGainLoss = (gainLoss / totalPurchasePrice) * 100
-        
+
         return (
 
             <InvestmentContainer>
@@ -307,24 +305,6 @@ class SingleInvestmentPage extends Component {
                                 hourlyStockPrices={this.state.hourlyStockPrices}
                             />
                         </LineContainer>
-                        
-                        {/* <SellInvestment
-                            sellConfirmationShowing={this.state.sellConfirmationShowing}
-                            investment={this.state.investment}
-                            profitLossColor={this.state.profitLossColor}
-                            deleteStock={this.deleteStock}
-                        /> */}
-
-                        {/* <EditDeleteInvestment
-                            sellConfirmationShowing={this.state.sellConfirmationShowing}
-                            investment={this.state.investment}
-                            totalPurchasePrice={totalPurchasePrice}
-                            totalCurrentValue={totalCurrentValue}
-                            profitLossColor={this.state.profitLossColor}
-                            deleteStock={this.deleteStock}
-                            editFormShowing={this.state.editFormShowing}
-                        /> */}
-
                         <EditDeleteButtonsContainer>
                             <div>
                                 {this.state.sellConfirmationShowing ?
@@ -366,18 +346,18 @@ class SingleInvestmentPage extends Component {
 
                                         </ReviewEditContainer>
                                         {/* <EditInstructions>Please select BUY or SELL and indicate the amount of shares you would like to trade:</EditInstructions> */}
-                                        
+
                                         <DropdownMenu>
-                                        <div>Transaction Type: </div>
-                                        <BuySellSelect name="buyOrSell" onChange={this.handleEditChange}>
-                                            <option value="buy">BUY</option>
-                                            <option value="sell">SELL</option>
-                                        </BuySellSelect>
+                                            <div>Transaction Type: </div>
+                                            <BuySellSelect name="buyOrSell" onChange={this.handleEditChange}>
+                                                <option value="buy">BUY</option>
+                                                <option value="sell">SELL</option>
+                                            </BuySellSelect>
                                         </DropdownMenu>
 
                                         <DropdownMenu>
                                             <div>Quantity: </div>
-                                                <EditInput onChange={this.handleEditChange} name="quantity" />
+                                            <EditInput onChange={this.handleEditChange} name="quantity" />
                                         </DropdownMenu>
 
                                         <ConfirmButton onClick={this.updateNumberOfShares}>Click to Confirm Update</ConfirmButton>
@@ -387,47 +367,46 @@ class SingleInvestmentPage extends Component {
 
                         </EditDeleteButtonsContainer>
 
-
-                        {this.state.fundamentalsReady ?
-                            <Fundamentals>
-                                <FundamentalsDetails>
-                                    <SectionTitle>Key Metrics</SectionTitle>
-
-                                    <Detail>
-                                        <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[0].value}</DetailValue>
-                                    </Detail>
-                                    <Detail>
-                                        <DetailKey>Gross Margin</DetailKey><DetailValue> {this.state.fundamentals[1].value}</DetailValue>
-                                    </Detail>
-                                    <Detail>
-                                        <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[2].value}</DetailValue>
-                                    </Detail>
-                                </FundamentalsDetails>
-                            </Fundamentals>
-                            : null
-                        }
-
-
                         <DescriptionAndFundamentals>
+
+                            {this.state.fundamentalsReady ?
+                                <Fundamentals>
+                                    <FundamentalsDetails>
+                                        <SectionTitle>Key Metrics</SectionTitle>
+
+                                        <Detail>
+                                            <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[0].value}</DetailValue>
+                                        </Detail>
+                                        <Detail>
+                                            <DetailKey>Gross Margin</DetailKey><DetailValue> {this.state.fundamentals[1].value}</DetailValue>
+                                        </Detail>
+                                        <Detail>
+                                            <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[2].value}</DetailValue>
+                                        </Detail>
+                                    </FundamentalsDetails>
+                                </Fundamentals>
+                                : null
+                            }
 
 
                             <StockDetailsSection
                                 investmentInfo={this.state.investmentInfo}
                             />
-
-                            <div>
-                                {this.state.descriptionShowing ?
-                                    <BelowFundamentalsButtons>
-                                        <StyledButton onClick={this.toggleDescriptionShowing}>Hide Company Description</StyledButton>
-                                        <CompanyDescription>{this.state.investmentInfo.short_description}</CompanyDescription>
-                                    </BelowFundamentalsButtons>
-                                    :
-                                    <BelowFundamentalsButtons>
-                                        <StyledButton onClick={this.toggleDescriptionShowing}>More About {this.state.investmentInfo.ticker}</StyledButton>
-                                    </BelowFundamentalsButtons>
-                                }
-                            </div>
                         </DescriptionAndFundamentals>
+
+                        <div>
+                            {this.state.descriptionShowing ?
+                                <BelowFundamentalsButtons>
+                                    <StyledButton onClick={this.toggleDescriptionShowing}>Hide Company Description</StyledButton>
+                                    <CompanyDescription>{this.state.investmentInfo.short_description}</CompanyDescription>
+                                </BelowFundamentalsButtons>
+                                :
+                                <BelowFundamentalsButtons>
+                                    <StyledButton onClick={this.toggleDescriptionShowing}>More About {this.state.investmentInfo.ticker}</StyledButton>
+                                </BelowFundamentalsButtons>
+                            }
+                        </div>
+
                     </Company>
                 }
 
@@ -451,11 +430,6 @@ const Company = styled.div`
     align-items: center;
 `
 
-const PricingDetailDiv = styled.div`
-    display: flex;
-    font-size: 14px;
-`
-
 const PricingDetail = styled.div`
     display: flex;
     flex-direction: column;
@@ -472,10 +446,6 @@ const GainLossDetailValue = styled.div`
     padding: 2px;
     border-radius: 3px;
     color: white;
-
-`
-
-const DetailValueSpan = styled.span`
 
 `
 
@@ -557,11 +527,6 @@ const ConfirmButton = styled.div`
     }
 `
 
-// const DetailKey = styled.div`
-//     font-size: 14px;
-
-// `
-
 const CompanyDescription = styled.p`
     padding: 10px;
     border-radius: 5px;
@@ -575,6 +540,11 @@ const DescriptionAndFundamentals = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media (min-width:700px) {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 700px;
+    }
 `
 
 const ReviewContainer = styled.div`
@@ -593,9 +563,6 @@ const ReviewEditContainer = styled.div`
     width: 250px;
 `
 
-const ReviewTitle = styled.div`
-    font-size: 18px;
-`
 const EditDiv = styled.div`
     display: flex;
     flex-direction: column;
@@ -642,3 +609,17 @@ const DropdownMenu = styled.div`
     align-items: flex-end;
 
 `
+
+// const PricingDetailDiv = styled.div`
+//     display: flex;
+//     font-size: 14px;
+// `
+
+// const ReviewTitle = styled.div`
+//     font-size: 18px;
+// `
+
+
+// const DetailValueSpan = styled.span`
+
+// `
