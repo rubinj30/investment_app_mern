@@ -18,9 +18,7 @@ class LogIn extends Component {
     render() {
         return (
             <div>
-
                 <FullPageBackground>
-
                     <StyledButton onClick={this.login}>Click Here to LogIn</StyledButton>
                     <Instructions>
                         <div>You can login with Facebook, sign-up a new user, or skip the login and just checkout the app!</div>

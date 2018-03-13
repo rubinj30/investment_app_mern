@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import accounting from 'accounting'
 import styled from 'styled-components'
+import {DetailKey} from './styled-components/Details'
 
 class PortfolioSummary extends Component {
     render() {
@@ -8,15 +9,15 @@ class PortfolioSummary extends Component {
             <SummaryContainer>
                 <SummaryTitle>Porfolio Summary</SummaryTitle>
                 <TotalCost>
-                    <div>total cost:</div> <div> {accounting.formatMoney(this.props.portfolioCost)}</div>
+                    <DetailKey>total cost:</DetailKey> <div> {accounting.formatMoney(this.props.portfolioCost)}</div>
                 </TotalCost>
 
                 <TotalValue>
-                    <div>total value:</div> <div>{accounting.formatMoney(this.props.portfolioTotal)}</div>
+                    <DetailKey>total value:</DetailKey> <div>{accounting.formatMoney(this.props.portfolioTotal)}</div>
                 </TotalValue>
 
                 <ProfitContainer>
-                    <div>profit/loss:</div> <ProfitLoss profitLossColor={this.props.profitLossColor}>
+                    <DetailKey>profit/loss:</DetailKey> <ProfitLoss profitLossColor={this.props.profitLossColor}>
                         {this.props.profitOrLoss > 0 ? "+ " : null}
                         {accounting.formatMoney(this.props.profitOrLoss)}
                     </ProfitLoss>
@@ -37,18 +38,18 @@ const ProfitLoss = styled.div`
 
 const TotalCost = styled.div`
     display: flex;
-    width: 200px;
+    width: 240px;
     justify-content: space-between;
 `
 const ProfitContainer = styled.div`
     display: flex;
-    width: 200px;
+    width: 240px;
     justify-content: space-between;
 
 `
 const TotalValue = styled.div`
     display: flex;
-    width: 200px;
+    width: 240px;
     justify-content: space-between;
 `
 
@@ -59,7 +60,7 @@ const SummaryContainer = styled.div`
     justify-content: space-around;
     padding: 10px 10px 10px 10px;
     margin: 15px;
-    align-items: space-around;
+    align-items: center;
     border-radius: 5px;
     border: 1px solid black;
 `
