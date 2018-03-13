@@ -42,7 +42,7 @@ class SingleInvestmentPage extends Component {
     componentWillMount = async () => {
         await this.getInvestment()
         this.fetchStockInfoFromApi()
-        // this.fetchHourlyStockPrices()
+        this.fetchHourlyStockPrices()
         this.fetchDailyStockPrices()
         this.fetchFundamentals()
         this.fetchMonthlyStockPrices()
@@ -92,6 +92,7 @@ class SingleInvestmentPage extends Component {
             const api_key = process.env.TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.state.investment.ticker}&interval=60min&outputsize=full&apikey=${api_key}`
             const response = await axios.get(URL)
+            console.log(response.data)
             this.setState({
                 hourlyStockPrices: response.data["Time Series (60min)"]
             })
@@ -254,11 +255,7 @@ class SingleInvestmentPage extends Component {
             yesterdayClosePrice = stockArray[1]['4. close']
             console.log(yesterdayClosePrice)
             changeSinceYesterday = (this.state.investment.price - yesterdayClosePrice) / yesterdayClosePrice
-        }
-
-        
-
-        
+        }      
 
         const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
         const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
@@ -300,7 +297,7 @@ class SingleInvestmentPage extends Component {
                                 </Detail>
                                 { this.state.dailyReady? 
                                 <Detail>
-                                    <DetailKey>% Since Yesterday: </DetailKey><GainLossDetailValue profitLossColor={changeSinceYesterday >= 0 ? "green":"red"}> {changeSinceYesterday.toFixed(2)}%</GainLossDetailValue>
+                                    <DetailKey>% Since Yesterday Close: </DetailKey><GainLossDetailValue profitLossColor={changeSinceYesterday >= 0 ? "green":"red"}> {changeSinceYesterday.toFixed(2)}%</GainLossDetailValue>
                                 </Detail>
                                 :
                                 null}

@@ -5,40 +5,73 @@ import styled from 'styled-components'
 class LineGraph extends Component {
 
     state = {
-        dailyChartTimeFrame: true
+        chartTimeFrame: 'one-month'
     }
 
-    toggleChartTimeFrame = () => {
-        this.setState({dailyChartTimeFrame: !this.state.dailyChartTimeFrame})
+    toggleToDaily = () => {
+        this.setState({ chartTimeFrame: 'one-month' })
     }
+
+    toggleToThreeMonth = () => {
+        this.setState({ chartTimeFrame: 'three-month'})
+    }
+
+    toggleToOneYear = () => {
+        this.setState({ chartTimeFrame: 'one-year' })
+    }
+
+    toggleToThreeYear = () => {
+        this.setState({ chartTimeFrame: 'three-year' })
+    }
+
 
     render() {
 
         const dailyStockPrices = this.props.dailyStockPrices
-
-        const lineData = []
+        const dailyLineData = []
         for (var property1 in dailyStockPrices) {
             const ticker = parseInt(dailyStockPrices[property1]['4. close'])
-            lineData.push({name: '', price: parseInt(dailyStockPrices[property1]['4. close']), amt: 100})
+            dailyLineData.push({ name: '', price: parseInt(dailyStockPrices[property1]['4. close']), amt: 100 })
         }
 
-        const reversedLineData = lineData.slice(1, 30).reverse()
+        const reversedOneMonthLineData = dailyLineData.slice(1, 22).reverse()
+        const reversedThreeMonthLineData = dailyLineData.slice(1, 65).reverse()
 
         const monthlyStockPrices = this.props.monthlyStockPrices
         const monthlyLineData = []
-        for (var property1 in monthlyStockPrices){
+        for (var property1 in monthlyStockPrices) {
             const ticker = parseInt(monthlyStockPrices[property1]['4. close'])
-            monthlyLineData.push({name: '', price: parseInt(monthlyStockPrices[property1]['4. close']), amt: 5})
+            monthlyLineData.push({ name: '', price: parseInt(monthlyStockPrices[property1]['4. close']), amt: 5 })
         }
 
-        const reversedMonthlyData = monthlyLineData.slice(1, 24).reverse()
-        
-        return (
-            <LineChartContainer>
-                { this.state.dailyChartTimeFrame ? 
+        const reversedOneYearLineData = monthlyLineData.slice(1, 36).reverse()
+        const reversedThreeYearLineData = monthlyLineData.slice(1, 36).reverse()
+
+        if (this.state.chartTimeFrame === 'one-month') {
+            return (
+                < ChartSubContainer >
+                    <TimeFrameLabel>Past Month</TimeFrameLabel>
+                    <LineChart width={350} height={200} data={reversedOneMonthLineData}
+                        margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <Tooltip />
+                        <Legend />
+                        <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
+                    </LineChart>
+                    <TimeFrameContainer>
+                        <SelectedTimeFrame onClick={this.toggleToDaily}>1-Month</SelectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleToThreeMonth}>3-Month</UnselectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleToThreeYear}>3-Year</UnselectedTimeFrame>
+                    </TimeFrameContainer>
+                </ChartSubContainer>)
+
+        } else if (this.state.chartTimeFrame === 'three-month') {
+            return (
                 <ChartSubContainer>
                     <TimeFrameLabel>Past Month</TimeFrameLabel>
-                    <LineChart width={350} height={200} data={reversedLineData}
+                    <LineChart width={350} height={200} data={reversedThreeMonthLineData}
                         margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
                         <XAxis dataKey="name" />
                         <YAxis />
@@ -48,14 +81,17 @@ class LineGraph extends Component {
                         <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
                     </LineChart>
                     <TimeFrameContainer>
-                        <SelectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Month</SelectedTimeFrame>
-                        <UnselectedTimeFrame onClick={this.toggleChartTimeFrame}>3-Year</UnselectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleToDaily}>1-Month</UnselectedTimeFrame>
+                        <SelectedTimeFrame onClick={this.toggleToThreeMonth}>3-Months</SelectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleToThreeYear}>3-Years</UnselectedTimeFrame>
                     </TimeFrameContainer>
                 </ChartSubContainer>
-                : 
+            )
+        } else if (this.state.chartTimeFrame === 'three-year') {
+            return (
                 <ChartSubContainer>
                     <TimeFrameLabel>Past 3 Years</TimeFrameLabel>
-                    <LineChart width={350} height={200} data={reversedMonthlyData}
+                    <LineChart width={350} height={200} data={reversedThreeYearLineData}
                         margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
                         <XAxis dataKey="name" />
                         <YAxis />
@@ -65,16 +101,16 @@ class LineGraph extends Component {
                         <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
                     </LineChart>
                     <TimeFrameContainer>
-                        <UnselectedTimeFrame onClick={this.toggleChartTimeFrame}>1-Month</UnselectedTimeFrame>
-                        <SelectedTimeFrame onClick={this.toggleChartTimeFrame}>3-Year</SelectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleToHourly}>1-Day</UnselectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleToDaily}>1-Month</UnselectedTimeFrame>
+                        <SelectedTimeFrame onClick={this.toggleToMonthly}>3-Year</SelectedTimeFrame>
                     </TimeFrameContainer>
                 </ChartSubContainer>
-                } 
-
-            </LineChartContainer>
-        );
+            )
+        }
     }
 }
+
 
 export default LineGraph
 
