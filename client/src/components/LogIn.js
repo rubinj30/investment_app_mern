@@ -3,27 +3,31 @@ import FullPageBackground from './styled-components/FullPageBackground'
 import styled from 'styled-components'
 import HeaderBar from './HeaderBar'
 import StyledButton from './styled-components/StyledButton'
-import { FaLineChart } from 'react-icons/lib/fa'
-import NameAndBackDiv from './styled-components/NameAndBackDiv'
+import {Link} from 'react-router-dom'
+// import { FaLineChart } from 'react-icons/lib/fa'
+// import NameAndBackDiv from './styled-components/NameAndBackDiv'
+
+
 
 class LogIn extends Component {
+
+    login = () => {
+        this.props.auth.login()
+    }
+
     render() {
         return (
             <div>
-                <NameAndBackDiv>
-                    <TitleDiv>
-
-                        <LogInTitle><LogInText>StockUp</LogInText><FaLineChart /></LogInTitle>
-                    </TitleDiv>
-                </NameAndBackDiv>
 
                 <FullPageBackground>
 
-                    <div>E-mail</div>
-                    <LogInInput type="text" />
-                    <div>Password</div>
-                    <LogInInput type="text" />
-                    <StyledButton>LogIn</StyledButton>
+                    <StyledButton onClick={this.login}>Click Here to LogIn</StyledButton>
+                    <Instructions>
+                        <div>You can login with Facebook, sign-up a new user, or skip the login and just checkout the app!</div>
+
+                        <div>(The users are pre-loaded, I was just testing Authentication)</div>    
+                    </Instructions>
+                    <Link to={`/users/`}><StyledButton>Skip the Login</StyledButton></Link>
                 </FullPageBackground>
             </div>
         );
@@ -58,5 +62,12 @@ const TitleDiv = styled.div`
     justify-content: center;
     padding: 10px;
 
+`
+
+const Instructions = styled.div`
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 

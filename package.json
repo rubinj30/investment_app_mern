@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "alphavantage": "^1.1.1",
+    "auth0-js": "^9.3.3",
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "concurrently": "^3.5.1",

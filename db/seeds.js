@@ -66,6 +66,16 @@ User.remove({}).then(() => {
         stockPurchasePrice: 39.59
     })
 
+    const ua = new Investment({
+        ticker: 'UA',
+        type: 'stock',
+        quantity: 87,
+        price: 0,
+        totalPurchasePrice: 0,
+        stockPurchasePrice: 33.59
+    })
+
+
     user1.investments.push(amzn, fb, hd,  tsla, dal, twlo)
     return user1.save()
 }).then(() => {
@@ -115,6 +125,24 @@ User.remove({}).then(() => {
         totalPurchasePrice: 0,
         stockPurchasePrice: 194.23
     })
+    const ddd = new Investment({
+        ticker: 'DDD',
+        type: 'stock',
+        quantity: 150,
+        price: 0,
+        totalPurchasePrice: 0,
+        stockPurchasePrice: 15.59
+    })
+
+    const ddd = new Investment({
+        ticker: 'DDD',
+        type: 'stock',
+        quantity: 150,
+        price: 0,
+        totalPurchasePrice: 0,
+        stockPurchasePrice: 15.59
+    })
+
     user2.investments.push(amzn, fb, jnj, nke, ibm)
     return user2.save()
 }).catch((err) => {

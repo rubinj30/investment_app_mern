@@ -6,11 +6,12 @@ import { Collapse } from 'react-collapse'
 import NewInvestment from './NewInvestment'
 import StyledButton from './styled-components/StyledButton'
 import { PieChart } from 'react-easy-chart'
-// import accounting from 'accounting'
+import WaitingPage from './WaitingPage'
 import PortfolioSummary from './PortfolioSummary'
 import HeaderBar from './HeaderBar'
 var randomColor = require('randomcolor')
 var Spinner = require('react-spinkit')
+
 
 class InvestmentList extends Component {
     state = {
@@ -25,7 +26,7 @@ class InvestmentList extends Component {
     }
 
     componentWillMount = async () => {
-        await this.getAllInvestments(), 5000
+        setTimeout(() => this.getAllInvestments(), 1600)
     }
 
     getAllInvestments = async () => {
@@ -172,12 +173,7 @@ class InvestmentList extends Component {
                     :
                     <div>
 
-                        <SplashPage>
-
-                            <Spinner name="line-scale" />
-                            <QuoteHolder>"This app made me rich."</QuoteHolder>
-                            <QuoteBy> <div>- Warren Buffet</div></QuoteBy>
-                        </SplashPage>
+                        <WaitingPage /> 
                     </div>}
             </div>
         )
@@ -303,29 +299,9 @@ const TickerName = styled.div`
 `
 
 // const ProfitLoss = styled.span`
-//     color: ${props => props.profitLossColor};
+//     color: p;
 // `
 
-const SplashPage = styled.div`
-    width: 100vw;
-    height: 100vh;
-    background-color: #45b9f2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`
-
-const QuoteBy = styled.div`
-    display:flex;
-    justify-content: center;
-    color: white;
-`
-
-const QuoteHolder = styled.div`
-    color: white;
-    padding: 20px;
-`
 
 const BottomPageContainer = styled.div`
     display: flex;
