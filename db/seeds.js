@@ -76,7 +76,7 @@ User.remove({}).then(() => {
     })
 
 
-    user1.investments.push(amzn, fb, hd,  tsla, dal, twlo)
+    user1.investments.push(amzn, fb, hd,  tsla, dal, twlo, ua)
     return user1.save()
 }).then(() => {
     const user2 = new User({
@@ -134,16 +134,7 @@ User.remove({}).then(() => {
         stockPurchasePrice: 15.59
     })
 
-    const ddd = new Investment({
-        ticker: 'DDD',
-        type: 'stock',
-        quantity: 150,
-        price: 0,
-        totalPurchasePrice: 0,
-        stockPurchasePrice: 15.59
-    })
-
-    user2.investments.push(amzn, fb, jnj, nke, ibm)
+    user2.investments.push(amzn, fb, jnj, nke, ibm, ddd)
     return user2.save()
 }).catch((err) => {
     console.log(`*** ERROR SEEDING DATA ${err}`)

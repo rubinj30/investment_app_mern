@@ -12,6 +12,7 @@ import { Collapse } from 'react-collapse'
 import swal from 'sweetalert'
 import StockDetailsSection from './StockDetailsSection'
 import { DetailValue, SectionTitle, Detail, StockDetails, DetailKey, Website } from './styled-components/Details'
+import EditInvestment from './EditInvestment';
 
 class SingleInvestmentPage extends Component {
     state = {
@@ -279,16 +280,16 @@ class SingleInvestmentPage extends Component {
                         <PriceDetail>
                             <PricingDetail>
                                 <Detail>
-                                    <CurrentPrice>Current Price: </CurrentPrice><DetailValue> {accounting.formatMoney(this.state.investment.price)}</DetailValue>
+                                    <DetailKey>Current Price: </DetailKey><DetailValue> {accounting.formatMoney(this.state.investment.price)}</DetailValue>
                                 </Detail>
                                 <Detail>
-                                    <CurrentPrice>Purchase Price: </CurrentPrice><DetailValue> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</DetailValue>
+                                    <DetailKey>Purchase Price: </DetailKey><DetailValue> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</DetailValue>
                                 </Detail>
                                 <Detail>
-                                    <CurrentPrice>Number of Shares: </CurrentPrice><DetailValue> {this.state.quantity}</DetailValue>
+                                    <DetailKey>Number of Shares: </DetailKey><DetailValue> {this.state.quantity}</DetailValue>
                                 </Detail>
                                 <Detail>
-                                    <CurrentPrice>% Gain/Loss: </CurrentPrice><GainLossDetailValue profitLossColor={this.state.profitLossColor}> {percentagGainLoss.toFixed(1)}%</GainLossDetailValue>
+                                    <DetailKey>% Gain/Loss: </DetailKey><GainLossDetailValue profitLossColor={this.state.profitLossColor}> {percentagGainLoss.toFixed(1)}%</GainLossDetailValue>
                                 </Detail>
                             </PricingDetail>
                             {/* <Detail>
@@ -306,7 +307,23 @@ class SingleInvestmentPage extends Component {
                                 hourlyStockPrices={this.state.hourlyStockPrices}
                             />
                         </LineContainer>
+                        
+                        {/* <SellInvestment
+                            sellConfirmationShowing={this.state.sellConfirmationShowing}
+                            investment={this.state.investment}
+                            profitLossColor={this.state.profitLossColor}
+                            deleteStock={this.deleteStock}
+                        /> */}
 
+                        {/* <EditDeleteInvestment
+                            sellConfirmationShowing={this.state.sellConfirmationShowing}
+                            investment={this.state.investment}
+                            totalPurchasePrice={totalPurchasePrice}
+                            totalCurrentValue={totalCurrentValue}
+                            profitLossColor={this.state.profitLossColor}
+                            deleteStock={this.deleteStock}
+                            editFormShowing={this.state.editFormShowing}
+                        /> */}
 
                         <EditDeleteButtonsContainer>
                             <div>
@@ -319,12 +336,12 @@ class SingleInvestmentPage extends Component {
                             <Collapse isOpened={this.state.sellConfirmationShowing}>
                                 <ReviewContainer>
                                     <SectionTitle>Review Details</SectionTitle>
-                                    <ReviewDetailLine><div>Current price:</div> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
-                                    <ReviewDetailLine><div>Number of shares: </div>{this.state.investment.quantity}</ReviewDetailLine>
-                                    <ReviewDetailLine><div>Original purchase price:</div> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</ReviewDetailLine>
-                                    <ReviewDetailLine><div>Original total value:</div> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
-                                    <ReviewDetailLine><div>Total current value: </div>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
-                                    <ReviewDetailLine>$ Gain/Loss: <GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
+                                    <ReviewDetailLine><DetailKey>Current price:</DetailKey> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
+                                    <ReviewDetailLine><DetailKey>Number of shares: </DetailKey>{this.state.investment.quantity}</ReviewDetailLine>
+                                    <ReviewDetailLine><DetailKey>Original purchase price:</DetailKey> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</ReviewDetailLine>
+                                    <ReviewDetailLine><DetailKey>Original total value:</DetailKey> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
+                                    <ReviewDetailLine><DetailKey>Total current value: </DetailKey>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
+                                    <ReviewDetailLine><DetailKey>$ Gain/Loss: </DetailKey><GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
                                     <ConfirmButton onClick={this.deleteStock}>Click to Confirm Sale</ConfirmButton>
 
                                 </ReviewContainer>
@@ -340,12 +357,12 @@ class SingleInvestmentPage extends Component {
 
                                         <ReviewEditContainer>
                                             <SectionTitle>Review Details</SectionTitle>
-                                            <ReviewDetailLine><div>Current price:</div> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
-                                            <ReviewDetailLine><div>Number of shares: </div>{this.state.investment.quantity}</ReviewDetailLine>
-                                            <ReviewDetailLine><div>Original purchase price:</div> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</ReviewDetailLine>
-                                            <ReviewDetailLine><div>Original total value:</div> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
-                                            <ReviewDetailLine><div>Total current value: </div>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
-                                            <ReviewDetailLine>$ Gain/Loss: <GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
+                                            <ReviewDetailLine><DetailKey>Current price:</DetailKey> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
+                                            <ReviewDetailLine><DetailKey>Number of shares: </DetailKey>{this.state.investment.quantity}</ReviewDetailLine>
+                                            <ReviewDetailLine><DetailKey>Original purchase price:</DetailKey> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</ReviewDetailLine>
+                                            <ReviewDetailLine><DetailKey>Original total value:</DetailKey> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
+                                            <ReviewDetailLine><DetailKey>Total current value: </DetailKey>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
+                                            <ReviewDetailLine><DetailKey>$ Gain/Loss:</DetailKey> <GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
 
                                         </ReviewEditContainer>
                                         {/* <EditInstructions>Please select BUY or SELL and indicate the amount of shares you would like to trade:</EditInstructions> */}
@@ -396,7 +413,6 @@ class SingleInvestmentPage extends Component {
 
                             <StockDetailsSection
                                 investmentInfo={this.state.investmentInfo}
-                            
                             />
 
                             <div>
@@ -541,9 +557,10 @@ const ConfirmButton = styled.div`
     }
 `
 
-const CurrentPrice = styled.div`
-    font-size: 14px;
-`
+// const DetailKey = styled.div`
+//     font-size: 14px;
+
+// `
 
 const CompanyDescription = styled.p`
     padding: 10px;

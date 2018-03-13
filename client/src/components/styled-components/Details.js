@@ -12,7 +12,7 @@ export const StockDetails = styled.div`
 `
 
 export const DetailKey = styled.div`
-    /* display: flex; */
+    color: #666666;
 `
 
 export const DetailValue = styled.div`
