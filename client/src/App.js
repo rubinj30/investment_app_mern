@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { Router, Route, Switch } from "react-router-dom"
-import HomePage from "./components/HomePage"
 import InvestmentList from "./components/InvestmentList"
 import SingleInvestmentPage from "./components/SingleInvestmentPage"
 import UserProfile from "./components/UserProfile"

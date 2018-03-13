@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NewsItem, NewsTitle, NewsContainer, NewsSectionTitle, UserNewsItem, DateSpan, NewsSectionTitlePlacement} from './styled-components/News'
+import { NewsTitle, NewsContainer, NewsSectionTitle, UserNewsItem, DateSpan, NewsSectionTitlePlacement} from './styled-components/News'
 import styled from 'styled-components'
 import moment from 'moment'
 var Spinner = require('react-spinkit');
@@ -36,7 +36,3 @@ class StockNews extends Component {
 }
 
 export default StockNews;
-
-const SpinnerContainer = styled.div`
-    display: flex;
-`

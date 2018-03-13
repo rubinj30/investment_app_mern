@@ -9,8 +9,6 @@ import { PieChart } from 'react-easy-chart'
 import WaitingPage from './WaitingPage'
 import PortfolioSummary from './PortfolioSummary'
 import HeaderBar from './HeaderBar'
-var randomColor = require('randomcolor')
-var Spinner = require('react-spinkit')
 
 
 class InvestmentList extends Component {
@@ -81,10 +79,7 @@ class InvestmentList extends Component {
                                 {this.state.investments.map(investment => (
                                     <TickerContainer key={investment._id}>
                                         <Link to={`/users/${this.props.match.params.id}/investments/${investment._id}`}>
-                                            <Ticker><TickerName>{investment.ticker}</TickerName>
-                                                {/* <FolderIconSpan><FaFolderOpenO /></FolderIconSpan> */}
-
-                                            </Ticker>
+                                            <Ticker><TickerName>{investment.ticker}</TickerName></Ticker>
                                         </Link>
                                     </TickerContainer>
                                 ))}
@@ -314,14 +309,6 @@ const NewInvestmentContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-
-`
-
-const FolderIconSpan = styled.div`
-    /* width: 20px; */
-`
-const SummaryTitle = styled.div`
-
 `
 
 const PieContainer = styled.div`
@@ -339,6 +326,6 @@ const HeaderPlacement = styled.div`
     padding-bottom: 10px;
 `
 
-const HiddenMobileColumnOdd = styled.div`
+// const HiddenMobileColumnOdd = styled.div`
 
-`
+// `

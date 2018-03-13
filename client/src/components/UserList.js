@@ -35,7 +35,7 @@ class UserList extends Component {
                 </HeaderContainerDiv> */}
                 <div>
                     <UserListTitle>Current Users:</UserListTitle>
-                    {this.state.users.map(user => (
+                    {this.state.users.map((user,index) => (
                         <UserNameList>
 
                             <Link key={user._id} to={`/users/${user._id}/`}>

@@ -9,7 +9,7 @@ class RecentTransactions extends Component {
         let totalProfitLossOnSales = 0
         if (this.props.user.transactions.length > 0){
             this.props.user.transactions.map((transaction) => {
-                totalProfitLossOnSales += transaction.gainLoss
+                return totalProfitLossOnSales += transaction.gainLoss
             })
         }
         

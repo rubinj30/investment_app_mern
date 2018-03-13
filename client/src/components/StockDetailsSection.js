@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
 import { DetailValue, SectionTitle, Detail, StockDetails, DetailKey, Website } from './styled-components/Details'
 
 

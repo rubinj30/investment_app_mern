@@ -107,8 +107,8 @@ class SingleInvestmentPage extends Component {
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
             this.setState({
-                dailyStockPrices: response.data["Time Series (Daily)"]
-                // dailyReady: !this.state.dailyReady
+                dailyStockPrices: response.data["Time Series (Daily)"],
+                dailyReady: !this.state.dailyReady
             })
         }
         catch (err) {
@@ -246,12 +246,18 @@ class SingleInvestmentPage extends Component {
         for (var property1 in dailyStockPrices) {
             stockArray.push(dailyStockPrices[property1])
         }
-        
-        if (this.state.dailyReady) {
-            const yesterdayClosePrice = stockArray
-            console.log("YESTERDAY", yesterdayClosePrice.reversed())
 
+        let yesterdayClosePrice = ''
+        let changeSinceYesterday = 0
+        let yesterdayProfitLossColor
+        if (this.state.dailyReady) {
+            yesterdayClosePrice = stockArray[1]['4. close']
+            console.log(yesterdayClosePrice)
+            changeSinceYesterday = (this.state.investment.price - yesterdayClosePrice) / yesterdayClosePrice
         }
+
+        
+
         
 
         const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
@@ -284,11 +290,20 @@ class SingleInvestmentPage extends Component {
                                     <DetailKey>Purchase Price: </DetailKey><DetailValue> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</DetailValue>
                                 </Detail>
                                 <Detail>
+                                    <DetailKey>Yesterday Price: </DetailKey><DetailValue> {accounting.formatMoney(parseInt(yesterdayClosePrice))}</DetailValue>
+                                </Detail>
+                                <Detail>
                                     <DetailKey>Number of Shares: </DetailKey><DetailValue> {this.state.quantity}</DetailValue>
                                 </Detail>
                                 <Detail>
-                                    <DetailKey>% Gain/Loss: </DetailKey><GainLossDetailValue profitLossColor={this.state.profitLossColor}> {percentagGainLoss.toFixed(1)}%</GainLossDetailValue>
+                                    <DetailKey>% Gain/Loss: </DetailKey><GainLossDetailValue profitLossColor={this.state.profitLossColor}> {percentagGainLoss.toFixed(2)}%</GainLossDetailValue>
                                 </Detail>
+                                { this.state.dailyReady? 
+                                <Detail>
+                                    <DetailKey>% Since Yesterday: </DetailKey><GainLossDetailValue profitLossColor={changeSinceYesterday >= 0 ? "green":"red"}> {changeSinceYesterday.toFixed(2)}%</GainLossDetailValue>
+                                </Detail>
+                                :
+                                null}
                             </PricingDetail>
                             {/* <Detail>
                                 <DetailKey>% Change Since Yesterday: </DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>

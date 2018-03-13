@@ -39,6 +39,10 @@ class WaitingPage extends Component {
             {
                 quote: "Hold, please. Calculating...",
                 quotePic: "https://media3.giphy.com/media/3otO6OG1ki9305kZWg/giphy.gif"
+            },
+            {
+                quote: "Hold, please. Calculating...",
+                quotePic: "https://media3.giphy.com/media/3otO6OG1ki9305kZWg/giphy.gif"
             }
         ]
 
