@@ -22,7 +22,7 @@ User.remove({}).then(() => {
         quantity: 4,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 1212.43
+        stockPurchasePrice: 1012.43
     })
     const fb = new Investment({
         ticker: 'FB' ,
@@ -30,7 +30,7 @@ User.remove({}).then(() => {
         quantity: 23,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 194.24
+        stockPurchasePrice: 197.24
     })
     const hd = new Investment({
         ticker: 'HD' ,
@@ -38,7 +38,7 @@ User.remove({}).then(() => {
         quantity: 20,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 153.32
+        stockPurchasePrice: 120.32
     })
     const tsla = new Investment({
         ticker: 'TSLA',
@@ -46,7 +46,7 @@ User.remove({}).then(() => {
         quantity: 14,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 360.12
+        stockPurchasePrice: 370.12
     })
     const dal = new Investment({
         ticker: 'DAL',
@@ -87,7 +87,7 @@ User.remove({}).then(() => {
     const amzn = new Investment({
         ticker: 'AMZN' ,
         type: 'stock',
-        quantity: 10,
+        quantity: 6,
         price: 0,
         totalPurchasePrice: 0,
         stockPurchasePrice: 920.43
@@ -98,7 +98,7 @@ User.remove({}).then(() => {
         quantity: 20,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 140.12,
+        stockPurchasePrice: 125.12,
     })
     const jnj = new Investment({
         ticker: 'JNJ' ,
@@ -106,7 +106,7 @@ User.remove({}).then(() => {
         quantity: 20,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 132.42
+        stockPurchasePrice: 103.42
     })
     
     const nke = new Investment({
@@ -115,7 +115,7 @@ User.remove({}).then(() => {
         quantity: 40,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 90.44
+        stockPurchasePrice: 104.44
     })
     const ibm = new Investment({
         ticker: 'IBM',
@@ -123,7 +123,7 @@ User.remove({}).then(() => {
         quantity: 15,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 194.23
+        stockPurchasePrice: 197.23
     })
     const ddd = new Investment({
         ticker: 'DDD',
@@ -131,7 +131,7 @@ User.remove({}).then(() => {
         quantity: 150,
         price: 0,
         totalPurchasePrice: 0,
-        stockPurchasePrice: 15.59
+        stockPurchasePrice: 16.59
     })
 
     user2.investments.push(amzn, fb, jnj, nke, ibm, ddd)

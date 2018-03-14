@@ -92,10 +92,23 @@ class InvestmentList extends Component {
                                     return <Holder key={investment._id}>{investment.quantity}</Holder>
                                 })}
                             </Column2>
+                            <HiddenMobileColumnOdd>
+                                <ColumnTitle>purchase ($)</ColumnTitle>
+                                {this.state.investments.map(investment => {
+                                    return <Holder key={investment._id}>{investment.stockPurchasePrice}</Holder>
+                                })}
+                            </HiddenMobileColumnOdd>
+
+                            <HiddenMobileColumnEven>
+                                <ColumnTitle>change (%)</ColumnTitle>
+                                {this.state.investments.map(investment => {
+                                    return <Holder key={investment._id}>{(((investment.price - investment.stockPurchasePrice) / investment.stockPurchasePrice) * 100).toFixed(1)}%</Holder>
+                                })}
+                            </HiddenMobileColumnEven>
                             <ColumnOdd>
                                 <ColumnTitle>current ($)</ColumnTitle>
                                 {this.state.investments.map(investment => {
-                                    return <Holder key={investment._id}>{investment.price}</Holder>
+                                    return <Holder key={investment._id}>{investment.price.toFixed(2)}</Holder>
                                 })}
                             </ColumnOdd>
                             <ColumnEven>
@@ -104,19 +117,8 @@ class InvestmentList extends Component {
                                     return <Holder key={investment._id}>{investment.total.toFixed(2)}</Holder>
                                 })}
                             </ColumnEven>
-                            {/* <HiddenMobileColumnOdd>
-                                <ColumnTitle>total ($)</ColumnTitle>
-                                {this.state.investments.map(investment => {
-                                    return <Holder key={investment._id}>{investment.stockPurchasePrice.toFixed(2)}</Holder>
-                                })}
-                            </HiddenMobileColumnOdd>
 
-                            <HiddenMobileColumnOdd>
-                                <ColumnTitle>total ($)</ColumnTitle>
-                                {this.state.investments.map(investment => {
-                                    return <Holder key={investment._id}>{investment.stockPurchasePrice.toFixed(2)}</Holder>
-                                })}
-                            </HiddenMobileColumnOdd> */}
+
                             <ColumnOdd>
                                 <ColumnTitle>profit ($)</ColumnTitle>
                                 {this.state.investments.map(investment => {
@@ -194,6 +196,9 @@ const Column1 = styled.div`
     @media (min-width: 700px) {
         font-size: 20px;
     }
+    @media (max-width: 355px) {
+        font-size: 12px;
+    }
 `
 
 const Column2 = styled.div`
@@ -205,6 +210,9 @@ const Column2 = styled.div`
     }
     @media (min-width: 700px) {
         font-size: 20px;
+    }
+    @media (max-width: 355px) {
+        font-size: 12px;
     }
     
 `
@@ -222,6 +230,12 @@ const ColumnOdd = styled.div`
     @media (min-width: 700px) {
         font-size: 20px;
     }
+    @media (max-width: 355px) {
+        font-size: 12px;
+    }
+    @media (max-width: 355px) {
+        font-size: 12px;
+    }
 `
 
 const ColumnEven = styled.div`
@@ -233,14 +247,23 @@ const ColumnEven = styled.div`
     @media (min-width: 700px) {
         font-size: 20px;
     }
+    @media (max-width: 355px) {
+        font-size: 12px;
+    }
 `
 
 const ColumnTitle = styled.div`
     padding-bottom: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    @media (min-width: 700px) {
-        font-size: 25px;
+    @media (min-width: 900px) {
+        font-size: 20px;
+    }
+    @media (max-width: 355px) {
+        font-size: 12px;
+    }
+    @media (max-width: 270px) {
+        font-size: 9px;
     }
 `
 
@@ -249,7 +272,7 @@ const ColumnTitle1 = styled.div`
     padding-top: 10px;
     padding-bottom: 10px;
     @media (min-width: 700px) {
-        font-size: 25px;
+        font-size: 20px;
     }
     @media (min-width: 400px) {
         padding-left: 3vw;
@@ -326,6 +349,42 @@ const HeaderPlacement = styled.div`
     padding-bottom: 10px;
 `
 
-// const HiddenMobileColumnOdd = styled.div`
+const HiddenMobileColumnOdd = styled.div`
+    width: 0%;
+    background-color: #45b9f2; 
+    text-align: center;
+    @media(min-width: 800px) {
+        font-size: 20px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    @media (max-width: 355px) {
+        font-size: 12px;
+    }
 
-// `
+`
+
+
+const HiddenMobileColumnEven = styled.div`
+    width: 0%;
+    background-color: #238dce;
+    text-align: center;
+    @media(min-width: 800px) {
+        font-size: 20px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    @media (max-width: 355px) {
+        font-size: 12px;
+    }
+`

@@ -293,7 +293,7 @@ class SingleInvestmentPage extends Component {
                                     <DetailKey>Number of Shares: </DetailKey><DetailValue> {this.state.quantity}</DetailValue>
                                 </Detail>
                                 <Detail>
-                                    <DetailKey>% Gain/Loss: </DetailKey><GainLossDetailValue profitLossColor={this.state.profitLossColor}> {percentagGainLoss.toFixed(2)}%</GainLossDetailValue>
+                                    <DetailKey>% Since Purchase: </DetailKey><GainLossDetailValue profitLossColor={this.state.profitLossColor}> {percentagGainLoss.toFixed(2)}%</GainLossDetailValue>
                                 </Detail>
                                 { this.state.dailyReady? 
                                 <Detail>
