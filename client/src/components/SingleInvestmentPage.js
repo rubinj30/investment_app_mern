@@ -11,7 +11,7 @@ import HeaderBar from './HeaderBar'
 import { Collapse } from 'react-collapse'
 import swal from 'sweetalert'
 import StockDetailsSection from './StockDetailsSection'
-import { DetailValue, SectionTitle, Detail, DetailKey} from './styled-components/Details'
+import { DetailValue, SectionTitle, Detail, DetailKey } from './styled-components/Details'
 // import EditInvestment from './EditInvestment';
 
 class SingleInvestmentPage extends Component {
@@ -255,7 +255,7 @@ class SingleInvestmentPage extends Component {
             yesterdayClosePrice = stockArray[1]['4. close']
             console.log(yesterdayClosePrice)
             changeSinceYesterday = (this.state.investment.price - yesterdayClosePrice) / yesterdayClosePrice
-        }      
+        }
 
         const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
         const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
@@ -284,23 +284,30 @@ class SingleInvestmentPage extends Component {
                                     <DetailKey>Current Price: </DetailKey><DetailValue> {accounting.formatMoney(this.state.investment.price)}</DetailValue>
                                 </Detail>
                                 <Detail>
+                                    <DetailKey>Yesterday Price: </DetailKey><DetailValue> {accounting.formatMoney(parseInt(yesterdayClosePrice))}</DetailValue>
+                                </Detail>
+                                {this.state.dailyReady ?
+                                    <Detail>
+                                        <DetailKey>% Since Yesterday Close: </DetailKey><GainLossDetailValue profitLossColor={changeSinceYesterday >= 0 ? "green" : "red"}> {changeSinceYesterday.toFixed(2)}%</GainLossDetailValue>
+                                    </Detail>
+                                    :
+                                    null}
+
+                                <Detail>
                                     <DetailKey>Purchase Price: </DetailKey><DetailValue> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</DetailValue>
                                 </Detail>
                                 <Detail>
-                                    <DetailKey>Yesterday Price: </DetailKey><DetailValue> {accounting.formatMoney(parseInt(yesterdayClosePrice))}</DetailValue>
+                                    <DetailKey>% Since Purchase: </DetailKey><GainLossDetailValue profitLossColor={this.state.profitLossColor}> {percentagGainLoss.toFixed(2)}%</GainLossDetailValue>
                                 </Detail>
                                 <Detail>
                                     <DetailKey>Number of Shares: </DetailKey><DetailValue> {this.state.quantity}</DetailValue>
                                 </Detail>
                                 <Detail>
-                                    <DetailKey>% Since Purchase: </DetailKey><GainLossDetailValue profitLossColor={this.state.profitLossColor}> {percentagGainLoss.toFixed(2)}%</GainLossDetailValue>
+                                    <DetailKey>Current Value of Shares: </DetailKey><DetailValue> {accounting.formatMoney(this.state.quantity * this.state.investment.price)}</DetailValue>
                                 </Detail>
-                                { this.state.dailyReady? 
-                                <Detail>
-                                    <DetailKey>% Since Yesterday Close: </DetailKey><GainLossDetailValue profitLossColor={changeSinceYesterday >= 0 ? "green":"red"}> {changeSinceYesterday.toFixed(2)}%</GainLossDetailValue>
-                                </Detail>
-                                :
-                                null}
+
+
+
                             </PricingDetail>
                             {/* <Detail>
                                 <DetailKey>% Change Since Yesterday: </DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>
@@ -445,11 +452,14 @@ const Company = styled.div`
 const PricingDetail = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     align-items: space-between;
     border-radius: 5px;
     border: 1px solid black;
     width: 300px;
     padding: 10px;
+    height: 180px;
+    padding-bottom: 5px;
 
 `
 
@@ -556,6 +566,7 @@ const DescriptionAndFundamentals = styled.div`
         flex-direction: row;
         justify-content: space-around;
         width: 700px;
+        align-items: flex-start;
     }
 `
 

@@ -84,7 +84,7 @@ class LineGraph extends Component {
                     <TimeFrameContainer>
                         <UnselectedTimeFrame onClick={this.toggleToOneMonth}>1-Month</UnselectedTimeFrame>
                         <SelectedTimeFrame onClick={this.toggleToThreeMonth}>3-Month</SelectedTimeFrame>
-                        <UnselectedTimeFrame onClick={this.toggleToOneYear}>3-Year</UnselectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleToOneYear}>1-Year</UnselectedTimeFrame>
                         <UnselectedTimeFrame onClick={this.toggleToThreeYear}>3-Year</UnselectedTimeFrame>
                     </TimeFrameContainer>
                 </ChartSubContainer>
@@ -103,8 +103,8 @@ class LineGraph extends Component {
                         <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
                     </LineChart>
                     <TimeFrameContainer>
-                        <UnselectedTimeFrame onClick={this.toggleToOneMonth}>1-Day</UnselectedTimeFrame>
-                        <UnselectedTimeFrame onClick={this.toggleToThreeMonth}>1-Month</UnselectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleToOneMonth}>1-Month</UnselectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleToThreeMonth}>3-Month</UnselectedTimeFrame>
                         <SelectedTimeFrame onClick={this.toggleToOneYear}>1-Year</SelectedTimeFrame>
                         <UnselectedTimeFrame onClick={this.toggleToThreeYear}>3-Year</UnselectedTimeFrame>
                     </TimeFrameContainer>
@@ -124,8 +124,8 @@ class LineGraph extends Component {
                         <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
                     </LineChart>
                     <TimeFrameContainer>
-                        <UnselectedTimeFrame onClick={this.toggleToOneMonth}>1-Day</UnselectedTimeFrame>
-                        <UnselectedTimeFrame onClick={this.toggleToThreeMonth}>1-Month</UnselectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleToOneMonth}>1-Month</UnselectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleToThreeMonth}>3-Month</UnselectedTimeFrame>
                         <UnselectedTimeFrame onClick={this.toggleToOneYear}>1-Year</UnselectedTimeFrame>
                         <SelectedTimeFrame onClick={this.toggleToThreeYear}>3-Year</SelectedTimeFrame>
                     </TimeFrameContainer>

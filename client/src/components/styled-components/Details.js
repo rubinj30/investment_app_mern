@@ -8,7 +8,9 @@ export const StockDetails = styled.div`
     border: 1px solid black;
     border-radius: 5px;
     padding: 8px;
-    /* color: white; */
+    @media (min-width:700px) {
+        margin: 0px;
+    }
 `
 
 export const DetailKey = styled.div`

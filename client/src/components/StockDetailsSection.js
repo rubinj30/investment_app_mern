@@ -39,3 +39,4 @@ class StockDetailsSection extends Component {
 }
 
 export default StockDetailsSection
+
