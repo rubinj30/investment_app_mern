@@ -143,14 +143,6 @@ User.remove({}).then(() => {
         stockPurchasePrice: 16.59
     })
 
-    const ddd = new Investment({
-        ticker: 'DDD',
-        type: 'stock',
-        quantity: 150,
-        price: 0,
-        totalPurchasePrice: 0,
-        stockPurchasePrice: 16.59
-    })
     const mcd = new Investment({
         ticker: 'MCD',
         type: 'stock',

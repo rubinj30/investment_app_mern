@@ -71,8 +71,6 @@ const IconSize = styled.div`
 const ArrowSize = styled.div`
     font-size: 35px;
     display:flex;
-    /* flex-direction: column;
-    justify-content: center; */
     padding-bottom: 15px;
     align-self: flex-start;
     @media(max-width: 400px) {

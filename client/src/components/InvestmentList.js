@@ -282,8 +282,7 @@ const ColumnTitle1 = styled.div`
 const Table = styled.div`
     display: flex;
     justify-content: space-between;
-    color: white;
-    
+    color: white; 
 `
 
 const Ticker = styled.div`
@@ -305,7 +304,6 @@ const TickerName = styled.div`
     @media (min-width: 400px) {
         padding-left: 3vw;
     }
-    
 `
 
 const BottomPageContainer = styled.div`
@@ -366,9 +364,7 @@ const HiddenMobileColumnOdd = styled.div`
     @media (max-width: 355px) {
         font-size: 12px;
     }
-
 `
-
 
 const HiddenMobileColumnEven = styled.div`
     width: 0%;
