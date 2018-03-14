@@ -7,7 +7,7 @@ import NameAndBackDiv from './styled-components/NameAndBackDiv'
 class HeaderBar extends Component {
 
     render() {
-        
+
         return (
             <Header>
                 <UserDiv>
@@ -21,7 +21,11 @@ class HeaderBar extends Component {
                 <NameAndBackDiv>
                     <ArrowSize><Link to={`${this.props.backLink}`}><FaArrowLeft /></Link></ArrowSize>
                     <Link to={`/users`}><AppTitle><AppText>StockUp</AppText><FaLineChart /></AppTitle></Link>
-                    <Blank></Blank>
+                    <Blank>
+                    <Link to={`/users/${this.props.user._id}`}>
+                            <UserIconSizeMobile><FaUser /></UserIconSizeMobile>
+                    </Link>
+                    </Blank>
                 </NameAndBackDiv>
             </Header>
         )
@@ -34,11 +38,15 @@ const UserDiv = styled.div`
     display: flex;
     justify-content: flex-end;
     width: 90vw;
-    
     a {
         text-decoration: none;
         color: white;
     }
+
+        @media(max-width: 400px) {
+        font-size: 0px;
+    }
+
 `
 const Username = styled.div`
     padding-top:7px;
@@ -51,9 +59,14 @@ const Holder = styled.div`
     align-items: center;
 `
 
+
 const IconSize = styled.div`
     width: 20px;
+    @media(max-width: 400px) {
+        width: 0px;
+    }
 `
+
 
 const ArrowSize = styled.div`
     font-size: 35px;
@@ -62,13 +75,29 @@ const ArrowSize = styled.div`
     justify-content: center; */
     padding-bottom: 15px;
     align-self: flex-start;
+    @media(max-width: 400px) {
+        font-size: 20px;
+        padding-bottom: 7px;
+    }
 `
+
 
 const UserIconSize = styled.div`
     font-size: 20px;
     color: white;
+    @media(max-width: 400px) {
+        font-size: 0px;
+    }
 `
 
+const UserIconSizeMobile = styled.div`
+    font-size: 0px;
+    width: 10px;
+    @media(max-width: 400px) {
+        font-size: 18px;
+        color: white;
+    }
+`
 
 const AppTitle = styled.div`
     font-size: 30px;
@@ -76,6 +105,9 @@ const AppTitle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media(max-width: 400px) {
+        font-size: 20px;
+    }
 `
 
 const Header = styled.div`
@@ -85,19 +117,6 @@ const Header = styled.div`
 const AppText = styled.div`
     padding-right: 6px;
 `
-
-// const NameAndBackDiv = styled.div`
-//     display:flex;
-//     align-items: center;
-//     justify-content: space-between;
-//     text-decoration: none;
-//     color: white;
-//     a {
-//         text-decoration: none;
-//         color: white;
-//     }
-    
-// `
 
 const Blank = styled.div`
     width: 35px;
