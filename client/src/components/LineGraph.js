@@ -63,7 +63,7 @@ class LineGraph extends Component {
                     <TimeFrameContainer>
                         <SelectedTimeFrame onClick={this.toggleToOneMonth}>1-Month</SelectedTimeFrame>
                         <UnselectedTimeFrame onClick={this.toggleToThreeMonth}>3-Month</UnselectedTimeFrame>
-                        <UnselectedTimeFrame onClick={this.toggleToOneYear}>3-Year</UnselectedTimeFrame>
+                        <UnselectedTimeFrame onClick={this.toggleToOneYear}>1-Year</UnselectedTimeFrame>
                         <UnselectedTimeFrame onClick={this.toggleToThreeYear}>3-Year</UnselectedTimeFrame>
                     </TimeFrameContainer>
                 </ChartSubContainer>)
