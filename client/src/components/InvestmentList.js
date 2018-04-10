@@ -311,7 +311,7 @@ const BottomPageContainer = styled.div`
     flex-direction: column;
     align-items: center;
     @media (min-width: 500px) {
-        flex-direction: row;
+        flex-direction: row-reverse;
         justify-content: center;
     }
 
