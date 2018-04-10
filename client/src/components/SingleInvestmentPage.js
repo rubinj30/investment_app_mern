@@ -42,7 +42,7 @@ class SingleInvestmentPage extends Component {
     componentWillMount = async () => {
         await this.getInvestment()
         this.fetchStockInfoFromApi()
-        this.fetchHourlyStockPrices()
+        // this.fetchHourlyStockPrices()
         this.fetchDailyStockPrices()
         this.fetchFundamentals()
         this.fetchMonthlyStockPrices()
@@ -73,12 +73,15 @@ class SingleInvestmentPage extends Component {
             if (this.state.investment.type === 'stock') { // originally using with plans to setup for cyrpto currencies
                 const api_key = process.env.REACT_APP_STOCK_INFO
                 const URL = `https://api.intrinio.com/companies?identifier=${this.state.investment.ticker}`
+                const URL2 = `https://api.iextrading.com/1.0/stock/${this.state.investment.ticker}/company`
                 const response = await axios.get(URL,
                     {
                         headers: {
                             "X-Authorization-Public-Key": api_key
                         }
                     })
+                const response2 = await axios.get(URL2)
+                console.log(response2.data);
                 this.setState({ investmentInfo: response.data })
             }
         }
@@ -253,7 +256,6 @@ class SingleInvestmentPage extends Component {
         let yesterdayProfitLossColor
         if (this.state.dailyReady) {
             yesterdayClosePrice = stockArray[1]['4. close']
-            console.log(yesterdayClosePrice)
             changeSinceYesterday = (this.state.investment.price - yesterdayClosePrice) / yesterdayClosePrice
         }
 
