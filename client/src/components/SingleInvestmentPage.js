@@ -115,6 +115,7 @@ class SingleInvestmentPage extends Component {
             const api_key = process.env.TIME_SERIES
             const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
             const response = await axios.get(URL)
+            console.log(response.data);
             this.setState({ monthlyStockPrices: response.data["Monthly Time Series"] })
         }
         catch (err) {
@@ -122,15 +123,9 @@ class SingleInvestmentPage extends Component {
     }
 
     fetchFundamentals = async () => {
-        const URL = `https://api.intrinio.com/data_point?identifier=${this.state.investment.ticker}&item=pricetoearnings,grossmargin,debttoequity`
-        const response = await axios.get(URL,
-            {
-                headers: {
-                    "X-Authorization-Public-Key": process.env.REACT_APP_STOCK_INFO
-                }
-            })
+        const response = await axios.get(`https://api.iextrading.com/1.0/stock/${this.state.investment.ticker}/stats`)
         this.setState({
-            fundamentals: response.data.data,
+            fundamentals: response.data,
             fundamentalsReady: true
         })
     }
@@ -158,7 +153,7 @@ class SingleInvestmentPage extends Component {
 
             const transaction = {
                 ticker: this.state.investment.ticker,
-                company_name: this.state.investmentInfo.name,
+                company_name: this.state.investmentInfo.companyName,
                 totalSellValue: totalCurrentValue,
                 sharePurchasePrice: this.state.investment.stockPurchasePrice,
                 shareSellPrice: this.state.investment.price,
@@ -268,7 +263,7 @@ class SingleInvestmentPage extends Component {
                     <Redirect to={`/users/${this.props.match.params.userId}/investments`} /> :
                     <Company>
                         <CompanyName>
-                            {this.state.investmentInfo.name} ({this.state.investment.ticker})
+                            {this.state.investmentInfo.companyName} ({this.state.investment.ticker})
                         </CompanyName>
                         <PriceDetail>
                             <PricingDetail>
@@ -297,21 +292,14 @@ class SingleInvestmentPage extends Component {
                                 <Detail>
                                     <DetailKey>Current Value of Shares: </DetailKey><DetailValue> {accounting.formatMoney(this.state.quantity * this.state.investment.price)}</DetailValue>
                                 </Detail>
-
-
-
                             </PricingDetail>
-                            {/* <Detail>
-                                <DetailKey>% Change Since Yesterday: </DetailKey><DetailValue> {this.state.investmentInfo.employees}</DetailValue>
-                            </Detail> */}
-
                         </PriceDetail>
 
                         <LineContainer>
                             <LineGraph
                                 dailyStockPrices={this.state.dailyStockPrices}
                                 investment={this.state.investment}
-                                investmentName={this.state.investmentInfo.name}
+                                investmentName={this.state.investmentInfo.companyName}
                                 monthlyStockPrices={this.state.monthlyStockPrices}
                                 hourlyStockPrices={this.state.hourlyStockPrices}
                             />
@@ -384,15 +372,23 @@ class SingleInvestmentPage extends Component {
                                 <Fundamentals>
                                     <FundamentalsDetails>
                                         <SectionTitle>Key Metrics</SectionTitle>
-
                                         <Detail>
-                                            <DetailKey>Price-to-Earnings:</DetailKey><DetailValue> {this.state.fundamentals[0].value}</DetailValue>
+                                            <DetailKey>Market Cap:</DetailKey><DetailValue> {this.state.fundamentals.marketcap}</DetailValue>
                                         </Detail>
                                         <Detail>
-                                            <DetailKey>Gross Margin</DetailKey><DetailValue> {this.state.fundamentals[1].value}</DetailValue>
+                                            <DetailKey>EBITDA:</DetailKey><DetailValue> {this.state.fundamentals.EBITDA}</DetailValue>
                                         </Detail>
                                         <Detail>
-                                            <DetailKey>Debt-to-Equity:</DetailKey><DetailValue> {this.state.fundamentals[2].value}</DetailValue>
+                                            <DetailKey>52 Week High:</DetailKey><DetailValue> {this.state.fundamentals.week52high}</DetailValue>
+                                        </Detail>
+                                        <Detail>
+                                            <DetailKey>52 Week Low:</DetailKey><DetailValue> {this.state.fundamentals.week52low}</DetailValue>
+                                        </Detail>
+                                        <Detail>
+                                            <DetailKey>Price-to-book:</DetailKey><DetailValue> {this.state.fundamentals.priceToBook}</DetailValue>
+                                        </Detail>
+                                        <Detail>
+                                            <DetailKey>Price-to-sales:</DetailKey><DetailValue> {this.state.fundamentals.priceToSales}</DetailValue>
                                         </Detail>
                                     </FundamentalsDetails>
                                 </Fundamentals>
@@ -424,7 +420,7 @@ class SingleInvestmentPage extends Component {
                 <StockNews
                     news={this.state.news}
                     newsReady={this.state.newsReady}
-                    investmentName={this.state.investmentInfo.name}
+                    investmentName={this.state.investmentInfo.companyName}
                 />
 
             </InvestmentContainer>
