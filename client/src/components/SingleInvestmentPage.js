@@ -43,9 +43,9 @@ class SingleInvestmentPage extends Component {
         await this.getInvestment()
         this.fetchStockInfoFromApi()
         // this.fetchHourlyStockPrices()
-        this.fetchDailyStockPrices()
+        // this.fetchDailyStockPrices()
         this.fetchFundamentals()
-        this.fetchMonthlyStockPrices()
+        // this.fetchMonthlyStockPrices()
         this.fetchNews()
     }
 
@@ -131,16 +131,11 @@ class SingleInvestmentPage extends Component {
     }
 
     fetchNews = async () => {
-        const URL = `https://api.intrinio.com/news?identifier=${this.state.investment.ticker}&page_number=1&page_size=12`
-        const response = await axios.get(URL,
-            {
-                headers: {
-                    "X-Authorization-Public-Key": process.env.REACT_APP_STOCK_INFO
-                }
-            })
+        const response = await axios.get(`https://api.iextrading.com/1.0/stock/${this.state.investment.ticker}/news/last/10`)
+        console.log(response);
         this.setState({
-            news: response.data.data,
-            newsReady: true
+            news: response.data,
+            // newsReady: true
         })
     }
 

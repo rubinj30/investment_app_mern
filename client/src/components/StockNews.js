@@ -12,6 +12,7 @@ class StockNews extends Component {
     }
 
     render() {
+        console.log(this.props.news);
 
         return (
             <div>
@@ -20,10 +21,10 @@ class StockNews extends Component {
                 </NewsSectionTitlePlacement>
                 <NewsContainer>
                     {this.props.newsReady ?
-                        this.props.news.slice(1, 10).map((item, index) => {
+                        this.props.news.map((item, index) => {
                             return <UserNewsItem key={index}>
-                                <NewsTitle><a target='_blank' href={`${item.url}`} key={index}>{item.title}</a></NewsTitle>
-                                <div>{item.summary.substring(0, 150)} <a href={`${item.url}`} key={index}>See more...</a><DateSpan>  ({moment(item.publication_date).format("MMM Do YY")})</DateSpan></div>
+                                <NewsTitle><a target='_blank' href={`${item.url}`} key={index}>{item.headline}</a></NewsTitle>
+                                <div>{item.summary.substring(0, 150)} <a href={`${item.url}`} key={index}>See more...</a><DateSpan>  ({moment(item.datetime).format("MMM Do YY")})</DateSpan></div>
                             </UserNewsItem>
                         })
                         :
