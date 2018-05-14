@@ -12,23 +12,20 @@ class StockDetailsSection extends Component {
                 <StockDetails>
                     <SectionTitle>Company Details</SectionTitle>
                     <Detail>
-                        <DetailKey>CEO:</DetailKey><DetailValue> {this.props.investmentInfo.ceo}</DetailValue>
+                        <DetailKey>CEO:</DetailKey><DetailValue> {this.props.investmentInfo.CEO}</DetailValue>
                     </Detail>
                     <Detail>
-                        <DetailKey># of Employees:</DetailKey><DetailValue> {this.props.investmentInfo.employees}</DetailValue>
+                        <DetailKey>Industry:</DetailKey><DetailValue> {this.props.investmentInfo.industry}</DetailValue>
                     </Detail>
                     <Detail>
-                        <DetailKey>HQs Located in:</DetailKey><DetailValue> {this.props.investmentInfo.hq_state}</DetailValue>
+                        <DetailKey>Sector:</DetailKey><DetailValue> {this.props.investmentInfo.sector}</DetailValue>
                     </Detail>
                     <Detail>
-                        <DetailKey>Industry:</DetailKey><DetailValue> {this.props.investmentInfo.industry_category}</DetailValue>
-                    </Detail>
-                    <Detail>
-                        <DetailKey>Exchange:</DetailKey><DetailValue> {this.props.investmentInfo.stock_exchange}</DetailValue>
+                        <DetailKey>Exchange:</DetailKey><DetailValue> {this.props.investmentInfo.exchange}</DetailValue>
                     </Detail>
 
                     <Website>
-                        <DetailValue><a href={url} target="_blank">Go to the {this.props.investmentInfo.name} website</a></DetailValue>
+                        <DetailValue><a href={this.props.investmentInfo.website} target="_blank">Go to the {this.props.investmentInfo.name} website</a></DetailValue>
                     </Website>
 
                 </StockDetails>

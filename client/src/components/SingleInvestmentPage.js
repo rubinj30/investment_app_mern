@@ -71,17 +71,7 @@ class SingleInvestmentPage extends Component {
     fetchStockInfoFromApi = async () => {
         try {
             if (this.state.investment.type === 'stock') { // originally using with plans to setup for cyrpto currencies
-                const api_key = process.env.REACT_APP_STOCK_INFO
-                const URL = `https://api.intrinio.com/companies?identifier=${this.state.investment.ticker}`
-                const URL2 = `https://api.iextrading.com/1.0/stock/${this.state.investment.ticker}/company`
-                const response = await axios.get(URL,
-                    {
-                        headers: {
-                            "X-Authorization-Public-Key": api_key
-                        }
-                    })
-                const response2 = await axios.get(URL2)
-                console.log(response2.data);
+                const response = await axios.get(`https://api.iextrading.com/1.0/stock/${this.state.investment.ticker}/company`)
                 this.setState({ investmentInfo: response.data })
             }
         }
@@ -419,7 +409,7 @@ class SingleInvestmentPage extends Component {
                             {this.state.descriptionShowing ?
                                 <BelowFundamentalsButtons>
                                     <StyledButton onClick={this.toggleDescriptionShowing}>Hide Company Description</StyledButton>
-                                    <CompanyDescription>{this.state.investmentInfo.short_description}</CompanyDescription>
+                                    <CompanyDescription>{this.state.investmentInfo.description}</CompanyDescription>
                                 </BelowFundamentalsButtons>
                                 :
                                 <BelowFundamentalsButtons>
