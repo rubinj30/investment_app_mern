@@ -16,29 +16,32 @@ router.get('/', async (request, response) => {
         const tickersString = tickers.join(",")
         const api_key = process.env.TIME_SERIES
         const data = await axios.get(`https://api.iextrading.com/1.0/stock/market/batch?symbols=${tickersString}&types=quote`)
-        console.log(data.data);
-        pricesArray = data.data['Stock Quotes']
         
-        for (let i = 0; i < tickers.length; i++) {
-            currentPrices.push(
-                {
-                    stockTicker: pricesArray[i]['symbol'],
-                    stockPrice: pricesArray[i]['latestPrice']
-                }
-            )
+        // reformatting object into array 
+        for (const property1 in data.data) {
+            currentPrices.push(data.data[property1])
         }
+        // console.log("CURRENT PRICES", currentPrices);
+        // for (let i = 0; i < tickers.length; i++) {
+        //     currentPrices.push(
+        //         {
+        //             stockTicker: pricesArray[i]['symbol'],
+        //             stockPrice: pricesArray[i]['latestPrice']
+        //         }
+        //     )
+        // }
         
         const updatedStockInfo = []
         let portfolioTotal = 0
         let portfolioCost = 0
         let profitOrLoss = 0
-        console.log(user.investments)
+
         user.investments.forEach((investment, index) => {
             currentPrices.map((currentPrice) => {
-                if (currentPrice.stockTicker === investment.ticker) {
+                if (currentPrice.symbol === investment.ticker) {
                     
                     // sets current price of individual investment
-                    investment.price = currentPrice.stockPrice
+                    investment.price = currentPrice.latestPrice
                     // calculates total value of individual investment
                     
                     investment.total = (investment.price * investment.quantity).toFixed(2)
