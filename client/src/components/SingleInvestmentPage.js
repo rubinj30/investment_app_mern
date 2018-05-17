@@ -135,7 +135,7 @@ class SingleInvestmentPage extends Component {
         console.log(response);
         this.setState({
             news: response.data,
-            // newsReady: true
+            newsReady: true
         })
     }
 
