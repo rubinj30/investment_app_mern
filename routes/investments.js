@@ -15,14 +15,15 @@ router.get('/', async (request, response) => {
         const currentPrices = []
         const tickersString = tickers.join(",")
         const api_key = process.env.TIME_SERIES
-        const data = await axios.get(`https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=${tickersString}&apikey=${api_key}`)
+        const data = await axios.get(`https://api.iextrading.com/1.0/stock/market/batch?symbols=${tickersString}&types=quote`)
+        console.log(data.data);
         pricesArray = data.data['Stock Quotes']
         
         for (let i = 0; i < tickers.length; i++) {
             currentPrices.push(
                 {
-                    stockTicker: pricesArray[i]['1. symbol'],
-                    stockPrice: pricesArray[i]['2. price']
+                    stockTicker: pricesArray[i]['symbol'],
+                    stockPrice: pricesArray[i]['latestPrice']
                 }
             )
         }
