@@ -21,27 +21,16 @@ router.get('/', async (request, response) => {
         for (const property1 in data.data) {
             currentPrices.push(data.data[property1])
         }
-        // console.log("CURRENT PRICES", currentPrices);
-        // for (let i = 0; i < tickers.length; i++) {
-        //     currentPrices.push(
-        //         {
-        //             stockTicker: pricesArray[i]['symbol'],
-        //             stockPrice: pricesArray[i]['latestPrice']
-        //         }
-        //     )
-        // }
-        
         const updatedStockInfo = []
         let portfolioTotal = 0
         let portfolioCost = 0
         let profitOrLoss = 0
-
         user.investments.forEach((investment, index) => {
             currentPrices.map((currentPrice) => {
-                if (currentPrice.symbol === investment.ticker) {
+                if (currentPrice.quote.symbol === investment.ticker) {
                     
                     // sets current price of individual investment
-                    investment.price = currentPrice.latestPrice
+                    investment.price = currentPrice.quote.latestPrice
                     // calculates total value of individual investment
                     
                     investment.total = (investment.price * investment.quantity).toFixed(2)
