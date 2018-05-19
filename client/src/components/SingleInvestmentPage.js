@@ -24,7 +24,7 @@ class SingleInvestmentPage extends Component {
         dailyStockPrices: [],
         dailyReady: false,
         investmentReady: false,
-        monthlyStockPrices: [],
+        last2YearStockPrices: [],
         fundamentals: {},
         redirect: false,
         descriptionShowing: false,
@@ -98,14 +98,14 @@ class SingleInvestmentPage extends Component {
     fetchDailyStockPrices = async () => {
         try {
             const api_key = process.env.TIME_SERIES
-            // const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
-            const URL = `https://api.iextrading.com/1.0/stock/${this.state.investment.ticker}/batch?types=chart&range=1y`
+            const URL = `https://api.iextrading.com/1.0/stock/${this.state.investment.ticker}/batch?types=chart&range=2y`
             const response = await axios.get(URL)
             console.log("TESTESTTEST", response.data.chart);
-            const shapedMonthlyData = response.data.chart.map((item) => {
+            
+            const shapedDailyStockPriceData = response.data.chart.map((item) => {
                 return { name: moment(item.date).format('M/DD/YY'), price: item.close }
             })
-            this.setState({ monthlyStockPrices: shapedMonthlyData })
+            this.setState({ last2YearStockPrices: shapedDailyStockPriceData })
         }
         catch (err) {
         }
@@ -281,11 +281,9 @@ class SingleInvestmentPage extends Component {
 
                         <LineContainer>
                             <LineGraph
-                                dailyStockPrices={this.state.dailyStockPrices}
+                                last2YearStockPrices={this.state.last2YearStockPrices}
                                 investment={this.state.investment}
                                 investmentName={this.state.investmentInfo.companyName}
-                                monthlyStockPrices={this.state.monthlyStockPrices}
-                                hourlyStockPrices={this.state.hourlyStockPrices}
                             />
                         </LineContainer>
                         <EditDeleteButtonsContainer>
