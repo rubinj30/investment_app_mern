@@ -12,7 +12,6 @@ class StockNews extends Component {
     }
 
     render() {
-        console.log(this.props.news);
 
         return (
             <div>

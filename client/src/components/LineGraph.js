@@ -27,35 +27,35 @@ class LineGraph extends Component {
 
     render() {
 
-        const dailyStockPrices = this.props.dailyStockPrices
-        const dailyLineData = []
-        for (var property1 in dailyStockPrices) {
-            const ticker = parseInt(dailyStockPrices[property1]['4. close'])
-            dailyLineData.push({ name: '', price: parseInt(dailyStockPrices[property1]['4. close']), amt: 100 })
-        }
+        // const dailyStockPrices = this.props.dailyStockPrices
+        // const dailyLineData = []
+        // for (var property1 in dailyStockPrices) {
+        //     const ticker = parseInt(dailyStockPrices[property1]['4. close'])
+        //     dailyLineData.push({ name: '', price: parseInt(dailyStockPrices[property1]['4. close']), amt: 100 })
+        // }
 
-        const reversedOneMonthLineData = dailyLineData.slice(1, 22).reverse()
-        const reversedThreeMonthLineData = dailyLineData.slice(1, 65).reverse()
+        // const reversedOneMonthLineData = dailyLineData.slice(1, 22).reverse()
+        // const reversedThreeMonthLineData = dailyLineData.slice(1, 65).reverse()
 
-        const monthlyStockPrices = this.props.monthlyStockPrices
-        const monthlyLineData = []
-        for (var property1 in monthlyStockPrices) {
-            const ticker = parseInt(monthlyStockPrices[property1]['4. close'])
-            monthlyLineData.push({ name: '', price: parseInt(monthlyStockPrices[property1]['4. close']), amt: 5 })
-        }
+        // const monthlyStockPrices = this.props.monthlyStockPrices
+        // const monthlyLineData = []
+        // for (var property1 in monthlyStockPrices) {
+        //     const ticker = parseInt(monthlyStockPrices[property1]['4. close'])
+        //     monthlyLineData.push({ name: '', price: parseInt(monthlyStockPrices[property1]['4. close']), amt: 5 })
+        // }
 
-        const reversedOneYearLineData = monthlyLineData.slice(1, 12).reverse()
-        const reversedThreeYearLineData = monthlyLineData.slice(1, 36).reverse()
+        // const reversedOneYearLineData = this.props.monthlyStockPrices.slice(1, 12)
+        // const reversedThreeYearLineData = monthlyLineData.slice(1, 36).reverse()
 
         if (this.state.chartTimeFrame === 'one-month') {
             return (
                 < ChartSubContainer >
                     <TimeFrameLabel>Past Month</TimeFrameLabel>
-                    <LineChart width={350} height={200} data={reversedOneMonthLineData}
+                    <LineChart width={350} height={200} data={this.props.monthlyStockPrices}
                         margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" tick={{fontSize: 12}}/>
+                        <YAxis tick={{fontSize: 12}}/>
+                        <CartesianGrid />
                         <Tooltip />
                         <Legend />
                         <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
@@ -72,11 +72,11 @@ class LineGraph extends Component {
             return (
                 <ChartSubContainer>
                     <TimeFrameLabel>Past Three Months</TimeFrameLabel>
-                    <LineChart width={350} height={200} data={reversedThreeMonthLineData}
+                    <LineChart width={350} height={200} data={this.props.monthlyStockPrices}
                         margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
-                        <XAxis dataKey="name" />
+                        <XAxis dataKey="name" tick={{fontSize: 12}} />
                         <YAxis />
-                        <CartesianGrid strokeDasharray="3 3" />
+                        <CartesianGrid />
                         <Tooltip />
                         <Legend />
                         <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
@@ -93,11 +93,11 @@ class LineGraph extends Component {
             return (
                 <ChartSubContainer>
                     <TimeFrameLabel>Past Year</TimeFrameLabel>
-                    <LineChart width={350} height={200} data={reversedOneYearLineData}
+                    <LineChart width={350} height={200} data={this.props.monthlyStockPrices}
                         margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
-                        <XAxis dataKey="name" />
+                        <XAxis dataKey="name" tick={{fontSize: 12}}/>
                         <YAxis />
-                        <CartesianGrid strokeDasharray="3 3" />
+                        <CartesianGrid stroke={"rgb(190,190,190, 0.9)"}/>
                         <Tooltip />
                         <Legend />
                         <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
@@ -114,11 +114,11 @@ class LineGraph extends Component {
             return (
                 <ChartSubContainer>
                     <TimeFrameLabel>Past 3 Years</TimeFrameLabel>
-                    <LineChart width={350} height={200} data={reversedThreeYearLineData}
+                    <LineChart width={350} height={200} data={this.props.monthlyStockPrices}
                         margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
-                        <XAxis dataKey="name" />
+                        <XAxis dataKey="name" tick={{fontSize: 12}}/>
                         <YAxis />
-                        <CartesianGrid strokeDasharray="3 3" />
+                        <CartesianGrid stroke={"	rgb(190,190,190, 0.9)"}/>
                         <Tooltip />
                         <Legend />
                         <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />

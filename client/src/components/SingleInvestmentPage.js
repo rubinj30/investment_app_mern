@@ -11,6 +11,7 @@ import HeaderBar from './HeaderBar'
 import { Collapse } from 'react-collapse'
 import swal from 'sweetalert'
 import StockDetailsSection from './StockDetailsSection'
+import moment from 'moment'
 import { DetailValue, SectionTitle, Detail, DetailKey } from './styled-components/Details'
 // import EditInvestment from './EditInvestment';
 
@@ -20,10 +21,10 @@ class SingleInvestmentPage extends Component {
         investment: {},
         investmentInfo: {},
         hourlyStockPrices: {},
-        dailyStockPrices: {},
+        dailyStockPrices: [],
         dailyReady: false,
         investmentReady: false,
-        monthlyStockPrices: {},
+        monthlyStockPrices: [],
         fundamentals: {},
         redirect: false,
         descriptionShowing: false,
@@ -45,7 +46,7 @@ class SingleInvestmentPage extends Component {
         // this.fetchHourlyStockPrices()
         // this.fetchDailyStockPrices()
         this.fetchFundamentals()
-        // this.fetchMonthlyStockPrices()
+        this.fetchMonthlyStockPrices()
         this.fetchNews()
     }
 
@@ -98,10 +99,11 @@ class SingleInvestmentPage extends Component {
     fetchDailyStockPrices = async () => {
         try {
             const api_key = process.env.TIME_SERIES
-            const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
+            // const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
+            const URL = `https://api.iextrading.com/1.0/stock/${this.state.investment.ticker}/batch?types=chart&range=1y`
             const response = await axios.get(URL)
             this.setState({
-                dailyStockPrices: response.data["Time Series (Daily)"],
+                dailyStockPrices: response.data,
                 dailyReady: !this.state.dailyReady
             })
         }
@@ -113,10 +115,13 @@ class SingleInvestmentPage extends Component {
     fetchMonthlyStockPrices = async () => {
         try {
             const api_key = process.env.TIME_SERIES
-            const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
+            // const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&outputsize=compact&symbol=${this.state.investment.ticker}&apikey=${api_key}`
+            const URL = `https://api.iextrading.com/1.0/stock/${this.state.investment.ticker}/batch?types=chart&range=1y`
             const response = await axios.get(URL)
-            console.log(response.data);
-            this.setState({ monthlyStockPrices: response.data["Monthly Time Series"] })
+            const shapedMonthlyData = response.data.chart.map((item) => {
+                return { name: moment(item.date).format('M/DD/YY'), price: item.close }
+            })
+            this.setState({ monthlyStockPrices: shapedMonthlyData })
         }
         catch (err) {
         }
