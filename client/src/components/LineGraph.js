@@ -26,6 +26,9 @@ class LineGraph extends Component {
 
 
     render() {
+        const length = this.props.monthlyStockPrices.length
+        const lastMonthStockPrices = this.props.monthlyStockPrices.slice(length - 22, length)
+        const last3MonthStockPrices = this.props.monthlyStockPrices.slice(length - 65, length)
 
         // const dailyStockPrices = this.props.dailyStockPrices
         // const dailyLineData = []
@@ -51,7 +54,7 @@ class LineGraph extends Component {
             return (
                 < ChartSubContainer >
                     <TimeFrameLabel>Past Month</TimeFrameLabel>
-                    <LineChart width={350} height={200} data={this.props.monthlyStockPrices}
+                    <LineChart width={350} height={200} data={lastMonthStockPrices}
                         margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 12}}/>
                         <YAxis tick={{fontSize: 12}}/>
@@ -72,7 +75,7 @@ class LineGraph extends Component {
             return (
                 <ChartSubContainer>
                     <TimeFrameLabel>Past Three Months</TimeFrameLabel>
-                    <LineChart width={350} height={200} data={this.props.monthlyStockPrices}
+                    <LineChart width={350} height={200} data={last3MonthStockPrices}
                         margin={{ top: 5, right: 10, left: 3, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 12}} />
                         <YAxis />
