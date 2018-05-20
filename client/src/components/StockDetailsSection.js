@@ -23,6 +23,7 @@ class StockDetailsSection extends Component {
                     <Detail>
                         <DetailKey>Exchange:</DetailKey><DetailValue> {this.props.investmentInfo.exchange}</DetailValue>
                     </Detail>
+                    <p>{this.props.investmentInfo.description}</p>
 
                     <Website>
                         <DetailValue><a href={this.props.investmentInfo.website} target="_blank">Go to the {this.props.investmentInfo.name} website</a></DetailValue>

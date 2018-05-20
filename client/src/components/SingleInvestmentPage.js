@@ -384,23 +384,8 @@ class SingleInvestmentPage extends Component {
                                 investmentInfo={this.state.investmentInfo}
                             />
                         </DescriptionAndFundamentals>
-
-                        <div>
-                            {this.state.descriptionShowing ?
-                                <BelowFundamentalsButtons>
-                                    <StyledButton onClick={this.toggleDescriptionShowing}>Hide Company Description</StyledButton>
-                                    <CompanyDescription>{this.state.investmentInfo.description}</CompanyDescription>
-                                </BelowFundamentalsButtons>
-                                :
-                                <BelowFundamentalsButtons>
-                                    <StyledButton onClick={this.toggleDescriptionShowing}>More About {this.state.investmentInfo.ticker}</StyledButton>
-                                </BelowFundamentalsButtons>
-                            }
-                        </div>
-
                     </Company>
                 }
-
                 <StockNews
                     news={this.state.news}
                     newsReady={this.state.newsReady}
