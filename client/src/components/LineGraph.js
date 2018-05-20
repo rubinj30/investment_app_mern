@@ -5,7 +5,7 @@ import styled from 'styled-components'
 class LineGraph extends Component {
 
     state = {
-        chartTimeFrame: 'one-year'
+        chartTimeFrame: 'one-month'
     }
 
     toggleToOneMonth = () => {
@@ -30,15 +30,12 @@ class LineGraph extends Component {
         const last3MonthStockPrices = this.props.last2YearStockPrices.slice(length - 65, length)
         const last1YearStockPrices = this.props.last2YearStockPrices.slice(length - 253, length)
 
-        console.log("TEST ", this.props.yAxisDimensions.low);
-        console.log("TEST ", this.props.yAxisDimensions.low);
-        console.log("TEST ", this.props.yAxisDimensions.high);
         if (this.state.chartTimeFrame === 'one-month') {
             return (
                 < ChartSubContainer >
                     <TimeFrameLabel>Past Month</TimeFrameLabel>
-                    <LineChart width={350} height={200} data={lastMonthStockPrices}
-                        margin={{ top: 5, right: 10, left: 1, bottom: 5 }}>
+                    <LineChart width={375} height={255} data={lastMonthStockPrices}
+                        margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={3} angle={-15} textAnchor="end" />
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
                         <CartesianGrid />
@@ -58,8 +55,8 @@ class LineGraph extends Component {
             return (
                 <ChartSubContainer>
                     <TimeFrameLabel>Past 3 Months</TimeFrameLabel>
-                    <LineChart width={350} height={200} data={last3MonthStockPrices}
-                        margin={{ top: 5, right: 10, left: 1, bottom: 5 }}>
+                    <LineChart width={375} height={255} data={last3MonthStockPrices}
+                        margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={11} angle={-15} textAnchor="end" />
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
                         <CartesianGrid />
@@ -79,7 +76,7 @@ class LineGraph extends Component {
             return (
                 <ChartSubContainer>
                     <TimeFrameLabel>Past Year</TimeFrameLabel>
-                    <LineChart width={370} height={200} data={last1YearStockPrices}
+                    <LineChart width={375} height={255} data={last1YearStockPrices}
                         margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={45} angle={-15} textAnchor="end"/>
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
@@ -100,8 +97,8 @@ class LineGraph extends Component {
             return (
                 <ChartSubContainer>
                     <TimeFrameLabel>Past 2 Years</TimeFrameLabel>
-                    <LineChart width={350} height={200} data={this.props.last2YearStockPrices}
-                        margin={{ top: 5, right: 10, left: 1, bottom: 5 }}>
+                    <LineChart width={375} height={255} data={this.props.last2YearStockPrices}
+                        margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={90} angle={-15} textAnchor="end"/>
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
                         <CartesianGrid stroke={"	rgb(190,190,190, 0.9)"}/>

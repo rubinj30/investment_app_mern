@@ -289,26 +289,6 @@ class SingleInvestmentPage extends Component {
                             />
                         </LineContainer>
                         <EditDeleteButtonsContainer>
-                            <div>
-                                {this.state.sellConfirmationShowing ?
-                                    <StyledButton onClick={this.toggleSellConfirmShowing}>Cancel Sale</StyledButton>
-                                    : <StyledButton onClick={this.toggleSellConfirmShowing}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
-                                }
-                            </div>
-
-                            <Collapse isOpened={this.state.sellConfirmationShowing}>
-                                <ReviewContainer>
-                                    <SectionTitle>Review Details</SectionTitle>
-                                    <ReviewDetailLine><DetailKey>Current price:</DetailKey> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
-                                    <ReviewDetailLine><DetailKey>Number of shares: </DetailKey>{this.state.investment.quantity}</ReviewDetailLine>
-                                    <ReviewDetailLine><DetailKey>Original purchase price:</DetailKey> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</ReviewDetailLine>
-                                    <ReviewDetailLine><DetailKey>Original total value:</DetailKey> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
-                                    <ReviewDetailLine><DetailKey>Total current value: </DetailKey>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
-                                    <ReviewDetailLine><DetailKey>$ Gain/Loss: </DetailKey><GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
-                                    <ConfirmButton onClick={this.deleteStock}>Click to Confirm Sale</ConfirmButton>
-
-                                </ReviewContainer>
-                            </Collapse>
                             <EditContainer>
                                 {this.state.editFormShowing ?
                                     <StyledButton onClick={this.toggleEditFormShowing}> Cancel Transaction </StyledButton>
@@ -347,6 +327,26 @@ class SingleInvestmentPage extends Component {
                                     </EditDiv>
                                 </Collapse>
                             </EditContainer>
+                            <div>
+                                {this.state.sellConfirmationShowing ?
+                                    <StyledButton onClick={this.toggleSellConfirmShowing}>Cancel Sale</StyledButton>
+                                    : <StyledButton onClick={this.toggleSellConfirmShowing}>Sell All Shares of {this.state.investment.ticker}</StyledButton>
+                                }
+                            </div>
+
+                            <Collapse isOpened={this.state.sellConfirmationShowing}>
+                                <ReviewContainer>
+                                    <SectionTitle>Review Details</SectionTitle>
+                                    <ReviewDetailLine><DetailKey>Current price:</DetailKey> {accounting.formatMoney(this.state.investment.price)}</ReviewDetailLine>
+                                    <ReviewDetailLine><DetailKey>Number of shares: </DetailKey>{this.state.investment.quantity}</ReviewDetailLine>
+                                    <ReviewDetailLine><DetailKey>Original purchase price:</DetailKey> {accounting.formatMoney(this.state.investment.stockPurchasePrice)}</ReviewDetailLine>
+                                    <ReviewDetailLine><DetailKey>Original total value:</DetailKey> {accounting.formatMoney(totalPurchasePrice)}</ReviewDetailLine>
+                                    <ReviewDetailLine><DetailKey>Total current value: </DetailKey>{accounting.formatMoney(totalCurrentValue)}</ReviewDetailLine>
+                                    <ReviewDetailLine><DetailKey>$ Gain/Loss: </DetailKey><GainLossDetailValue profitLossColor={this.state.profitLossColor}>{accounting.formatMoney(gainLoss)}</GainLossDetailValue></ReviewDetailLine>
+                                    <ConfirmButton onClick={this.deleteStock}>Click to Confirm Sale</ConfirmButton>
+
+                                </ReviewContainer>
+                            </Collapse>
 
                         </EditDeleteButtonsContainer>
 

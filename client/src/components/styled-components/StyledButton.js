@@ -16,7 +16,7 @@ export const StyledButton = styled.button`
     font-size: 20px;
     width: 300px;
     padding: 5px;
-    margin: 10px;
+    margin: 3px;
     text-decoration: none;
     &:hover {
     background: #3cb0fd;
