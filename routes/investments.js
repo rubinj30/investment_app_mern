@@ -69,7 +69,6 @@ router.get('/:investmentId', async (request, response) => {
     try {
         const user = await User.findById(request.params.userId)
         const investment = await user.investments.id(request.params.investmentId)
-        console.log("TEST", investment)
 
         // const data = await axios.get(`https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=${investment.ticker}&apikey=J2JY3QVFS2WGX91L`)
         // investment.price = data.data['Stock Quotes'][0]['2. price']
@@ -99,9 +98,7 @@ router.post('/', async (request, response) => {
         investment.quantity = request.body.quantity
         investment.type = request.body.type
         await alpha.data.batch(investment.ticker).then(data => {
-
             investment.stockPurchasePrice = data['Stock Quotes'][0]['2. price']
-            console.log(investment)
         });
 
         newInvestment = await Investment.create(investment)

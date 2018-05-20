@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import StyledButton from './styled-components/StyledButton'
 import swal from 'sweetalert';
 import accounting from 'accounting'
+import { InputTitle, BuyInput } from './styled-components/Details'
 
 const R = require('ramda')
 
@@ -65,12 +66,12 @@ class NewInvestment extends Component {
 
                     <NewForm onSubmit={this.addStockToPortfolio}>
                         <NewContainer>
-                            <div><label>Enter the Stock Ticker</label></div>
+                            <InputTitle><label>Enter the Stock Ticker</label></InputTitle>
                             <div>
                                 <BuyInput onChange={this.handleNewInvestmentChange}
                                     name="ticker" type="text" value={this.state.newInvestment.ticker} required />
                             </div>
-                            <div><label>How many shares?</label></div>
+                            <InputTitle><label>How many shares?</label></InputTitle>
                             <div>
                                 <BuyInput onChange={this.handleNewInvestmentChange} name="quantity" type="number"
                                     value={this.state.newInvestment.quantity} required />
@@ -100,12 +101,4 @@ const NewContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-`
-
-const BuyInput = styled.input`
-    border: 1px solid black;
-    border-radius: 5px;
-    width: 80px;
-    height: 20px;
-    font-size: 18px;
 `

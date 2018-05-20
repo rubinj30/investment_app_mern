@@ -12,6 +12,7 @@ import swal from 'sweetalert'
 import StockDetailsSection from './StockDetailsSection'
 import moment from 'moment'
 import { DetailValue, SectionTitle, Detail, DetailKey } from './styled-components/Details'
+import FundamentalsSection from './FundamentalsSection'
 const _ = require('lodash')
 
 class SingleInvestmentPage extends Component {
@@ -82,9 +83,7 @@ class SingleInvestmentPage extends Component {
         try {
             const api_key = process.env.TIME_SERIES
             const URL = `https://api.iextrading.com/1.0/stock/${this.state.investment.ticker}/batch?types=chart&range=2y`
-            const response = await axios.get(URL)
-            console.log("TESTESTTEST", response.data.chart);
-            
+            const response = await axios.get(URL)            
             const shapedDailyStockPriceData = response.data.chart.map((item) => {
                 return { name: moment(item.date).format('M/DD/YY'), price: item.close }
             })
@@ -122,7 +121,6 @@ class SingleInvestmentPage extends Component {
 
     fetchNews = async () => {
         const response = await axios.get(`https://api.iextrading.com/1.0/stock/${this.state.investment.ticker}/news/last/10`)
-        console.log(response);
         this.setState({
             news: response.data,
             newsReady: true
@@ -319,7 +317,7 @@ class SingleInvestmentPage extends Component {
                                         </DropdownMenu>
 
                                         <DropdownMenu>
-                                            <div>Quantity: </div>
+                                            <QtyTitleInput>Quantity: </QtyTitleInput>
                                             <EditInput onChange={this.handleEditChange} name="quantity" />
                                         </DropdownMenu>
 
@@ -353,33 +351,9 @@ class SingleInvestmentPage extends Component {
                         <DescriptionAndFundamentals>
 
                             {this.state.fundamentalsReady ?
-                                <Fundamentals>
-                                    <FundamentalsDetails>
-                                        <SectionTitle>Key Metrics</SectionTitle>
-                                        <Detail>
-                                            <DetailKey>Market Cap:</DetailKey><DetailValue> {this.state.fundamentals.marketcap}</DetailValue>
-                                        </Detail>
-                                        <Detail>
-                                            <DetailKey>EBITDA:</DetailKey><DetailValue> {this.state.fundamentals.EBITDA}</DetailValue>
-                                        </Detail>
-                                        <Detail>
-                                            <DetailKey>52 Week High:</DetailKey><DetailValue> {this.state.fundamentals.week52high}</DetailValue>
-                                        </Detail>
-                                        <Detail>
-                                            <DetailKey>52 Week Low:</DetailKey><DetailValue> {this.state.fundamentals.week52low}</DetailValue>
-                                        </Detail>
-                                        <Detail>
-                                            <DetailKey>Price-to-book:</DetailKey><DetailValue> {this.state.fundamentals.priceToBook}</DetailValue>
-                                        </Detail>
-                                        <Detail>
-                                            <DetailKey>Price-to-sales:</DetailKey><DetailValue> {this.state.fundamentals.priceToSales}</DetailValue>
-                                        </Detail>
-                                    </FundamentalsDetails>
-                                </Fundamentals>
+                                <FundamentalsSection fundamentals={this.state.fundamentals}/>
                                 : null
                             }
-
-
                             <StockDetailsSection
                                 investmentInfo={this.state.investmentInfo}
                             />
@@ -428,28 +402,10 @@ const GainLossDetailValue = styled.div`
 
 `
 
-const FundamentalsDetails = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: space-between;
-    width: 300px;
-    border-radius: 5px;
-    border: 1px solid black;
-    /* background-color: rgba(0,0,0, .2); */
-    padding: 10px;
-`
-
 const InvestmentContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-`
-
-const Fundamentals = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 250px;
 `
 
 const BelowFundamentalsButtons = styled.div`
@@ -553,8 +509,8 @@ const EditDiv = styled.div`
 `
 
 const EditInput = styled.input`
-    border-radius: 5px;
-    border: 1px solid black;
+    border: 1px solid white;
+    border-bottom: solid black 2px;
     height: 20px;
     width: 30px;
     font-size: 16px;
@@ -590,16 +546,6 @@ const DropdownMenu = styled.div`
 
 `
 
-// const PricingDetailDiv = styled.div`
-//     display: flex;
-//     font-size: 14px;
-// `
-
-// const ReviewTitle = styled.div`
-//     font-size: 18px;
-// `
-
-
-// const DetailValueSpan = styled.span`
-
-// `
+const QtyTitleInput = styled.div`
+    padding-right: 10px;
+`

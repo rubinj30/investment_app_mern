@@ -38,10 +38,10 @@ class LineGraph extends Component {
                         margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={3} angle={-15} textAnchor="end" />
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
-                        <CartesianGrid />
+                        <CartesianGrid stroke={"rgb(190,190,190, 0.5)"} />
                         <Tooltip />
                         <Legend />
-                        <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
+                        <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" strokeWidth={3} activeDot={{ r: 8 }} />
                     </LineChart>
                     <TimeFrameContainer>
                         <SelectedTimeFrame onClick={this.toggleToOneMonth}>1-Month</SelectedTimeFrame>
@@ -59,10 +59,10 @@ class LineGraph extends Component {
                         margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={11} angle={-15} textAnchor="end" />
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
-                        <CartesianGrid />
+                        <CartesianGrid stroke={"rgb(190,190,190, 0.5)"}/>
                         <Tooltip />
                         <Legend />
-                        <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
+                        <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" strokeWidth={3} activeDot={{ r: 8 }} />
                     </LineChart>
                     <TimeFrameContainer>
                         <UnselectedTimeFrame onClick={this.toggleToOneMonth}>1-Month</UnselectedTimeFrame>
@@ -80,10 +80,10 @@ class LineGraph extends Component {
                         margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={45} angle={-15} textAnchor="end"/>
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
-                        <CartesianGrid stroke={"rgb(190,190,190, 0.9)"}/>
+                        <CartesianGrid stroke={"rgb(190,190,190, 0.5)"}/>
                         <Tooltip />
                         <Legend />
-                        <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
+                        <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" strokeWidth={3} activeDot={{ r: 8 }} />
                     </LineChart>
                     <TimeFrameContainer>
                         <UnselectedTimeFrame onClick={this.toggleToOneMonth}>1-Month</UnselectedTimeFrame>
@@ -101,10 +101,10 @@ class LineGraph extends Component {
                         margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={90} angle={-15} textAnchor="end"/>
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
-                        <CartesianGrid stroke={"	rgb(190,190,190, 0.9)"}/>
+                        <CartesianGrid stroke={"rgb(190,190,190, 0.5)"}/>
                         <Tooltip />
                         <Legend />
-                        <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
+                        <Line dot={false} type="monotone" dataKey="price" stroke="#8884d8" strokeWidth={3} activeDot={{ r: 8 }} />
                     </LineChart>
                     <TimeFrameContainer>
                         <UnselectedTimeFrame onClick={this.toggleToOneMonth}>1-Month</UnselectedTimeFrame>

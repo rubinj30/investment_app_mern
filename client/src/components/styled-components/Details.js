@@ -36,4 +36,17 @@ export const Detail = styled.div`
     justify-content: space-between;
 `
 
+export const BuyInput = styled.input`
+    border: 1px white solid;
+    border-bottom: 2px solid black;
+    width: 80px;
+    height: 20px;
+    font-size: 18px;
+`
+
+export const InputTitle = styled.div`
+    margin-top: 15px;
+    color: #666666;
+`
+
 export default { StockDetails, SectionTitle, Detail, Website, DetailValue, DetailKey}
