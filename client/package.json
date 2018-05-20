@@ -6,6 +6,7 @@
   "dependencies": {
     "accounting": "^0.4.1",
     "axios": "^0.18.0",
+    "lodash": "^4.17.10",
     "moment": "^2.21.0",
     "ramda": "^0.25.0",
     "randomcolor": "^0.5.3",

@@ -7,20 +7,18 @@ import LineGraph from './LineGraph'
 import accounting from 'accounting'
 import StockNews from './StockNews'
 import HeaderBar from './HeaderBar'
-// import { FaArrowCircleLeft } from 'react-icons/lib/fa'
 import { Collapse } from 'react-collapse'
 import swal from 'sweetalert'
 import StockDetailsSection from './StockDetailsSection'
 import moment from 'moment'
 import { DetailValue, SectionTitle, Detail, DetailKey } from './styled-components/Details'
-// import EditInvestment from './EditInvestment';
+const _ = require('lodash')
 
 class SingleInvestmentPage extends Component {
     state = {
         user: {},
         investment: {},
         investmentInfo: {},
-        hourlyStockPrices: {},
         dailyStockPrices: [],
         dailyReady: false,
         investmentReady: false,
@@ -37,13 +35,13 @@ class SingleInvestmentPage extends Component {
         quantity: '',
         originalQuantity: '',
         buyOrSell: '',
-        newQuantity: ''
+        newQuantity: '',
+        yAxisDimensions: {}
     }
 
     componentWillMount = async () => {
         await this.getInvestment()
         this.fetchStockInfoFromApi()
-        // this.fetchHourlyStockPrices()
         this.fetchDailyStockPrices()
         this.fetchFundamentals()
         this.fetchNews()
@@ -80,21 +78,6 @@ class SingleInvestmentPage extends Component {
         }
     }
 
-    fetchHourlyStockPrices = async () => {
-        try {
-            const api_key = process.env.TIME_SERIES
-            const URL = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.state.investment.ticker}&interval=60min&outputsize=full&apikey=${api_key}`
-            const response = await axios.get(URL)
-            console.log(response.data)
-            this.setState({
-                hourlyStockPrices: response.data["Time Series (60min)"]
-            })
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }
-
     fetchDailyStockPrices = async () => {
         try {
             const api_key = process.env.TIME_SERIES
@@ -105,10 +88,33 @@ class SingleInvestmentPage extends Component {
             const shapedDailyStockPriceData = response.data.chart.map((item) => {
                 return { name: moment(item.date).format('M/DD/YY'), price: item.close }
             })
-            this.setState({ last2YearStockPrices: shapedDailyStockPriceData })
+            const yAxisDimensions = { high: this.findHighestAmountForYAxis(shapedDailyStockPriceData), 
+                                    low: this.findLowestAmountForYAxis(shapedDailyStockPriceData) }
+
+            // this.findHighestAmountForYAxis(shapedDailyStockPriceData, )
+            this.setState({ last2YearStockPrices: shapedDailyStockPriceData, yAxisDimensions })
         }
         catch (err) {
         }
+    }
+
+    // precisionRoundDown = (number, precision) => {
+    //     const factor = Math.pow(10, precision);
+    //     return Math.round(number * factor) / factor;
+    // }
+
+    findHighestAmountForYAxis = (array, keyToCheck) => {
+        const amountsArray = array.map((item) => {
+            return item.price
+        })
+        return _.round(Math.max(...amountsArray), -1)
+    }
+
+    findLowestAmountForYAxis = (array, keyToCheck) => {
+        const amountsArray = array.map((item) => {
+            return item.price
+        })
+        return _.round(Math.min(...amountsArray), -1)
     }
 
     fetchFundamentals = async () => {
@@ -284,6 +290,7 @@ class SingleInvestmentPage extends Component {
                                 last2YearStockPrices={this.state.last2YearStockPrices}
                                 investment={this.state.investment}
                                 investmentName={this.state.investmentInfo.companyName}
+                                yAxisDimensions={this.state.yAxisDimensions}
                             />
                         </LineContainer>
                         <EditDeleteButtonsContainer>
