@@ -98,11 +98,6 @@ class SingleInvestmentPage extends Component {
         }
     }
 
-    // precisionRoundDown = (number, precision) => {
-    //     const factor = Math.pow(10, precision);
-    //     return Math.round(number * factor) / factor;
-    // }
-
     findHighestAmountForYAxis = (array, keyToCheck) => {
         const amountsArray = array.map((item) => {
             return item.price

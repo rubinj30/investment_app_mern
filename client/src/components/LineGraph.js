@@ -39,8 +39,8 @@ class LineGraph extends Component {
                     <TimeFrameLabel>Past Month</TimeFrameLabel>
                     <LineChart width={350} height={200} data={lastMonthStockPrices}
                         margin={{ top: 5, right: 10, left: 1, bottom: 5 }}>
-                        <XAxis dataKey="name" tick={{fontSize: 11}} interval={3} angle={-15} textAnchor="end"/>
-                        <YAxis tick={{fontSize: 11}} domain={[this.props.yAxisDimensions.low, this.props.yAxisDimensions.high]}/>
+                        <XAxis dataKey="name" tick={{fontSize: 11}} interval={3} angle={-15} textAnchor="end" />
+                        <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
                         <CartesianGrid />
                         <Tooltip />
                         <Legend />
@@ -61,7 +61,7 @@ class LineGraph extends Component {
                     <LineChart width={350} height={200} data={last3MonthStockPrices}
                         margin={{ top: 5, right: 10, left: 1, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={11} angle={-15} textAnchor="end" />
-                        <YAxis tick={{fontSize: 11}} domain={[this.props.yAxisDimensions.low, this.props.yAxisDimensions.high]}/>
+                        <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
                         <CartesianGrid />
                         <Tooltip />
                         <Legend />
@@ -79,10 +79,10 @@ class LineGraph extends Component {
             return (
                 <ChartSubContainer>
                     <TimeFrameLabel>Past Year</TimeFrameLabel>
-                    <LineChart width={350} height={200} data={last1YearStockPrices}
-                        margin={{ top: 5, right: 10, left: 1, bottom: 5 }}>
+                    <LineChart width={370} height={200} data={last1YearStockPrices}
+                        margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={45} angle={-15} textAnchor="end"/>
-                        <YAxis tick={{fontSize: 11}} domain={[this.props.yAxisDimensions.low, this.props.yAxisDimensions.high]}/>
+                        <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
                         <CartesianGrid stroke={"rgb(190,190,190, 0.9)"}/>
                         <Tooltip />
                         <Legend />
@@ -103,7 +103,7 @@ class LineGraph extends Component {
                     <LineChart width={350} height={200} data={this.props.last2YearStockPrices}
                         margin={{ top: 5, right: 10, left: 1, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={90} angle={-15} textAnchor="end"/>
-                        <YAxis tick={{fontSize: 11}} domain={[this.props.yAxisDimensions.low, this.props.yAxisDimensions.high]}/>
+                        <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
                         <CartesianGrid stroke={"	rgb(190,190,190, 0.9)"}/>
                         <Tooltip />
                         <Legend />
