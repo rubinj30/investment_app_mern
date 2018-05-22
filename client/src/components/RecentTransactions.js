@@ -51,7 +51,7 @@ const TransactionItem = styled.div`
     border-radius: 5px;
     padding: 5px;
     margin: 5px;
-    width: 350px;
+    width: 340px;
     font-size: 14px;
 `
 

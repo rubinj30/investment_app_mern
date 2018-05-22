@@ -43,7 +43,7 @@ const UserDiv = styled.div`
         color: white;
     }
 
-        @media(max-width: 400px) {
+        @media(max-width: 415px) {
         font-size: 0px;
     }
 
@@ -62,7 +62,7 @@ const Holder = styled.div`
 
 const IconSize = styled.div`
     width: 20px;
-    @media(max-width: 400px) {
+    @media(max-width: 415px) {
         width: 0px;
     }
 `
@@ -73,7 +73,7 @@ const ArrowSize = styled.div`
     display:flex;
     padding-bottom: 15px;
     align-self: flex-start;
-    @media(max-width: 400px) {
+    @media(max-width: 415px) {
         font-size: 20px;
         padding-bottom: 7px;
     }
@@ -83,7 +83,8 @@ const ArrowSize = styled.div`
 const UserIconSize = styled.div`
     font-size: 20px;
     color: white;
-    @media(max-width: 400px) {
+    padding: 0 10px;
+    @media(max-width: 415px) {
         font-size: 0px;
     }
 `
@@ -91,7 +92,7 @@ const UserIconSize = styled.div`
 const UserIconSizeMobile = styled.div`
     font-size: 0px;
     width: 10px;
-    @media(max-width: 400px) {
+    @media(max-width: 415px) {
         font-size: 18px;
         color: white;
     }
@@ -103,7 +104,7 @@ const AppTitle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    @media(max-width: 400px) {
+    @media(max-width: 415px) {
         font-size: 20px;
     }
 `

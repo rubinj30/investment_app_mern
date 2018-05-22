@@ -25,7 +25,7 @@ export const NewsContainer = styled.div`
 `
 
 export const NewsSectionTitle = styled.div`
-    max-width: 350px;
+    max-width: 345px;
     font-size: 25px;
     /* padding-bottom: 20px; */
     text-align: center;

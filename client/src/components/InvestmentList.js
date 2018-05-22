@@ -286,7 +286,10 @@ const Table = styled.div`
     display: flex;
     justify-content: space-between;
     color: white; 
-    padding-top: 50px;
+    padding-top: 100px;
+    @media(max-width: 415px) {
+        padding-top: 50px;
+    }
 `
 
 const Ticker = styled.div`

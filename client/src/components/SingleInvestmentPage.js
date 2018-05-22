@@ -378,7 +378,10 @@ const Company = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 50px;
+    padding-top: 100px;
+    @media(max-width: 415px) {
+        padding-top: 50px;
+    }
 `
 
 const PricingDetail = styled.div`
