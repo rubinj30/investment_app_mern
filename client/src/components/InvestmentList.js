@@ -286,6 +286,7 @@ const Table = styled.div`
     display: flex;
     justify-content: space-between;
     color: white; 
+    padding-top: 50px;
 `
 
 const Ticker = styled.div`
@@ -348,6 +349,8 @@ const HeaderPlacement = styled.div`
     background-color: #45b9f2;
     color: white;
     padding-bottom: 10px;
+    position : fixed;
+    z-index : 999;
 `
 
 const HiddenMobileColumnOdd = styled.div`

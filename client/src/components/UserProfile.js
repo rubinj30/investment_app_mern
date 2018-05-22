@@ -74,6 +74,8 @@ const UserHeaderWrapper = styled.div`
     justify-content: center;
     color: white;
     padding-bottom: 10px;
+    position : fixed;
+    z-index : 999;
 `
 const DetailsContainer = styled.div`
     width: 300px;
@@ -137,4 +139,5 @@ const FolderContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 50px;
 `

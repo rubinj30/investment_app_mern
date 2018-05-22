@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import FullPageBackground from './styled-components/FullPageBackground'
 import styled from 'styled-components'
-import HeaderBar from './HeaderBar'
 import StyledButton from './styled-components/StyledButton'
 import {Link} from 'react-router-dom'
-// import { FaLineChart } from 'react-icons/lib/fa'
-// import NameAndBackDiv from './styled-components/NameAndBackDiv'
-
-
 
 class LogIn extends Component {
 

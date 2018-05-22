@@ -8,6 +8,8 @@ const NameAndBackDiv = styled.div`
     justify-content: space-between;
     text-decoration: none;
     color: white;
+    padding-left: 15px;
+    padding-top: 5px;
     a {
         text-decoration: none;
         color: white;

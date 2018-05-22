@@ -34,7 +34,7 @@ class LineGraph extends Component {
             return (
                 < ChartSubContainer >
                     <TimeFrameLabel>Past Month</TimeFrameLabel>
-                    <LineChart width={375} height={255} data={lastMonthStockPrices}
+                    <LineChart width={350} height={230} data={lastMonthStockPrices}
                         margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={3} angle={-15} textAnchor="end" />
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
@@ -55,7 +55,7 @@ class LineGraph extends Component {
             return (
                 <ChartSubContainer>
                     <TimeFrameLabel>Past 3 Months</TimeFrameLabel>
-                    <LineChart width={375} height={255} data={last3MonthStockPrices}
+                    <LineChart width={350} height={230} data={last3MonthStockPrices}
                         margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={11} angle={-15} textAnchor="end" />
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
@@ -76,7 +76,7 @@ class LineGraph extends Component {
             return (
                 <ChartSubContainer>
                     <TimeFrameLabel>Past Year</TimeFrameLabel>
-                    <LineChart width={375} height={255} data={last1YearStockPrices}
+                    <LineChart width={350} height={230} data={last1YearStockPrices}
                         margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={45} angle={-15} textAnchor="end"/>
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
@@ -97,7 +97,7 @@ class LineGraph extends Component {
             return (
                 <ChartSubContainer>
                     <TimeFrameLabel>Past 2 Years</TimeFrameLabel>
-                    <LineChart width={375} height={255} data={this.props.last2YearStockPrices}
+                    <LineChart width={350} height={230} data={this.props.last2YearStockPrices}
                         margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={90} angle={-15} textAnchor="end"/>
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
@@ -158,6 +158,7 @@ const ChartSubContainer = styled.div`
 `
 const TimeFrameContainer = styled.div`
     display: flex;
+    padding: 10px;
 `
 const TimeFrameLabel = styled.div`
     font-size: 20px;

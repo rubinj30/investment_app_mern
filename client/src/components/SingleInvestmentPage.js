@@ -378,6 +378,7 @@ const Company = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 50px;
 `
 
 const PricingDetail = styled.div`
@@ -432,6 +433,8 @@ const HeaderWrapper = styled.div`
     color: white;
     padding-bottom: 10px;
     width: 100%;
+    position : fixed;
+    z-index : 999;
 `
 
 const CompanyName = styled.div`

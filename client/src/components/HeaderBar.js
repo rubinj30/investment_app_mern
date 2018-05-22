@@ -37,7 +37,7 @@ export default HeaderBar
 const UserDiv = styled.div`
     display: flex;
     justify-content: flex-end;
-    width: 90vw;
+    width: 100vw;
     a {
         text-decoration: none;
         color: white;
@@ -109,7 +109,6 @@ const AppTitle = styled.div`
 `
 
 const Header = styled.div`
-    
 `
 
 const AppText = styled.div`

@@ -26,13 +26,6 @@ class UserList extends Component {
         return (
 
             <FullPageBackground>
-
-                {/* header bar is using "user._id" but there is no one specific user */}
-                {/* <HeaderContainerDiv>
-                <HeaderBar
-                        backLink={`/users`}
-                    />
-                </HeaderContainerDiv> */}
                 <div>
                     <UserListTitle>Current Users:</UserListTitle>
                     {this.state.users.map((user,index) => (
