@@ -36,8 +36,9 @@ class NewInvestment extends Component {
                 swal("You already own this stock. Go to the stock page to purchase more shares.")
                 this.props.getAllInvestments()
             } else {
-                const data = await axios.get(`https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=${this.state.newInvestment.ticker}&apikey=J2JY3QVFS2WGX91L`)
-                const currentPrice = parseInt(data.data['Stock Quotes'][0]['2. price']).toFixed(2)
+                const {data} = await axios.get(`https://api.iextrading.com/1.0/stock/${this.state.newInvestment.ticker}/batch?types=quote`)
+                console.log(data.quote.latestPrice)
+                const currentPrice = data.quote.latestPrice
                 const ticker = this.state.newInvestment.ticker.toUpperCase()
                 const quantity = this.state.newInvestment.quantity
 

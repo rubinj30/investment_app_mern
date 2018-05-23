@@ -94,8 +94,9 @@ router.post('/', async (request, response) => {
         investment.ticker = request.body.ticker.toUpperCase()
         investment.quantity = request.body.quantity
         investment.type = request.body.type
-        investment.stockPurchasePrice = await axios.get(`https://api.iextrading.com/1.0/stock/${investment.ticker}/batch?types=quote`)
-        console.log('test', investment.stockPurchasePrice)
+        const {data} = await axios.get(`https://api.iextrading.com/1.0/stock/${investment.ticker}/batch?types=quote`)
+        investment.stockPurchasePrice = data.quote.latestPrice
+        console.log('test', investment)
         newInvestment = await Investment.create(investment)
         const user = await User.findById(request.params.userId)
         user.investments.push(newInvestment)
