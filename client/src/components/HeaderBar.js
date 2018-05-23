@@ -59,14 +59,12 @@ const Holder = styled.div`
     align-items: center;
 `
 
-
 const IconSize = styled.div`
     width: 20px;
     @media(max-width: 415px) {
         width: 0px;
     }
 `
-
 
 const ArrowSize = styled.div`
     font-size: 35px;
@@ -78,7 +76,6 @@ const ArrowSize = styled.div`
         padding-bottom: 7px;
     }
 `
-
 
 const UserIconSize = styled.div`
     font-size: 20px;

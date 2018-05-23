@@ -1,6 +1,8 @@
 # Stock Tracker
 This is an app for tracking the performance of your investments in an user-friendly interface. On top of tracking current prices, purchase prices, past transactions, and number of shares for each investments, it also pulls in key financial ratios, company information, and relevant news. 
 
+I designed with mobile-first in mind. 
+
 ## Link to site
 https://stock-up-app.herokuapp.com
 

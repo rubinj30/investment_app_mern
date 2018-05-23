@@ -35,7 +35,7 @@ class LineGraph extends Component {
                 < ChartSubContainer >
                     <TimeFrameLabel>Past Month</TimeFrameLabel>
                     <LineChart width={350} height={230} data={lastMonthStockPrices}
-                        margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                        margin={{ top: 5, right: 10, left: 0, bottom: 1 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={3} angle={-15} textAnchor="end" />
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
                         <CartesianGrid stroke={"rgb(190,190,190, 0.5)"} />
@@ -56,7 +56,7 @@ class LineGraph extends Component {
                 <ChartSubContainer>
                     <TimeFrameLabel>Past 3 Months</TimeFrameLabel>
                     <LineChart width={350} height={230} data={last3MonthStockPrices}
-                        margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                        margin={{ top: 5, right: 10, left: 0, bottom: 1 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={11} angle={-15} textAnchor="end" />
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
                         <CartesianGrid stroke={"rgb(190,190,190, 0.5)"}/>
@@ -77,7 +77,7 @@ class LineGraph extends Component {
                 <ChartSubContainer>
                     <TimeFrameLabel>Past Year</TimeFrameLabel>
                     <LineChart width={350} height={230} data={last1YearStockPrices}
-                        margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                        margin={{ top: 5, right: 10, left: 0, bottom: 1 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={45} angle={-15} textAnchor="end"/>
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
                         <CartesianGrid stroke={"rgb(190,190,190, 0.5)"}/>
@@ -98,7 +98,7 @@ class LineGraph extends Component {
                 <ChartSubContainer>
                     <TimeFrameLabel>Past 2 Years</TimeFrameLabel>
                     <LineChart width={350} height={230} data={this.props.last2YearStockPrices}
-                        margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                        margin={{ top: 5, right: 10, left: 0, bottom: 1 }}>
                         <XAxis dataKey="name" tick={{fontSize: 11}} interval={90} angle={-15} textAnchor="end"/>
                         <YAxis tick={{fontSize: 11}} domain={['auto', 'auto']}/>
                         <CartesianGrid stroke={"rgb(190,190,190, 0.5)"}/>

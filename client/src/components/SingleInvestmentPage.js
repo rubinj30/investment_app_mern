@@ -20,7 +20,6 @@ class SingleInvestmentPage extends Component {
         user: {},
         investment: {},
         investmentInfo: {},
-        dailyStockPrices: [],
         dailyReady: false,
         investmentReady: false,
         last2YearStockPrices: [],
@@ -37,7 +36,8 @@ class SingleInvestmentPage extends Component {
         originalQuantity: '',
         buyOrSell: '',
         newQuantity: '',
-        yAxisDimensions: {}
+        yAxisDimensions: {},
+        yesterdayClosePrice: 0
     }
 
     componentWillMount = async () => {
@@ -90,8 +90,13 @@ class SingleInvestmentPage extends Component {
             const yAxisDimensions = { high: this.findHighestAmountForYAxis(shapedDailyStockPriceData), 
                                     low: this.findLowestAmountForYAxis(shapedDailyStockPriceData) }
 
-            // this.findHighestAmountForYAxis(shapedDailyStockPriceData, )
-            this.setState({ last2YearStockPrices: shapedDailyStockPriceData, yAxisDimensions })
+            const yesterdayData= shapedDailyStockPriceData.pop()
+            this.setState({ 
+                last2YearStockPrices: shapedDailyStockPriceData, 
+                yAxisDimensions, 
+                yesterdayClosePrice: yesterdayData.price,
+                dailyReady: true, 
+            })
         }
         catch (err) {
         }
@@ -210,22 +215,10 @@ class SingleInvestmentPage extends Component {
     }
 
     render() {
-        // object of weekly stock prices
-        const dailyStockPrices = this.state.dailyStockPrices
 
-        // object of weekly stock prices
-        const stockArray = []
-        for (var property1 in dailyStockPrices) {
-            stockArray.push(dailyStockPrices[property1])
-        }
-
-        let yesterdayClosePrice = ''
         let changeSinceYesterday = 0
-        let yesterdayProfitLossColor
-        if (this.state.dailyReady) {
-            yesterdayClosePrice = stockArray[1]['4. close']
-            changeSinceYesterday = (this.state.investment.price - yesterdayClosePrice) / yesterdayClosePrice
-        }
+        let yesterdayProfitLossColor = ''
+        changeSinceYesterday = (this.state.investment.price - this.state.yesterdayClosePrice) / this.state.yesterdayClosePrice
 
         const totalCurrentValue = this.state.investment.quantity * this.state.investment.price
         const totalPurchasePrice = this.state.investment.quantity * this.state.investment.stockPurchasePrice
@@ -254,7 +247,7 @@ class SingleInvestmentPage extends Component {
                                     <DetailKey>Current Price: </DetailKey><DetailValue> {accounting.formatMoney(this.state.investment.price)}</DetailValue>
                                 </Detail>
                                 <Detail>
-                                    <DetailKey>Yesterday Price: </DetailKey><DetailValue> {accounting.formatMoney(parseInt(yesterdayClosePrice))}</DetailValue>
+                                    <DetailKey>Yesterday Price: </DetailKey><DetailValue> {accounting.formatMoney(this.state.yesterdayClosePrice)}</DetailValue>
                                 </Detail>
                                 {this.state.dailyReady ?
                                     <Detail>
@@ -421,7 +414,7 @@ const BelowFundamentalsButtons = styled.div`
 const LineContainer = styled.div`
     display: flex;
     padding-right: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 `
 
 const PriceDetail = styled.div`
