@@ -131,6 +131,13 @@ class SingleInvestmentPage extends Component {
         })
     }
 
+    postSaleAlert = async (user, totalCurrentValue, gainLoss) => {
+        await axios.patch(`/api/users/${this.props.match.params.userId}`, user)
+        swal(`You sold ${this.state.quantity} shares of ${this.state.investment.ticker} at $${this.state.investment.price} \
+        for a total of $${totalCurrentValue.toFixed(2)}. \n\n
+        You ${gainLoss >= 0 ? 'made' : 'lost'} $${gainLoss.toFixed(2)} on the investment${gainLoss >= 0 ? '!! \n\n ¯\\ (•◡•) /¯' : ' \n\n ¯\\_(ツ)_/¯'}`)
+    }
+
     deleteStock = async () => {
         try {
             const userId = this.props.match.params.userId
@@ -155,11 +162,7 @@ class SingleInvestmentPage extends Component {
             transactions.push(transaction)
             const user = { ...this.state.user }
             user.transactions = transactions
-
-            await axios.patch(`/api/users/${userId}`, user)
-            swal(`You sold ${this.state.investment.quantity} shares of ${this.state.investment.ticker} at $${this.state.investment.price} \
-            for a total of $${totalCurrentValue.toFixed(2)}. \n\n
-            You ${gainLoss >= 0 ? 'made' : 'lost'} $${gainLoss.toFixed(2)} on the investment${gainLoss >= 0 ? '!! \n\n ¯\\ (•◡•) /¯' : ' \n\n ¯\\_(ツ)_/¯'}`)
+            this.postSaleAlert(user, totalCurrentValue, gainLoss)
             await axios.delete(`/api/users/${userId}/investments/${this.props.match.params.investmentId}`)
             this.setState({ redirect: !this.state.redirect })
         } catch (err) {
@@ -206,12 +209,8 @@ class SingleInvestmentPage extends Component {
                 transactions.push(transaction)
                 const user = { ...this.state.user }
                 user.transactions = transactions
-    
-                await axios.patch(`/api/users/${this.props.match.params.userId}`, user)
-                swal(`You sold ${this.state.quantity} shares of ${this.state.investment.ticker} at $${this.state.investment.price} \
-                for a total of $${totalCurrentValue.toFixed(2)}. \n\n
-                You ${gainLoss >= 0 ? 'made' : 'lost'} $${gainLoss.toFixed(2)} on the investment${gainLoss >= 0 ? '!! \n\n ¯\\ (•◡•) /¯' : ' \n\n ¯\\_(ツ)_/¯'}`)
 
+                this.postSaleAlert(user, totalCurrentValue, gainLoss)
             } else {
                 newQuantity = (originalQuantity + quantity).toString()
             }
