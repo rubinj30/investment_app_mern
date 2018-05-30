@@ -25,7 +25,6 @@ class SingleInvestmentPage extends Component {
         last2YearStockPrices: [],
         fundamentals: {},
         redirect: false,
-        descriptionShowing: false,
         fundamentalsReady: false,
         newsReady: false,
         news: {},
@@ -181,8 +180,38 @@ class SingleInvestmentPage extends Component {
             let newQuantity = ''
             const originalQuantity = Number(this.state.originalQuantity)
             const quantity = Number(this.state.quantity)
+            
             if (this.state.buyOrSell === 'sell') {
+                console.log("TOTAL SALE AMT", quantity * this.state.investment.price) 
                 newQuantity = (originalQuantity - quantity).toString()
+                
+                const totalCurrentValue = this.state.quantity * this.state.investment.price
+                const totalPurchasePrice = this.state.quantity * this.state.investment.stockPurchasePrice
+                const gainLoss = totalCurrentValue - totalPurchasePrice
+
+                const transaction = {
+                    ticker: this.state.investment.ticker,
+                    company_name: this.state.investmentInfo.companyName,
+                    totalSellValue: totalCurrentValue,
+                    sharePurchasePrice: this.state.investment.stockPurchasePrice,
+                    shareSellPrice: this.state.investment.price,
+                    quantity: this.state.quantity,
+                    totalPurchasePrice: totalPurchasePrice,
+                    gainLoss: gainLoss,
+                    profitLossColor: this.state.profitLossColor,
+                    saleDate: new Date()
+                }
+
+                const transactions = [...this.state.user.transactions]
+                transactions.push(transaction)
+                const user = { ...this.state.user }
+                user.transactions = transactions
+    
+                await axios.patch(`/api/users/${this.props.match.params.userId}`, user)
+                swal(`You sold ${this.state.quantity} shares of ${this.state.investment.ticker} at $${this.state.investment.price} \
+                for a total of $${totalCurrentValue.toFixed(2)}. \n\n
+                You ${gainLoss >= 0 ? 'made' : 'lost'} $${gainLoss.toFixed(2)} on the investment${gainLoss >= 0 ? '!! \n\n ¯\\ (•◡•) /¯' : ' \n\n ¯\\_(ツ)_/¯'}`)
+
             } else {
                 newQuantity = (originalQuantity + quantity).toString()
             }
@@ -202,16 +231,20 @@ class SingleInvestmentPage extends Component {
         }
     }
 
-    toggleDescriptionShowing = () => {
-        this.setState({ descriptionShowing: !this.state.descriptionShowing })
-    }
 
     toggleSellConfirmShowing = () => {
-        this.setState({ sellConfirmationShowing: !this.state.sellConfirmationShowing })
+
+        this.setState({ 
+            sellConfirmationShowing: !this.state.sellConfirmationShowing,
+            editFormShowing: false,
+        })
     }
 
     toggleEditFormShowing = () => {
-        this.setState({ editFormShowing: !this.state.editFormShowing })
+        this.setState({ 
+            editFormShowing: !this.state.editFormShowing,
+            sellConfirmationShowing: false,
+        })
     }
 
     render() {
