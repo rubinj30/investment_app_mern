@@ -31,6 +31,9 @@ class UserNews extends Component {
 
     render() {
         const user = this.state.user
+        if (this.state.articles) {
+            console.log("testing", this.state.articles[0]);
+        }
         return (
             <div>
                 <NewsSectionTitlePlacement>
@@ -44,15 +47,14 @@ class UserNews extends Component {
                             return <UserNewsItem key={index}>
                                 <NewsImageHolder>
                                     <a target='_blank' href={article.url} >
+                                        {/* API deprecated but looks like they have a new one with image, headline, and maybe more? */}
                                         <NewsImage width="100" src={article.urlToImage} alt="" />
                                     </a>
                                 </NewsImageHolder>
                                 <div>
                                     <NewsTitle><a target='_blank' href={`${article.url}`}> {article.title}</a></NewsTitle>
-                                    <div>{article.description.substring(0, 150)}...
-                                    <a target='_blank' href={`${article.url}`}> see more</a>
+                                    <a target='_blank' href={`${article.url}`}>Go to article</a>
                                         <DateSpan>  ({moment(article.publishedAt).format("MMM Do YY")})</DateSpan> </div>
-                                </div>
                             </UserNewsItem>
                         })
                     }

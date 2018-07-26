@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
-import HeaderBar from './HeaderBar'
 import FullPageBackground from './styled-components/FullPageBackground'
 
 class UserList extends Component {
@@ -22,6 +21,7 @@ class UserList extends Component {
     }
 
     render() {
+        console.log(this.state)
 
         return (
 
@@ -44,25 +44,6 @@ class UserList extends Component {
     }
 }
 export default UserList
-
-const HeaderContainerDiv = styled.div`
-    display: flex;
-    justify-content: center;
-    background-color: #45b9f2;
-    color: white;
-    padding-bottom: 10px;
-`
-
-// const FullBackground = styled.div`
-//     background-color: #45b9f2;
-//     color: white;
-//     height: 100vh; 
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     justify-content: center;
-//     text-decoration: none;
-// `
 
 const UserNameList = styled.div`
     padding: 10px;
